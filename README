@@ -1,3 +1,13 @@
+
+my 2011 code put up here to not lose it ;)
+
+a video about the algorithm:
+
+https://www.youtube.com/watch?v=KFlFZR2e0gc
+
+
 this have been migrated from some strange svn layout ;)
 
-compile git://repo.or.cz/glpng.git into glpng folder
+if you want to compile it, follow trunk/README, and install some libraries ;)
+
+clone git://repo.or.cz/glpng.git into glpng folder, and compile it i think it have been eventually removed from debian repos

@@ -15,7 +15,7 @@ NW_OBJ		=	$(addprefix build/,$(addsuffix .o,$(basename $(NW_SRC))))
 SOURCES		=	$(NW_SRC)
 M4_SOURCES	=	$(wildcard system/*.m4.h app/*.m4.h util/*.m4.h extra/*.m4.h system/*.m4.h)
 
-INCLUDES		=	$(addprefix -I,$(SUBDIRS)) -I.
+INCLUDES		=	$(addprefix -I,$(SUBDIRS)) -I. -I../glpng/include
 
 WFLAGS		=	-Werror-implicit-function-declaration \
 				-Wimplicit -Wimplicit-int -Wall -W -Wshadow \
@@ -36,7 +36,7 @@ CXXFLAGS		=	$(OPTFLAGS) $(INCLUDES) -DIO_EMULATOR `sdl-config --cflags` -Wall
 
 HEADERS		=	$(wildcard *.h)
 
-LDFLAGS		=	-lm -lpthread -lstdc++  -lGL -lGLU `sdl-config --libs` -lglpng -lplibfnt -lplibul $(CXXFLAGS)
+LDFLAGS		=	-L../glpng -lm -lpthread -lstdc++  -lGL -lGLU `sdl-config --libs` -lglpng -lpng -lplibfnt -lplibul $(CXXFLAGS)
 				#-lsqlite3 `Magick++-config --ldflags --libs`
 DEPCC		=	cc
 

@@ -1,0 +1,1450 @@
+\documentclass[a4paper,12pt,twoside]{article}
+\usepackage{fixltx2e}
+\usepackage{float}
+
+\usepackage[latin2]{inputenc}
+% \usepackage{huhyphn}
+\usepackage[magyar]{babel}
+\newcommand{\setR}{\mathbb{R}}
+\newcommand{\setB}{\mathbb{B}}
+\newcommand{\setL}{\mathbb{L}}
+\newcommand{\setK}{\mathbb{K}}
+\newcommand{\setN}{\mathbb{N}}
+\usepackage{algorithmic}
+
+\usepackage{fancyhdr}
+\usepackage{wrapfig}
+% \usepackage{dottex}
+\usepackage{psfrag}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{graphicx,color}
+% \usepackage[top=2cm, bottom=1cm, left=3cm, right=1cm]{geometry}
+\usepackage[top=3cm, bottom=3cm, left=4cm, right=3cm]{geometry}
+\usepackage{subfig}
+% \usepackage{supertabular}
+\usepackage{longtable,colortbl,tabularx,ulem}
+\usepackage{hyperref}
+\usepackage{ktex}
+% \usepackage[utf8]{inputenc}
+
+\usepackage{amssymb}
+\usepackage{textcomp}
+
+% \linespread{1.5}
+
+% % PAGE STYLE
+\pagestyle{fancyplain}
+\pagenumbering{arabic}
+\fancyhead[CO,CE]{}
+% \newcommand{\headrulewidth}{0.4pt}
+% \newcommand{\tailrulewidth}{0.4pt}
+\fancyfoot[C]{}
+% \lhead[]{TITLE}
+% \rhead[]{\thepage}
+\fancyhead[LE,RO]{\thepage}
+\fancyheadoffset[]{1em}
+
+\definecolor{MyDarkBlue}{rgb}{0.85,0.85,0.85}
+
+\usepackage{ltxtable}
+% \fancyfoot[LO,RE]{\bf{ffc\_center}	\VEH }
+\rfoot{\thepage}
+% \rhead{\thepage}
+
+\input{version.tex}
+
+% \documentclass[12pt]{report}
+
+
+\newcommand{\MSG}[2][]{$\overline{\mbox{\textit{#2}}}$}
+\newcommand{\SER}{\Gamma}
+
+% \newcommand{\MSG}[2][]{$\overline{{{#2}}}$}
+\newcommand{\SUR}{\MSG{scan\_update\_req}}
+\newcommand{\SU}{\MSG{scan\_update}}
+\newcommand{\SI}{\MSG{scan\_info}}
+\newcommand{\LI}{\MSG{link\_info}}
+\newcommand{\IL}{\MSG{interlock}}
+\newcommand{\HB}{\MSG{heartbeat}}
+\newcommand{\LE}{\MSG{link\_error}}
+\newcommand{\MD}{\MSG{measure\_depth}}
+\newcommand{\HO}{\MSG{hand\_over}}
+\newcommand{\LO}{\MSG{length\_opt}}
+
+
+\begin{document}
+
+\fancyhead[LO,RE]{r\REVISION}
+\chead{\tt{networkers}}
+\normalfont
+\newcounter{daysub}
+\newcounter{stopcntr}
+\newcommand{\newday}{\
+\setcounter{daysub}{0}\
+\setcounter{stopcntr}{0}\
+\newpage\
+}
+% \newcommand{\VSTART}{\begin{large}$\blacktriangleright$\end{large}}
+\newcommand{\VSTART}{\begin{large}$\blacktriangleright$\end{large}}
+\newcommand{\VSTOP}{$\blacksquare$}
+\newcommand{\STOPCNTR}{\addtocounter{stopcntr}{1}\arabic{stopcntr}}
+
+\boldmath
+\begin{center}
+\huge{networkers}\\
+% \small{Nagy Zoltán\footnote{kirk@bteam.hu}}\\
+\small{svn\footnote{https://demeter.teteny.bme.hu/svn/networkers/trunk}r\REVISION}
+% \small{\today\\ svn\footnote{https://demeter.teteny.bme.hu/svn/networkers/trunk}r\REVISION}
+\end{center}
+
+% \large
+\normalsize
+
+\newpage
+\tableofcontents
+\newpage
+
+% \begin{center}
+% Network building and maintenance is the foundation of today's information exchange methods -
+% but in a hostile or evolving environment it can be hard to maintain a network with the classical methods.
+% This papers aim is to explore the possibilities, problems and options how the global network could be handled locally.
+% \sout{cooperative network building from local informations\\
+% kooperativ robotok hálózatépítésre}
+% \end{center}
+
+\newcommand{\TOWER}{\widehat{tower}}
+\newcommand{\SWEEP}{\widehat{sweep}}
+\newcommand{\RECON}{\widehat{recon}}
+\newcommand{\INIT}{\widehat{init}}
+\newcommand{\CP}{\complement}
+% \newcommand{\cp}{\complement}
+
+
+
+\section{Bevezetés}
+
+Egyre több autonóm alkalmazás jelenik meg napjainkban s ma már nem lepõdik meg az ember azon hogyha egy weboldalon felkínálja a segítségét egy robot vagy azon hogy a tõzsdéknek mára már kidolgozott programozói felülete van algoritmusok számára.
+
+
+% Amenyibben technikaibb oldalról tekintünk a témára 
+
+Az utóbbi években elterjedt ARM processzorok már több mint képesek autonóm ágensek futtatására így már nem tûnik olyan távolinak több ágensû alkalmazások csatasorba állítására.
+
+
+Az autonóm, egymással együttmûködõ robotok egyre kevésbé tûnnek hiú ábrándnak - az utóbbi években elterjedt ARM processzorok már több mint képesek ilyen alkalmazások csatasorba állítására.
+
+A több ágensû algoritmusok sok más téma határán helyezkedik el s egyesíti az autonóm döntéshozatalt, a párhuzamos világ problémáival némi mesterséges intelligencia segítségével.
+
+Több kísérleti fázisban lévõ több ágensû alkalmazásról ír a szakirodalom - a szenzorhálozatok telepítes'e matematikailag.........
+
+
+Nem tudok rizsázni basszameg!
+
+
+szüséges hozzá a párhuzamos mûködés okozta problémák helyes kezelése, valamint 
+
+Autonóm rendszereknek tekinthetõk azon mesterséges in
+Habár nagyrésze ezeknek az alkalmazásoknak helyhez kötött s nem tekinthetõ
+
+Több ágensû algoritmusok használata napjainkban még nem bevett 
+
+Több ágensû algoritmusok megtervezése 
+
+
+A robotikával és autonóm ágensekkel foglalkozó szakirodalomban fellelhetõ irások gyakran egy konkrét feladatot ragadnak meg mely esetben olykor már élesben mûködö robotokkal is dolgoznak. Az autonóm, egymással együttmûködõ robotok egyre kevésbé tûnnek hiú ábrándnak - az utóbbi években elterjedt ARM processzorok már több mint képesek ilyen alkalmazások csatasorba állítására.
+
+
+Jelen munka célja bemutatni a networkers algoritmust, melynek 
+célja, hogy minél nagyobb lefedettségû hálózatot hozzon létre egy síkon különbözõ fontosnak megjelölt pontok között. Ezen pontok lehetnének városok, melyek esetében egyfajta hálózatkiépítésben segíthet, illetve lehetnének sérültek, akiknek így lehetõséget nyújthat a mentõcsapatokkal való kommunikációra. A feladat természetébõl adódóan a felderítéssel is meg kell küzdenie a megoldó algoritmusnak.
+A feladat megoldásához azonos felépítésû autonóm hálózati eszközök állnak rendelkezésre, melyek egy adott sugáron belül megbízhatóan tudnak kommunikálni. Helyváltoztatásra képesek, de az elérhetõ maximális sebesség korlátozott.
+
+Az algoritmus megtervezésekor elsõdlegesen a raj intelligencia bevonása volt a cél, ugyanis ilyen esetekben elõfordulhat, hogy nem csak egy mentõcsapat van, s így az irányítás megkötésétõl való szabadulás a mûködésben sokat segíthet - ezáltal robosztusabbá válhat a rendszer, ugyanis a legfontosabb célja az egyes elemeknek a szoros összetartás a cél elérése érdekében.
+
+Átfoglamazva a problémát a matematika nyelvére: ``adott a síkon k darab pont, keressük azt a minimális élköltségû fát, mely lefedi az összes pontot'', ez a probléma euklideszi Steiner-fa probléma néven vált ismertté - és az NP-nehéz feladatok körébe tartozik, így a kiépülõ kezdetleges gráfot érdemes összevetni egy optimális Steiner-fával; vajon megtudja-e közelíteni egy elosztott raj intelligencia a Steiner-fa probléma megoldását, s ha igen mennyire?
+
+\newpage
+\section{Feladat pontosítása}
+
+Egy algoritmus célja egy bizonyos feladat megoldása, mivel jelen esetben ez nem feltétlenül egyértelmû, ezért ennek tisztázása elkerülhetetlen.
+
+% \xparagraph{Range:}
+Adott egy sík melyen elõre nem ismert helyeken értékes pontok vannak.
+A feladat megoldásához rendelkezésre álló robotok azonos képességekkel rendelkeznek.
+
+\xparagraph{Azonosítás:} Mindegyik ilyen egység rendelkezik egy saját azonosítóval mely garantáltan nincs kiosztva mégegyszer a bolyon belül.
+
+\xparagraph{Látókör:}
+A robotok rendelkeznek egy korlátozott látókörrel ($R$) mely funkcióját egy valódi alkalmazásnál egy sonár vagy egy radar láthatná el. A kommunikáció szoros összefüggésben áll a látókörrel. Két egység között akkor és csak akkor zajlik le a kommunikáció hiba nélkül ha azok látják egymást.
+
+\xparagraph{Gát:} A világ körökre bontottan mûködik minden egyes lépést egy szinkronizációs gát követ.
+
+\xparagraph{Mobilitás:} Az egységek képesek a pozíciójuk megváltoztatására. Minden lépésben maximálisan $v_{max}$-al bármely irányba megváltoztathatják a helyzetüket.
+
+\xparagraph{Világóra:} A szimuláció egyszerre kezdõdik minden résztvevõ robot számára s mindannyiuk órája a $0$-n áll kezdetben.
+
+\xparagraph{Összefüggõség:} Ha a robotkra úgy tekintünk mint pontokra és minden olyan csúcspárt amely $<R$ távolságra van egymástól összekötünk akkor egy összefüggõ gráfot kell kapnunk.
+
+\newpage
+
+
+
+\section{Az algoritmus váza}
+
+Minden igyekezet ellenére az algoritmus végül annyira sok kicsi építõkõbõl épült fel hogy nem férne el kényelmesen egy oldalon. Ezért az áttekinthetõség megtartása miatt minden egyes részt külön-külön vizsgálunk meg.
+
+Minden egyes networker több feladat ellátására képes az hogy éppen hogyan viselkedik az állapotától függ.
+
+\xparagraph{Felderítö} Feladatuk hogy láncokba fejlõdve új értékes pontokat kapcsoljanak az épülõ hálózathoz.
+
+\xparagraph{Torony:} A toronyként viselkedõ robotok a hálózat infrastrutúráját biztosítják. Jelentõsen nem változtatják meg a helyzetüket, javarészt a hálózat életbentartásához szükséges robotszámot próbálják csökkenteni.
+
+\xparagraph{Pásztázó:}	Az algoritmus indulásakor felvett állapot a bábeli zûrzavar elkerûlése érdekében.
+
+
+Egyéb fontos dolgok amik mindíg teljesülnek:
+\begin{itemize}
+ \item mindíg létezik legalább egy torony állapotú robot s ezáltal mindig létezik az a gráf melyet a torony állapotú robotok feszítenek.
+\end{itemize}
+
+
+\newpage
+\section{Pásztázás ($\SWEEP$)}
+
+Kezdetben az algoritmusnak nem volt inicializálási fázisa melynek hatására elég nehézkesen indult el a tényleges mûködése.
+
+\begin{wrapfigure}{R}{.33\textwidth}
+\vspace{-1em}
+\includegraphics[width=.33\textwidth]{fig/e1}
+% \caption{üzenetek keresés közben}
+\vspace{-2em}
+\label{ref:merge}
+\end{wrapfigure}
+
+Ennek a zavaró hibának a kiküszöbölésére egy elõfelderítési állapottal lett kiegészítve ez egy elhagyható kiegészítése az algoritmusnak - hiányában tovább tart mire ``hasznos'' munkát kezdenek végezni.
+
+
+Alap esetben a síkon egy pontból indul mindegyik robot s mivel minden robot minden másodikat lát ezért a beépített véletlen algoritmus lassan és túl nagy láncot kezd építeni.
+
+Szükséges volt egy kezdeti alakzat, ennek egy 3 levelû legyezõt választottunk.
+
+\xparagraph{Legyezõ}
+A cél egy olyan függvény $f(s) \TO \setN \times \setN$  meghatározása mely 
+feltölti a sík $y \ge 0, x < y$ részét sorról sorra.
+kezdve
+$$f(0)=[0,1], f(1)=[0,2], f(2)=[1,2], f(3)=[0,3] ...$$
+tehát a kérdés: \\$f_y(s*(s+1)/2) \approx s$ ha felteszem azt hogy $n$ lenne a az $f_y(s)$ értéke akkor az alábbiak teljesülnének:
+\begin{align*}
+s&=n*(n+1)/2\\
+0&=n^2+n-2s\\
+n&=(-1+\sqrt{1+8s})/2
+\end{align*}
+% innen, legyen 
+% $$  x(s) = \floor$$
+% 
+% A következõ sorozatra próbáltam rálelni:
+% $$ x(k) = \max\{ l\in \setN : \frac{l*(l+1)}{2} \le k \}$$
+% a teljesitõ funkció:
+% $$ x(k)= \floor{ (\sqrt{1+8k}+1)/2 }$$
+% ennek segítségével megkonstruálható egy olyan funkció
+% mely feltölti a sík $y \ge 0, x \le y$ részét sorról sorra.
+így:
+\begin{align*}
+f_x(s)&=s-x(s)*(x(s)+1)/2	\\
+f_y(s)&=x(s)
+\end{align*}
+
+Mivel minden robot kap egy-egy egyedi azonosítót melyeket 1-tõl kezdve osztunk ki, így a kialakuló pontok közül nem marad ki egy sem.
+
+A pásztázás utolsó lépéseként üzenetet küld(\SI) minden látható szomszédának, s felderítõ állapotba vált.
+
+\newpage
+
+\section{Szimulációs környezet}
+Az algoritmust futtató szimulációs rendszer erre a célra lett készítve, a megjelenítéshez/mûködéshez OpenGL-re és 
+
+
+\section{Kollaboratív felderítés ($\RECON$)}
+
+A feladat megoldásához szükséges hogy az egyes ágensek együttmûködve derítsenek fel minél nagyobb területet. Mivel nem veszíthetik el egymást szem elõl ezért a legjobb ha minél nagyobb láncba fejlõdve egy adott irányra merõlegesen fejlõdnének fel.
+
+
+A felderítõk felada hogy eggyütmûködve láncokba fejlõdve új pontokat keressenek a gráfhoz.
+A felfeljõdéshez szükség van arra hogy nyilvántartson egy másik robotot mint ismerõs.
+Ettõl a robottol fog útmutatást kérni hogy éppen milyen paraméterekkel rendezõdjön mellé formációba.
+
+\subsection{Rendezõdés}
+
+\begin{wrapfigure}{I}{0.33\textwidth}
+\vspace{-2em}
+\includegraphics[width=.33\textwidth]{dia/scan_merge}
+% \caption{üzenetek keresés közben}
+\vspace{-2em}
+\label{ref:merge}
+\end{wrapfigure}
+
+% \begin{figure}[0.33\textwidth]
+% % \vspace{-2em}
+% \includegraphics[width=.33\textwidth]{dia/scan_merge}
+% % \caption{üzenetek keresés közben}
+% % \vspace{-4em}
+% \label{ref:merge}
+% \end{figure}
+
+
+Minden épülõ láncnak amennyiben ahhoz új keresõ szeretne társulni annak be kell tudnia lépni valahova. Ennek a feltételnek a sérülése esetén nem lehetne egyértelmûen meghatározni hogy ki vezeti a láncot. A kezdetben adott azonosítok felhasználhatók arra hogy a keresõláncokban minden ágensnek legyen fenntartott helye, ugyanis ha minden keresõ a nála kisebbek között keresi a maximálist az tetszõleges részhalmazban egyértelmûen létezik.
+
+Tehát egy keresõnek az õt vezetõ társának az azonosítója minden esetben kisebb kell hogy legyen a saját sorozatszámánál de ha lehetõsége van ezt nagyobbra cserélheti.
+
+Ha egy idõpillanatban egy $r$ sorozatszámú ágensnek lehetõsége van választani az $C$ halmazból új vezetõ választására akkor azt az $s$ azonosítójú ágenst választja mely:
+$$ s=\max\{ i | i\in C \AND i<r \} $$
+
+A fenti feltétel nem zárja ki hogy egy idõpillanatban több ágensnek nyújtson útmutatást egy másik. Az elõretekintõ hibajavítást ez nagyban megnehezíti majd.
+
+\subsection{Pont körüli forgás}
+
+% Érdekes megfigyelni hogy amennyiben ismernénk a keresõ
+Amennyiben egy $\vec{t}$ irányban szeretnénk keresni olyan körülmények között hogy minden idõpillanatban számítani kell arra hogy jelenleg éppen egy körmozgást kell végezni egy $O$ pont körül akkor amennyiben a keresõlánc $n$ pontból áll - s feltételezve a legorszabb esetet, az $O$ ponttól sugár irányba helyezkednek el az ágensek akkor az $i.$ ágens maximum $\frac{i}{n}v_{max}$ sebességgel mozoghat.
+
+Ennek a megközelítésnek van egy olyan mellékhatása mely miatt a keresõlánc sebessége $\frac{1}{n}$-re esik vissza.
+
+% \subsection{Együttesen egy irányba való mozgás}
+% Amennyiben feltesszük hogy sikerül felállnia egy láncnak a keresési irányra merõlegesen, akkor igazából készvagyunk s ..
+
+% \xparagraph{
+
+
+\subsection{Erõtér}
+
+
+Egy olyan erõtér függvény meghatározása a cél ami egyrészrõl nem engedi hogy elveszítség egymást s kommunikációs távolságon kívûlre kerüljenek egymástól, s eközben azzal a tulajdonsággal is rendelkezne hogy az energiaminimumpontja a láncba szervezõdést segítené elõ.
+
+Úgy szeretnénk meghatározni ezt a függvény hogy megadva a jelenlegi relatív koordinátáját az ágensnek egy irányvektort adjon amerre ebben akörben elmozdulhat az ágens.
+
+Amit keresünk az egy $\setR^2 \TO \setR^2$ függvény.
+A kitûzött cél egy olyan irányítási rendszer leírása mely feltételezi az ismert jelenlétét az origóban s ez alapján a $(0,y)$-ba küldi a jelenlegi pontot iterációs lépések folytán, s ott egy valamilyen mértékû elõrehaladást feltételezve próbálja meg elõre követni a lépesben úgyszintén elmozduló origóban álló pontot.
+% A helyes pozíció beállításához némi tartalék energiát tart meg.
+
+
+% \xparagraph{Újrapozícionálásokra} van szükség a keresés közben ezért egy olyan $f_r : \setR^2 \TO \setR^2$ függvényt kerestem mely minden pozícióban a helyes eredményt adja. Az \ref{fig:scanrepos}-es ábrán látható az eredmény mely a következõképp épül fel:
+
+
+% \begin{numbering}
+% \item{asd} 
+% \end{numbering}
+
+\paragraph{1.}
+Szükség van arra hogy a minimum a $(0,d_s)$-ben legyen, odataláljon a csúcs ha esetleg teljesen máshol lenne:
+\begin{align*}
+ u_x(x,y) &= -x\\
+ u_y(x,y) &=-y+(1-|x|) \frac{s}{|y-s|+1}
+\end{align*}
+\paragraph{2.}
+Ha már a csúcsunk a $(0,d_s)$-ben van akkor arra egy jobbra ir'anyuló körmozgásnak kell hatni hogy a vele párhuzamosan elmozduló ismert pozicióját kövesse.
+Legyen ez a $(0,d_s)$ pontban is jobbra irányuló körmozgást leíró 
+\begin{align*}
+	t_x(x,y)&= y\\
+	t_y(x,y)&=-x
+\end{align*}
+\paragraph{3.}
+	ötvözni kell a körmozgás elõsegítõ, és a helyreküldõ függvényeket, ezért
+	mivel a körmozgásra csak a $(0,d_s)$ környezetében van ténylegesen szükség ezért a két funkciót a  $(0,d_s)$ ponttól való távolság függvényének segítségével súlyozásra kerülnek:
+\begin{align*}
+	m(x,y)=\max(1-2*\sqrt{x^2+(y-s)^2},0)
+\end{align*}
+\paragraph{4.}
+	az eredõ függvény kiszámítása, melyben megjelenik a $0<v_s<1$ mely a haladási sebesség aránya a teljeshez képest. A teljes sebességet csak akkor használhatja ha eltévedt és ezért újra pozícióba szeretne állni. 
+% hez még az $u$ függvényt normalizáltam, s beleraktam a körmozgás sebességszorzóját: $v_s$-t, hogy a legyen esélye a robotoknak beállnia a helyére miközben már néhányan elkezdték a keresést:
+
+\begin{align*}
+f_x(x,y)&=t_x(x,y) m(x,y) v_s + \frac{u_x(x,y)}{||u(x,y)||} (1-m(x,y)) \\
+f_y(x,y)&=t_y(x,y) m(x,y) v_s + \frac{u_y(x,y)}{||u(x,y)||} (1-m(x,y))
+\end{align*}
+
+	
+
+
+% \ref{fig:JobInformationDialog}
+\begin{wrapfigure}{I}{0.15\textwidth}
+% \begin{figure}[t]
+% \centering
+% \includegraphics[width=.94\textwidth]{dia/fuelpump_slowdown}
+\vspace{-4em}
+\includegraphics[width=.15\textwidth]{dia/scan_degree_break}
+% \caption{két torony kerésesi törésszöge}
+% \includegraphics[width=0.55\textwidth]{fig/scan_repos}
+% \vspace{-5em}
+\end{wrapfigure}
+
+A keresés közben amikor az ismert megváltozik különbözõ anomáliáknak látszó dolgok is megjelennek az egyik ilyen dolog
+az irányváltások által elõidézett ostorcsapás szerû ujrarendezõdések.\\
+Egész pontosan hogy mi is okoz problémát ebben az esetben:
+% \xparagraph{Irányváltás probléma:} \
+ha a tornyok körül mozgó robot éppen tornyot vált akkor mennyivel változik a keresési iránya:
+$$ \cos\gamma=\frac{2d_s^2-d_t^2}{2d_s^2}=1-\frac{d_r^2}{2d_s^2}$$
+% ez az érték 68\textdegree körüli)
+ez a jelenség a tornyoktól távolabb álló keresõkön látszik igazán mert túlságosan hirtelen mozdulhatnak el az melettük állók és megszakadhat a lánc. Az ilyen jellegû problémák elkerülése miatt a robotok  bizonyos mértékben ``tompítják'' a keresési irányt s ezáltal elkerükhetõ a probléma.
+\\
+\begin{wrapfigure}{I}{0.13\textwidth}
+\vspace{-2em}
+\includegraphics[width=.13\textwidth]{dia/scan_merge}
+% \caption{üzenetek keresés közben}
+\vspace{-4em}
+\label{ref:merge}
+\end{wrapfigure}
+A keresés folyamán a lánc mérete alapján egy csúcs maximum $\frac{k}{l}$ sebességgel mozoghat, ahol $l$ a teljes lánc hossza, és $k$ pedig a szóban forgó robot távolsága a kiindulas'iponttól.
+A fenti mozgató függvénynek ez alapján az alábbiakat kell teljesítenie:
+tegyük fel a legrosszabbat a keresõnk kicsúszott az ismert tõl mért $1$ sugarú körre.
+Vegyük ezt az elemet a $k.$-nak az $l$ hosszú láncban. És tegyük fel azt is hogy a $k-1$ - az ismerõse is kicsúszot, és a lehetõ legrosszabb irányba lép tovább,
+de mivel a $k-1$. csúcs csak maximálisan $\frac{k-1}{l}$ sebességgel mozdulhat el, ezért ha az $f$ függvény $1$ sugarú korén a vektorok tökéletesen befele mutatnának akkor soha nem fordulhatna elõ az hogy egy csúcs leszakad a keresõk közul.\\
+Ennek a tulajdonságnak az ellenõrzésére használható az alábbi módszer:
+	vegyük a következõ függvényt:
+\begin{align*}
+		w_x(x,y)&=-x \\
+		w_y(x,y)&=-y
+\end{align*}
+és amennyiben $\forall (x,y) \in \setR : x^2+y^2 \le 1 : f(x,y)+\frac{w(x,y)}{|w(x,y)|} > 0 $, akkor ez tulajdonság teljesül - és akkor egy megengedett állapotból kiindulva soha nem veszhet el elem.
+
+% Habár ez a tulajdonság jelenleg nincs 100\%-osan kielégítve
+
+% \MEGJ a megelõzõ torony csak $\frac{k}{k+1}$ sebességgel mozoghat s ha igaz lenne hogy:
+\newcommand{\V}{\underline{v}}
+\newcommand{\M}{\underline{m}}
+% $$ \forall \V\in \setR^2 : | \V | = 1 : \langle f(\V),-\V \rangle > \frac{k}{k+1} $$
+% tehát ha feltesszük hogy egy robot már kicsúszott a legkülsõ peremre s feltételezzük hogy a megelözõ robot a lehetõ legrosszab irányba lép akkor sem tudja lehagyni ezt a robotot.\\
+% Ezt általánosabban is meg lehetne fogalmazni:
+% $$ \forall \V\in \setR^2 : | \V | \leq 1 : (1-| \V |) + \langle f(\V),-\V \rangle > \frac{k}{k+1} $$
+
+% agy mértékû irányváltás
+\xparagraph{A keresõ algoritmus} vázlata:\\
+	$k$ - a jelenlegi robot ismerõse kezdetben: $\bot$\\
+	$r$ - az üzenet küldõje\\
+	$m$ - maga az üzenet\\
+
+	az algoritmus folyamén használatban van egy prioritas' fügvvény, melynek a legfontossabb tulajdonsága
+hogy mindíg lokálisan jelöl ki - errõl még bõvebben lesz szó.
+
+
+
+
+
+\subsection{Alternatívák}
+
+
+
+
+Rögzítsünk egy $\alpha$ paramétert mely az egyes lépésekben való irányváltoztatás maximuma.\\
+Legyen $\vec{t_{i}^t}$ az $i.$ csúcs $t.$ idõpillanatában használt irányvektora.\\
+A fenti $\alpha$ korlátozás a következõket eredményezi:\\
+$\vec{d_{i}^t}\vec{d_{i}^{t+1}} \le \sin \alpha  $\\
+valamint mivel a szomszédoknak a saját irányvektorát közvetíti ezért igaz lesz a következõ is:\\
+$\vec{d_{i}^t}\vec{d_{i+1}^{t}} \le \sin \alpha  $\\
+$\vec{d_{i}^t}\vec{d_{i-1}^{t}} \le \sin \alpha  $\\
+
+\newpage
+\subsection{A hibázás büntetõfüggvénye}
+
+\begin{wrapfigure}{R}{0.33\textwidth}
+\vspace{-2em}
+\psfrag{EMIN}[lb][lb]{$e_{min}$}
+\psfrag{EMAX}[lb][lb]{$e_{max}$}
+\psfrag{E}[lb][lb]{$e$}
+\psfrag{G}[lt][lt]{$G$}
+\psfrag{S}[lt][lt]{$s$}
+\psfrag{P0}[lt][lt]{$P$}
+\includegraphics[width=.33\textwidth]{dia/scan_errors}
+% \includegraphics[width=.13\textwidth]{dia/scan_merge}
+% \caption{üzenetek keresés közben}
+\vspace{-2em}
+\label{ref:merge}
+\end{wrapfigure}
+
+Amennyiben be lehet vezetni egy olyan büntetõfüggvényt ami akkor kedvez a legjobban a elõrehaladásnak ha az minimális, viszont alacsonyan tartásáért a szomszéd ágens a felelõs akkor az automatikusan életbe fog lépni ha a lánc vége nem tudja tartani a tempót.\\
+Rögzítsünk egy keresõt az origóban, melynek a keresési iránya legyen az $(1,0)$ vektor, így felvehetünk egy $D=(0,s)$ pontot ami az elõnyben részesített pozíció lesz.\\
+
+
+
+asdasddas
+asdasddas
+asdasddas
+asdasddas\\
+asdasddas
+asdasddas
+asdasddas
+asdasddas\\
+asdasddas
+asdasddas
+asdasddas
+asdasddas\\
+asdasddas
+asdasddas
+asdasddas
+asdasddas\\
+asdasddas
+asdasddas
+asdasddas
+
+
+
+\subsection{Legrosszabb eset}
+
+
+\begin{wrapfigure}{L}{0.33\textwidth}
+\vspace{-2em}
+\psfrag{EMIN}[lb][lb]{$e_{min}$}
+\psfrag{EMAX}[lb][lb]{$e_{max}$}
+\psfrag{E}[lb][lb]{$e$}
+\psfrag{G}[lt][lt]{$G$}
+\psfrag{S}[lt][lt]{$s$}
+\psfrag{P0}[lt][lt]{$P$}
+\includegraphics[width=.33\textwidth]{dia/scan_worst_case}
+\vspace{-2em}
+\label{ref:merge}
+\end{wrapfigure}
+
+
+
+%Egy ágens maximálisan $v_{max}$ sebességgel mozoghat ezért
+
+A keresés folyamán a lánc mérete alapján egy csúcs maximum $\frac{k}{l}$ sebességgel mozoghat, ahol $l$ a teljes lánc hossza, és $k$ pedig a szóban forgó robot távolsága a kiindulas'iponttól.
+A fenti mozgató függvénynek ez alapján az alábbiakat kell teljesítenie:
+tegyük fel a legrosszabbat a keresõnk kicsúszott az ismert tõl mért $1$ sugarú körre.
+Vegyük ezt az elemet a $k.$-nak az $l$ hosszú láncban. És tegyük fel azt is hogy a $k-1$ - az ismerõse is kicsúszot, és a lehetõ legrosszabb irányba lép tovább,
+de mivel a $k-1$. csúcs csak maximálisan $\frac{k-1}{l}$ sebességgel mozdulhat el, ezért ha az $f$ függvény $1$ sugarú korén a vektorok tökéletesen befele mutatnának akkor soha nem fordulhatna elõ az hogy egy csúcs leszakad a keresõk közul.\\
+Ennek a tulajdonságnak az ellenõrzésére használható az alábbi módszer:
+	vegyük a következõ függvényt:
+\begin{align*}
+		w_x(x,y)&=-x \\
+		w_y(x,y)&=-y
+\end{align*}
+és amennyiben $\forall (x,y) \in \setR : x^2+y^2 \le 1 : f(x,y)+\frac{w(x,y)}{|w(x,y)|} > 0 $, akkor ez tulajdonság teljesül - és akkor egy megengedett állapotból kiindulva soha nem veszhet el elem.
+
+
+
+Külön-külön vizsgálva az egy pont körüli körmozgást és az egyenes irányba való elmozdulást
+
+
+
+irányvektor:	$\vec{t}$\\
+$\vec{t}$\\
+$ G = P + (0,s) $\\
+$ P=(0,0)$\\
+$ \vec{t}=(1,0) $\\
+$ P'= v_{max} ( \cos\alpha, -\sin\alpha)  $\\
+$ d=|P'-G| < 1$\\
+$ |P'-G|^2 < 1$\\
+% $ v_{max}^2 \cos\alpha^2 + $\\
+$ |(v_{max} \cos\alpha, s+v_{max} \sin\alpha)|^2 < 1 $\\
+$ s^2+2s v_{max}\sin\alpha +v_{max}^2-1 < 0 $\\
+$ s = v_{max}\sin\alpha+\frac{\sqrt{4\sin^2\alpha - 4 (v_{max}^2-1)}}{2}$\\
+$ s = v_{max}\sin\alpha+\sqrt{\sin^2\alpha -  (v_{max}^2-1)}$\\
+$ s = v_{max}\sin\alpha+\sqrt{1+\sin^2\alpha - v_{max}^2}$
+
+\section{Bevezetés}
+
+
+
+Hálózatok kialakítása és karbantartása az egyik alappilére a mai világunkban zajló kommunikációknak.
+A ma használatban lévõ hálózati elemek nagyrészét szakszerûen és körültekintõen telepítik, de elõfordulhatnak olyan szituációk
+amikor ezekre nincs lehetõség - esetleg veszélyes. A networkers project célja hogy kísérleti jelleggel egy viszonylag egyszerûsített világban a hálózatépítés problémáját oldja meg.
+?ref:force directeted\\
+?refs\\
+
+
+
+% % The problem of network building after some point could be 
+% The problem of network building is sophisticated, so the problem have been simplified tö given some communication point on a plane,
+% and a group of robots starts from some random point of the plane. There are no two kommunikation points which are directly visible from another - this will force
+% the algorithm to create paths between them.\\
+% All robots are equipped with a radar which could reliably tell object informations in its vicinity. Under object information we mean: relative position and type.\\
+% Every agent could communicate with any node iff it's in communication range.\\
+% None of the robots could use more than a constant memory - this requirement forces the algorithm 
+% The communication range and the radar range are equal.\\
+% The given problem could be solved with a centralised algorithm - when all information is collected and relayed to a
+% leader node which does all the neccessary computations - but because this method requires that the central node should be able to store and maintain the layout of the network to be able to give advices to others.\\
+% 
+% ---\\
+
+A feladat a következõ képpen lett megfogalmazva:
+Egy csoport robot indul egy térképen korlátozott távolságú kommunikációs képességekkel mely határon belül a kommunikáció $1$ valószínûséggel célbaér.\\
+Az ügynökök képesek mozogni, de pontoknak számítanak s így fizikai ütközésük nem lehetséges.
+A kitüzött cél a síkon elhelyezkedõ kommunikációs pontok összekötése egy fával, melyet a robotok egymással együttmûködve kell hogy megépítsenek.\\
+Annak érdekében hogy a megoldó algoritmus valóban kollaboratív mivoltú legyen az $O(1)$ memóriahasználat is elvárás.\\
+A kiindulóállapotban mindannyian egykupacban vannak.\\
+!Körökre bontott lépések
+
+% A robotok feladata hogy egy hálózatot hozzanak létre. Mindezt úgy, hogy minél több kommunikációs pont kommunikálhasson a hálózaton keresztül.\\
+% Ezt a célt kizárólag lokális információkra alapozva kell elérniük.
+
+% A robotokon futó algoritmus a következõ máshol is használt elemekre számít
+% több részbõl áll össze, viszont ezek néhol erõsen számítanak egymásra ezért pár szóban
+
+
+\newcommand{\LEADER}{\spadesuit}
+\xparagraph{Használt jelölések}
+\begin{tabbing}
+$\CP$\hspace{3em}\=kommunikációs pontok halmaza\\
+$s(x)$\>az $x$ robot állapotát adja meg $\{\INIT ,\RECON , \TOWER\, \SWEEP \}$	\\
+$p(x)$\>az $x$ robot pozícióját adja meg\\
+$v(x)$\>az $x$ robot által megadott irányvektor(2d irányvektor)\\
+$\Gamma(x)$\>az $x$ robot sorozatszáma\\
+% $d(x)$\>az $x$ robot által megadott körbejárási irány ${left,right}$\\
+$t(m)$\>az $m$ üzenet típusát adja meg\\
+$d_r$\>a radar hatótávolsága	-- a világhoz mértékegységében \footnote{at lehetne irni ugy hogy ez egyseg meretu, akkor sokminden egyszerusodik}	\\
+$d_t$\>tervezett toronytávolság -- $d_t \in[0:1]$  \\
+$d_s$\>keresési távolság -- $d_s \in[0:1]$ \\
+$\alpha$		\>tornyonváltási arányszám mely: $\alpha=1+\epsilon : \epsilon > 0$\\
+$C_{recon}$	\>környezet felderítési idõ	$\approx 16$\\
+$C_{opt}$		\>optimalizálási ciklus hossza $\approx 2n$\\
+$C_{spring}$	\>kifeszítés idõtartama $\approx n$\\
+% $C_{q}$\>egy rögzített $q$-hoz kapcsolódó állandó ($\in \mathbb{N}$)\\
+$\mathbb{K}$\>	halmaz - a kapcsolatban lévõ tornyokat jelöli\\
+$O$	\>		halmaz - az optimalizálandó csúcsok halmaza
+\end{tabbing}
+\MEGJ Az éppen szóban forgó robot pozíciója, állapotát, sorozatszámát paraméter nélkül:
+	$p$,$s$ valamint $\Gamma$-val jelölöm.
+% \begin{align*}
+% \cp &\hspace{1em}&\mbox{kommunikációs pontok halmaza}\\
+% \cp & & \mbox{x}\\ 
+% \end{align*}
+% asd
+
+% \section{Játékszabályok}
+
+% \sout{
+% \begin{itemize}
+% 	\item	senki sem kommunikálhat csak és kizárólag a hatósugarában lévõkkel
+% 	\item	minden robot fel van szerelve egy radarral, mely megadja a közelében tartózkodó robotokról a következõ információkat:
+% 		\begin{itemize}
+% 			\item	pontos poziciojat\footnote{ha meg meglenne az id valamint az allapota az nehol segitene de nem tul sokat, ezert azthiszem ez nem lesz szukseges}
+% % 			\item	id
+% % 			\item	allapot
+% 		\end{itemize}
+% 		a radar hatótávolságát $r$-el jelölöm
+% 	\item	minden robot eltárolhatja néhany szomszédja pozícióját
+% 	\item	minden robotnak van egy sorozatszáma, melyet $1$-tõl indexeltek
+% 	\item	minden kommunikációs pont csak maximum $1$ toronyal lehet kapcsolatban
+% 	\item	kommunikáció
+% 		\begin{itemize}
+% 			\item	minden idõpillanatban fogadhat egy robot $\le4$ üzenetet
+% 			\item	minden idõpillanatban kiküldhet egy robot $\le4$ üzenetet
+% 		\end{itemize}
+% 	\item	nincs két olyan kommunikációs pont amely közelebb lenne egymáshoz mint $l$, valamint legalább $l>3r$ teljesül
+% 	\item	minden robot rendelkezik egy számlálóval melyet $c$-vel jelölök (ha kell majd)
+% % $\nexists p\in C$
+% 	
+% 		
+% % 	\item	a tornyok által kifeszitett hálózatot csak a vezetõ használhatja
+% \end{itemize}
+% }
+
+
+\section{Networker}
+Minden egység keresõ($\RECON$) és továbíttó($\TOWER$) is, de hogy éppen hogyan viselkedik azt az állapota határozza meg.
+A fent emlitett kettõ a két legfontosabb de hogy tiszta legyen a dolog egy kezdeti($\INIT$) állapot valamint egy szétszoródási fázis($\SWEEP$) is van.\\
+A kezdeti állapotban mindenki szétszoródásra ($\SWEEP$) készül fel kivéve az $1$-es sorszámú robotot aki azonnal toronnyá válik ($\TOWER$), s innentõl fogva a ``mindíg létezik gráf'' tulajdonságot tartja fenn,
+ezzel biztosítva a felderítõknek hogy van mihez kapcsolni új pontokat. Az $1$-es sorszámú elem számára csak a gráfból kiválás van megtiltva ezt leszámítva a többivel azonos módon müködik.\\
+A szétszoródási fazisban egy felig kitöltött hatszöget alkotnak a robotok melynek forgásszimetrikusan hiányzik 3 háromszöge.\footnote{igazabol kep kellene}
+A felfejlõdést követõen keresõkké válnak ($\RECON$),
+melyek  feladata új csúcsokat felfedezni és azt az épülõ gráfhoz kötni, mindezt úgy hogy oszlopokba szervezõdve körbejárják a már kialakított gráfot.
+Ha a keresés sikeres akkor tornyokká($\TOWER$) válnak. Ebben az állapotban arra törekszenek hogy minél jobban lecsökkentsék a kialakított hálozathoz szükséges
+tornyok számát - melyek így újra keresõkké válhatnak.\\
+!mindenkinek van sorszama es meg kitudja milye nincs!\\
+% \subsection{Állapotok}
+% \begin{itemize}
+% 	\item $\INIT$\normalfont	\\
+% 		this is the initial state
+% 	\item $\SWEEP$\normalfont	\\
+% 		this state have been introduced to avoid the initial communiaction storm when all the robots were near the start point
+% 	\item $\RECON$\normalfont	\\
+% % 		új kommunikációs pontot keresõ üzemmód
+% 		the recon are the unused communication bots which are continously patrol the graph's borders
+% 	\item $\TOWER$\normalfont	\\
+% % 		jelenleg hálózati csomópontként üzemel	\\
+% % 		van egy kitüntetett szerep melyet csak torony láthat el: ez pedig a vezetõ szerepe.
+% 		the towers are the in-use elements, which are the midpoints of the graph 
+% \end{itemize}
+
+% \xparagraph{Leader}
+% Because the algorithm is unable to start without an existing tower - the selection of a leader is a required,
+% but the role of leader comes with absolutely no extra privileges or tasks. Its purpose is solely to provide the startingpoint.
+
+% \xparagraph{A vezetõ}
+% 	Garantálja hogy mindíg létezik egy fa - s van legalább egy pontja - az $1$-es sorszámú robot lesz a vezetõ. Jelenleg a vezetõ szerep soha nem száll át másra.
+% Habár néha céltalanul ücsörög egy elhagyatott részén
+% 	felelõs a gráf fa jellegének megtartásáért - s a segítségével a körök kiszûrhetõek
+% 	\MEGJ	jelenleg semmire nincs használva
+
+
+
+
+\section{Üzenetek}
+
+Az algoritmus több típusú üzenetet használ a kommunikációkhoz - ezen üzenetek mindíg csak a következõ körre érnek el a címzetthez\\
+Egyetlen általános üzenet van, melyet adott idõközönként mindegyik elküld egy véletlen szomszédjának.
+A \SI üzenet egy egyirányú információszolgáltatás a küldõ részérõl - ez tartalmazza a küldõ állapotát, aktuális ``gondolt'' mélységét\\
+
+A felderítõk által használt üzenetek az épülõ láncon kétirányban járnak, lefele a gráf irányába \SUR üzeneteket küldenek
+mely tartalmazza a már kiépült lánc felsõ részének hosszát.\\
+
+A válasz erre a felkérésre mindig egy \SU üzenet melyben rögzítve van a keresés iránya, ezáltal kijelölve a formáció irányát,
+valamint tartalmazza az alsó rész méretét.\\
+
+Ha egy robot felvesz egy másikat a kapcsolati listájára akkor az értesíti a szomszédot a felvételrol egy \IL üzenettel.\\
+Hasonlóan a kapcsolat megszüntetésekor a \LE-t kell elküldenie.\\
+
+A közvetlenül kommunikációs pontokhoz kapcsolódó tornyok minden egyes optimalizáló ciklus elején elküldenek egy \MD üzenetet,
+ez tartalmaz egy számlálót mely az eddig mért legnagyobb távolság \footnote{máshol többet errõl}.\\
+
+A tornyok idõnként értesítik egy véletlen szomszédjukat egy másik szomszédukról egy \LI üzenet segítségevel.\\
+
+A gráf idõrõl idõre véletlen pontokból is megmérésre kerül ez a nem triviálisan kiiktatható kereszt kapcsolatok megszüntetését segíti.\\
+
+% \xparagraph{\SI}
+
+% 	this message is transmitted to a random unknown node in every RECON phase \\
+% 	it contains the sender's id, state, length measurement information etc.,?\\
+% 	this message type is used and interpreted by both the $\RECON$-s and $\TOWER$-s.\\
+	
+% 	reklámanyag a többieknek - a szervezõdéshez van rá szükség ugyanis elõfordulhat hogy többen beállnak egy oszlop ugyanazon elemének\\
+% 	tartalmazza a robot sorozatszámát és jelenlegi állapotát.\\
+% 	az ábrán a felsõ keresõ épp tájekoztatja a felfele haladód a saját sorozatszámáról.
+% \xparagraph{\SUR}
+% 	this request is sent by some recon, who are scanning the border of some other node - the purpose of the message is to help them to cooperate and align into some formation\\
+% 	
+% 	it also helps to measure the length of the forming feeler.\\
+% 	it contains the direction!
+
+	
+% \sout{
+% 	keresési irány kérése - tartalmaz egy számot: $d$-t., mely a még rá kapcsolódó robot szám $\TO$ ez a robot eggyel nagyobbat küld vissza a legnagyobb $d$-nél.\\
+% 	azért kell csak a legnagyobbal foglalkozni, mert miközben egy új elem áll épp be, akkor kaphatnak kissebb értékeket is a robotok amig az nem találta meg a helyét\\
+% 	az ábrán a lefele mutató nyilak mutatják.}
+% % \\
+% % 	küldõ:	$\RECON$\\
+% % 	fogadó:	$\RECON,\TOWER$
+% \xparagraph{\SU}
+% 	this message is the response for the \SUR, it contains the direction and the length of the other part of the feeler,
+% 	this way everyone
+% \sout{
+% 	keresési irány frissités, tartalmazza a legutoljára halott irányt.\\
+% 	az ábrán a felfele menõ üres duplanyilak jelképezik.}
+% \xparagraph{\IL}
+% 	this message type is used when a new edge should be added to the graph.
+% 	When a $\RECON$ recieves this type of message it changes state into $\TOWER$
+% --
+% \sout{	a keresõk találtak egy új pontot, ezzen üzenet hatására tornyokká válnak}
+% \xparagraph{\LE}
+% 	when a communication point disappears or some optimalization makes a link unneccessary the \LE is sent to the other end of
+% 	the edge to keep the constraints of the forming graph.\\
+% --\\
+% 	kapcsolat bontása - ha az egyik fél eldönti hogy az egyik élre mostantól nincs szüksége, akkor ezt mondja a szomszédnak.
+% \xparagraph{\MD}
+% 	from time to time, the graph-diameter is measured - the contets of the message is solely the depth from the farest node.
+% 	\\
+% 	mélység mérés a fán belül.
+
+% \xparagraph{\LI}
+% 	információ közlés egy szomszédról - ennek segítségével válhatnak ki a nem szükséges robotok egy kialakuló láncból
+% \xparagraph{\LO}
+% 	Távolsági optimalizáció mérõcsomagja.\\
+% 	A kialakuló gráf optimalizációját segíti elõ.
+% \\
+% 	fontos tulajdonsága: tegyük fel hogy nem változik meg a fa amig a 
+% \xparagraph{\HO}
+% \sout{
+% 	átadja az egyik tornyot egy másiknak.\\
+% 	az átadó célja a szükséges robotok csökkentése % - ez tulajdonképpen a másodlagos 
+% 	elárulja egy torony egy másik torony pozí állóknak a másik torony pozícióját, és ezeket a kapcsolatokat lezárja.
+% \end{itemize}
+% }
+
+% \subsection{Communication points}
+\subsection{Kommunikációs pontok}
+% It is needed to have a little cooperation from the communication nodes we are trying to connect, the requirement is very simple,
+% if it recieves a \SI\phantom{x} message, it should respond with an \IL to acknowledge the connection.\\
+% There are cases when more than one robot is in it's range, it should able to replace it's connection with a closer one if it has chance for that.\\
+% This last sentence is basic, but in the working of the algorithm there are no ``requested'' handovers.
+
+Mivel az algoritmusnak megvan a maga menete ezért a kommunikációs pontoktól is megkövetel egy bizonyos szintû protkolt,
+mely a következõ képp fogalmazható meg: hogyha egy \SI \phantom{x}üzenet kap akkor ha még nincs összekötõje akkor nyugtáznia kell a kérést 
+ \IL\phantom{x} üzenet visszaküldésével. Emelett, ha már létezik összekötõje, de az távolabb van mint a kérdezõ akkor azt a megfelelõ üzenetekkel cserélje le a közelebb lévõre\\
+
+% Szükség van arra hogy a kommunikációs pontok is valamilyen szinten bekapcsolodjanak a robotok tevékenység'be, s  ha kapnak egy 
+% Valamint ismerniük kell a toronyváltás - vagyis: \SI\phantom{x}hatására megnézik hogy a küldõ torony közelebb-e van mint a jelenlegi, s ez alapján cselekszenek.\\
+% \sout{A robotok a kommunikációs pont sorozat számát $0$-nak látják - vagyis a kommunikációs pontnak van prioritása a kapcsolódásban.}
+
+
+\footnote{Itt van kommentben meg par szo az indulasrol mint allapot, de mar le van irva feljebb}
+% \subsection{Indulás - $\INIT$}
+% induláskor ha a robot az $1$-es seriaszámmal indul, akkor azonnal $\TOWER$ üzemmódba vált s vezetõnek titulálja magát.\\
+% mindenki más el;renyomulásba kezd $\TO \SWEEP$
+
+% \newpage
+\subsection{Elõfelderítés - $\SWEEP$}
+A cél egy olyan függvény $f(s) \TO \setN \times \setN$  meghatározása mely 
+feltölti a sík $y \ge 0, x < y$ részét sorról sorra.
+kezdve
+$$f(0)=[0,1], f(1)=[0,2], f(2)=[1,2], f(3)=[0,3] ...$$
+tehát a kérdés: \\$f_y(s*(s+1)/2) \approx s$ ha felteszem azt hogy $n$ lenne a az $f_y(s)$ értéke akkor az alábbiak teljesülnének:
+\begin{align*}
+s&=n*(n+1)/2\\
+0&=n^2+n-2s\\
+n&=(-1+\sqrt{1+8s})/2
+\end{align*}
+% innen, legyen 
+% $$  x(s) = \floor$$
+% 
+% A következõ sorozatra próbáltam rálelni:
+% $$ x(k) = \max\{ l\in \setN : \frac{l*(l+1)}{2} \le k \}$$
+% a teljesitõ funkció:
+% $$ x(k)= \floor{ (\sqrt{1+8k}+1)/2 }$$
+% ennek segítségével megkonstruálható egy olyan funkció
+% mely feltölti a sík $y \ge 0, x \le y$ részét sorról sorra.
+így:
+\begin{align*}
+f_x(s)&=s-x(s)*(x(s)+1)/2	\\
+f_y(s)&=x(s)
+\end{align*}
+
+Mivel minden robot kap egy-egy egyedi azonosítót melyeket 1-tõl kezdve osztunk ki, igy az így kialakuló pontok közül nem marad ki egy sem.
+
+% $$ x_k = k-\max \frac{n*(n-1)}{2} : \frac{(n+1)n}{2} \ge k$$
+
+% terület egy részének gyors felderítése, egy explicit függvény segítségevel minden robot meghatározza hogy hol kellene állnia
+\subsection{Keresés - $\RECON$}
+% \vspace{1em}
+Feladatuk hogy eggyütmûködve láncokba fejlõdve új pontokat keressenek a gráfhoz.
+A felfeljõdéshez szükség van arra hogy nyilvántartson egy másik robotot mint ismerõs.
+Ettõl a robottol fog információt kérni hogy éppen milyen paraméterekkel rendezõdjön mellé formációba.
+Az ``ismerõs'' lehet egy másik keresõ vagy a lánc alján egy torony. Az ismerõs kiválasztása a következõ szabályok alapján történik:
+amennyiben nem rendelkezik ismert elemmel és a kiválasztottnak kisebb a szériaszáma felveszi,
+ha talál olyan új jelöltet akinek a már meglévõne;l nagyobb az indexe viszont továbbra is kisebb mint a sajátja akkor lecseréli.
+Ennek eredménye hogy egy már epülõben lévõ keresõláncba mindíg egyértelmûen beszúrható akármennyi új elem.\\
+
+
+
+% Mivel minden robot egy helyen kezd, s egyikük azonnal torony üzemmódba vált ezért teljesül az hogy mindig lát legalább egy másik robotot melyen keresztül esetleg többszörösen indeirekt módon de egy torony közelében van.
+\vspace{1em}
+\begin{figure}[t]
+\vspace{-1em}
+% \centering
+% \includegraphics[width=.94\textwidth]{dia/fuelpump_slowdown}
+\hspace{-5em}
+\includegraphics[width=.65\textwidth]{fig/scan_repos}
+\vspace{-2em}
+\caption{$\RECON$ reposition quiver}
+\label{fig:scanrepos}
+% \includegraphics[width=0.55\textwidth]{fig/scan_repos}
+% \vspace{-5em}
+\end{figure}
+
+
+A felderítõk mozgásának meghatározását egy ``barkácsolt'' irányerõtér határozza meg, ez több darabból áll össze minden egyes része
+egy-egy $\setR^2 \TO \setR^2$ függvény.\\
+A kitûzött cél egy olyan irányítási rendszer leírása mely feltételezi az ismert jelenlétét az origóban s ez alapján a $(0,y)$-ba küldi a jelenlegi pontot iterációs lépések folytán, s ott egy valamilyen mértékû elõrehaladást feltételezve próbálja meg elõre követni a lépesben úgyszintén elmozduló origóban álló pontot.
+% A helyes pozíció beállításához némi tartalék energiát tart meg.
+
+
+% \xparagraph{Újrapozícionálásokra} van szükség a keresés közben ezért egy olyan $f_r : \setR^2 \TO \setR^2$ függvényt kerestem mely minden pozícióban a helyes eredményt adja. Az \ref{fig:scanrepos}-es ábrán látható az eredmény mely a következõképp épül fel:
+
+
+% \begin{numbering}
+% \item{asd} 
+% \end{numbering}
+
+\paragraph{1.}
+Szükség van arra hogy a minimum a $(0,d_s)$-ben legyen, odataláljon a csúcs ha esetleg teljesen máshol lenne:
+\begin{align*}
+ u_x(x,y) &= -x\\
+ u_y(x,y) &=-y+(1-|x|) \frac{s}{|y-s|+1}
+\end{align*}
+\paragraph{2.}
+Ha már a csúcsunk a $(0,d_s)$-ben van akkor arra egy jobbra ir'anyuló körmozgásnak kell hatni hogy a vele párhuzamosan elmozduló ismert pozicióját kövesse.
+Legyen ez a $(0,d_s)$ pontban is jobbra irányuló körmozgást leíró 
+\begin{align*}
+	t_x(x,y)&= y\\
+	t_y(x,y)&=-x
+\end{align*}
+\paragraph{3.}
+	ötvözni kell a körmozgás elõsegítõ, és a helyreküldõ függvényeket, ezért
+	mivel a körmozgásra csak a $(0,d_s)$ környezetében van ténylegesen szükség ezért a két funkciót a  $(0,d_s)$ ponttól való távolság függvényének segítségével súlyozásra kerülnek:
+\begin{align*}
+	m(x,y)=\max(1-2*\sqrt{x^2+(y-s)^2},0)
+\end{align*}
+\paragraph{4.}
+	az eredõ függvény kiszámítása, melyben megjelenik a $0<v_s<1$ mely a haladási sebesség aránya a teljeshez képest. A teljes sebességet csak akkor használhatja ha eltévedt és ezért újra pozícióba szeretne állni. 
+% hez még az $u$ függvényt normalizáltam, s beleraktam a körmozgás sebességszorzóját: $v_s$-t, hogy a legyen esélye a robotoknak beállnia a helyére miközben már néhányan elkezdték a keresést:
+
+\begin{align*}
+f_x(x,y)&=t_x(x,y) m(x,y) v_s + \frac{u_x(x,y)}{||u(x,y)||} (1-m(x,y)) \\
+f_y(x,y)&=t_y(x,y) m(x,y) v_s + \frac{u_y(x,y)}{||u(x,y)||} (1-m(x,y))
+\end{align*}
+
+	
+
+
+% \ref{fig:JobInformationDialog}
+\begin{wrapfigure}{I}{0.15\textwidth}
+% \begin{figure}[t]
+% \centering
+% \includegraphics[width=.94\textwidth]{dia/fuelpump_slowdown}
+\vspace{-4em}
+\includegraphics[width=.15\textwidth]{dia/scan_degree_break}
+% \caption{két torony kerésesi törésszöge}
+% \includegraphics[width=0.55\textwidth]{fig/scan_repos}
+% \vspace{-5em}
+\end{wrapfigure}
+
+A keresés közben amikor az ismert megváltozik különbözõ anomáliáknak látszó dolgok is megjelennek az egyik ilyen dolog
+az irányváltások által elõidézett ostorcsapás szerû ujrarendezõdések.\\
+Egész pontosan hogy mi is okoz problémát ebben az esetben:
+% \xparagraph{Irányváltás probléma:} \
+ha a tornyok körül mozgó robot éppen tornyot vált akkor mennyivel változik a keresési iránya:
+$$ \cos\gamma=\frac{2d_s^2-d_t^2}{2d_s^2}=1-\frac{d_r^2}{2d_s^2}$$
+% ez az érték 68\textdegree körüli)
+ez a jelenség a tornyoktól távolabb álló keresõkön látszik igazán mert túlságosan hirtelen mozdulhatnak el az melettük állók és megszakadhat a lánc. Az ilyen jellegû problémák elkerülése miatt a robotok  bizonyos mértékben ``tompítják'' a keresési irányt s ezáltal elkerükhetõ a probléma.
+\\
+\begin{wrapfigure}{I}{0.13\textwidth}
+\vspace{-2em}
+\includegraphics[width=.13\textwidth]{dia/scan_merge}
+% \caption{üzenetek keresés közben}
+\vspace{-4em}
+\label{ref:merge}
+\end{wrapfigure}
+A keresés folyamán a lánc mérete alapján egy csúcs maximum $\frac{k}{l}$ sebességgel mozoghat, ahol $l$ a teljes lánc hossza, és $k$ pedig a szóban forgó robot távolsága a kiindulas'iponttól.
+A fenti mozgató függvénynek ez alapján az alábbiakat kell teljesítenie:
+tegyük fel a legrosszabbat a keresõnk kicsúszott az ismert tõl mért $1$ sugarú körre.
+Vegyük ezt az elemet a $k.$-nak az $l$ hosszú láncban. És tegyük fel azt is hogy a $k-1$ - az ismerõse is kicsúszot, és a lehetõ legrosszabb irányba lép tovább,
+de mivel a $k-1$. csúcs csak maximálisan $\frac{k-1}{l}$ sebességgel mozdulhat el, ezért ha az $f$ függvény $1$ sugarú korén a vektorok tökéletesen befele mutatnának akkor soha nem fordulhatna elõ az hogy egy csúcs leszakad a keresõk közul.\\
+Ennek a tulajdonságnak az ellenõrzésére használható az alábbi módszer:
+	vegyük a következõ függvényt:
+\begin{align*}
+		w_x(x,y)&=-x \\
+		w_y(x,y)&=-y
+\end{align*}
+és amennyiben $\forall (x,y) \in \setR : x^2+y^2 \le 1 : f(x,y)+\frac{w(x,y)}{|w(x,y)|} > 0 $, akkor ez tulajdonság teljesül - és akkor egy megengedett állapotból kiindulva soha nem veszhet el elem.
+
+% Habár ez a tulajdonság jelenleg nincs 100\%-osan kielégítve
+
+% \MEGJ a megelõzõ torony csak $\frac{k}{k+1}$ sebességgel mozoghat s ha igaz lenne hogy:
+% $$ \forall \V\in \setR^2 : | \V | = 1 : \langle f(\V),-\V \rangle > \frac{k}{k+1} $$
+% tehát ha feltesszük hogy egy robot már kicsúszott a legkülsõ peremre s feltételezzük hogy a megelözõ robot a lehetõ legrosszab irányba lép akkor sem tudja lehagyni ezt a robotot.\\
+% Ezt általánosabban is meg lehetne fogalmazni:
+% $$ \forall \V\in \setR^2 : | \V | \leq 1 : (1-| \V |) + \langle f(\V),-\V \rangle > \frac{k}{k+1} $$
+
+% agy mértékû irányváltás
+\xparagraph{A keresõ algoritmus} vázlata:\\
+	$k$ - a jelenlegi robot ismerõse kezdetben: $\bot$\\
+	$r$ - az üzenet küldõje\\
+	$m$ - maga az üzenet\\
+
+	az algoritmus folyamén használatban van egy prioritas' fügvvény, melynek a legfontossabb tulajdonsága
+hogy mindíg lokálisan jelöl ki - errõl még bõvebben lesz szó.
+% \SUR
+% \SU
+
+
+
+% 	$tie\_to\_tower$	-	indirekt kapcsolat a gráffal, az algoritmus indulásakor nincs biztosítva ez a tulajdonság,
+% 		ezért szükséges volt, egy idõ után mindenkinél igaz
+
+\begin{tabbing}
+\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\\
+$recon\_step()$\\
+\>		\small{// üzenetek feldolgozás}\\
+		\>$chain\_len\_u=0$\\
+		\>$while$ (type,m,r)=fetch\_message()\\
+		\>\		\>$switch$(type)\\
+		\>		\>		\>	\IL:\\
+% 		\>		\>		\>\hspace{1em}	\=$s=\TOWER$	\\
+% 		\>		\>		\>		\>$if(tie\_to\_tower)$	\\
+		\>		\>		\>		\>elküld egy \IL-t $k$-nak.\\
+		\>		\>		\>		\>$\TOWER$ állapotba áll át\\
+		\>		\>		\>	\SI:\\
+		\>		\>		\>		\>$if (s(r)=\TOWER \AND  ( (k=\bot) \OR ( k\neq \bot \AND tower\_connection \AND d(k) > d(r) ) ) \OR$\\
+		\>		\>		\>		\>	\>	\>$\OR (s(r)=\RECON) \AND \SER(r) < \SER \AND \SER(k) < \SER(r) )$ \\
+		\>		\>		\>		\>	\>$tower\_connection=(s(r) = \TOWER)$\\
+		\>		\>		\>		\>	\>$k=r$\\
+		\>		\>		\>	\SU :\\
+		\>		\>		\>		\>irányvektor frissités az $m$-ben találhatóval, polárkoordinátás tompítás $0.8$-es megtartással\\
+		\>		\>		\>		\>		\>$chain\_length\_d=m.chain\_len+1$\\
+		\>		\>		\>	\SUR:\\
+% 		\>		\>		\>\hspace{1em}	\=$if (s(r)=\TOWER \AND k=\bot) \OR$\\
+% 		\>		\>		\>		\>\hspace{2em}$(s(r)=\RECON) \AND \SER(r) < \SER)$ \\
+% 		\>		\>		\>		\>\hspace{1em}	\=$k=r$\\
+% 		\>		\>		\>		\>$else$\\
+		\>		\>		\>		\>		\>// ebbõl kaphat akár többet is, mindre válaszolnia kell\\
+		\>		\>		\>		\>		\>$chain\_len\_u=MAX(chain\_len\_u,m.chain\_len+1)$\\
+		\>		\>		\>		\>		\>$d=\max(d',d)$\\
+		\>		\>		\>		\>		\>visszaküld egy \SU-t\\
+% 		\>		\>		\>		\>visszaküld egy \SUR-t\\
+		\>\small{// lépés}\\
+% 		\>$if( k=\bot \OR r \equiv C_{recon})$\\
+		\>$if( phase = RECON\_SCAN\_INFO )$\\
+		\>		\>véletlenszerûen kiválaszt egy másik robotot($\ne k$) és\\
+		\>		\>elküld neki egy \SI-t\\
+% \>	$else$\\
+		\>$if( k\neq\bot )$\\
+% \>		\>$if$\=state(k)==SCAN\\
+		\>		\>	kiszámitja:\\
+		\>		\>	$\M=f( \langle p - p(k), (v_y,-v_x) \rangle , \langle p - p(k), (v_x,v_y) \rangle )$\\
+		\>		\>	elmozdul $\M * \frac{v_{max}*chain\_len\_d+1}{chain\_len\_u + chain\_len\_d+1}$-vel\\
+		\>		\>	elküld egy \SUR-t $k$-nak.\\
+% 		\>$if( \exists c \in \CP
+% % \>		\>\>a $k$ elemnek elküldi a $scan\_update\_request$-et\\
+% \>		\>\>és probál $v$ irányon $90\%$ on tartani $k$-t a radaron.\\
+% \>		\>\>(ismer még egy $dir'$-t ami a keresés iránya)\\
+% \>		\>$else$ /* TOWER */\\
+% \>		\>\>a $k$ elemet $dir$ irányból próbálja megkerülni\\
+% \>		\>\>a sebesség nagyon fontos, mivel ha sokan ráakaszkodnak\\
+% \>		\>\>akkor szét fog esni a lánc, ezért: $\frac{0.9}{n+1}$\\
+% \>		\>\>a megengedett maximális sebessége\\
+% 
+% 
+% 
+% \>		\>$if$\=(state(k)=TOWER $\AND$ k=null) $\OR$ serial' $<$ serial\\
+% \>		\>\>k=sender\\
+% \>		\>$else$\\
+% \>		\>\>visszaküld egy $scan\_update$-t\\
+
+\end{tabbing}
+
+
+
+% \begin{tabbing}
+% $scanner\_process\_message(sender,serial',staté)$\\
+% % $\{$\=\\
+%  \=\\
+% \>	ame\=nyiben $scan\_info$-t kapott\\
+% \>		\>$if$\=(state(k)=TOWER $\AND$ k=null) $\OR$ serial' $<$ serial\\
+% \>		\>\>k=sender\\
+% \>		\>$else$\\
+% \>		\>\>visszaküld egy $scan\_update$-t\\
+% \>	$scan\_update\_request$ esetén\\
+% \>\>		visszaküld egy $scan\_update$-t\\
+% % $\}$
+% \end{tabbing}
+% 
+% \begin{tabbing}
+% $scanner\_step()$\\
+% $\{$\=\\
+% \>	$if$ \=k=null $\OR$ pc $\mod R_{scan}$ \\
+% \>		\>véletlenszerûen kiválaszt egy másik robotot($\neq k$) és\\
+% \>		\>elküldi neki egy $scan\_info$-t\\
+% \>	$else$\\
+% \>		\>$if$\=state(k)==SCAN\\
+% \>		\>\>a $k$ elemnek elküldi a $scan\_update\_request$-et\\
+% \>		\>\>és probál $v$ irányon $90\%$ on tartani $k$-t a radaron.\\
+% \>		\>\>(ismer még egy $dir'$-t ami a keresés iránya)\\
+% \>		\>$else$ /* TOWER */\\
+% \>		\>\>a $k$ elemet $dir$ irányból próbálja megkerülni\\
+% \>		\>\>a sebesség nagyon fontos, mivel ha sokan ráakaszkodnak\\
+% \>		\>\>akkor szét fog esni a lánc, ezért: $\frac{0.9}{n+1}$\\
+% \>		\>\>a megengedett maximális sebessége\\
+% $\}$
+% \end{tabbing}
+
+% \xparagraph{$scan\_info$} tartalmazza a robot sorozatszámát és állapotát
+% \xparagraph{$scan\_update\_request$} tartalmazza hogy az utolso idõegységben maximum hanyas indexel kapott $scan\_update\_request$-et melyhez hozzáad egyet $ \TO $ a keresõ robotok száma
+% \xparagraph{$scan\_update$} tartalmazza a legutoljara megismert $v$ irányt és $dir$ kerülési irányt
+
+
+\section{Rugóerõk helyett}
+
+Kezdetben a szimuláció rugóerõket használt, mellyel problémák adódtak - mivel a rugóerõk képesek egy adott ir'anyba túlságosan is nagy erõt kifejteni az additív mivolta miatt ez a jelenség a \ref{fig:spring_power}. ábrán talán szemléletesen látszik.
+% \xparagraph{asd}
+
+
+\begin{figure}[h]
+\vspace{-1em}
+\includegraphics[width=.45\textwidth]{dia/spring_power}
+\vspace{-1em}
+\caption{rugóerõk }
+\label{fig:spring_power}
+\end{figure}
+
+% Ezért a rugóerõk lecserélésekor a következõ céloknak kellett megfelelnie az 
+A helyettesítésére egy olyan olyan középérték kellett keresni ami a a rugóerõhöz hasonlóan egy valamilyen energiaminimumpont felé tendál, viszont nem annyira érzékeny arra hogy a pontok milyen formában helyezkednek el,
+ez a probléma inkább hasonlít egy pontcsoport legjobb belsõ pontjának meghatározásához.
+\FEL{Adott} $n$ pont a síkon $p_i \in \setR^2$, cél meghatározni egy olyan pontot a síkon mely közel azonos távolságra van a pontoktól, azok csoportosulásának ellenére.
+
+\OTLET{súlyozni szeretnénk} de a pontok száma nem kellene hogy nagyon mérvadó legyen,
+súlyozzunk a pontok által kifeszített sokszög éleinek összes pontja alapján a csúcspontok helyett.
+\xparagraph{gavg}
+vegyük a pontokat valamilyen köruljárási irány szerint rendezve, például a az átlagolt pontból nézve (ez az amit megadnának a rugóerõk $0$-ban eltûnõ erõk esetén), ezután konstruálhatunk olyan $f_i(x)$ függvényeket melyek az $i.$ él pontjait végiglátogatják. $f_i(x)=x_{i-1} * x + (1-x)*x_i$.
+Ahova szeretnénk eljutni az a következõ: átlagoljuk az alakzatunk éleinek pontjainak vektorait, ezt úgy tehetjük meg hogy a $f$ függvényünk minden pontját megsúlyozzuk az ottani deriválttal.
+$$ \frac{\int_0^1 f'\|f\|}{\int_0^1 \|f'\|}$$
+
+Némi fejtegetés után a következõ egyszerûsített képlet adódik:
+
+$$ gavg(P) = \frac{\sum_{i=1}^n \vec{x_i} * ( || x_{i-1} - x_i||_2 + || x_{i} - x_{i+1}||_2 ) }{2  \sum_1^n || x_{i} - x_{i-1}||_2 }$$
+
+\MEGJ{Az egyszerûség kedvéért az $x_0$ pont megegyezik az $x_n$-el.}
+\MEGJ{A $P=\{ x_1,x_2 ... x_n \}$ ponthalmaz, például az óramutató járása szerint rendezve.}
+
+% Az így meghatározott pont jelentõsen csökkentette a csúnya 
+
+
+\begin{wrapfigure}{I}{0.15\textwidth}
+% \begin{figure}[h]
+\vspace{-1.5em}
+\includegraphics[width=.15\textwidth]{dia/freedist}
+\vspace{-2em}
+\caption{szabad mozgási tér}
+\vspace{-2em}
+\label{fig:freedist}
+% \end{figure}
+\end{wrapfigure}
+
+\xparagraph{Függetlenül} az alkalmazott középpont meghatározási módszertõl az adott középpont még nem biztosít tervezett távolságot a kiinduló pontoktól. Ezért szükség van a következõ segítõ függvényre:
+\xparagraph{A szabadtávolság (fdist)} azt próbálja meg megbecsülni, hogy mekkora az a távolság amit az adott pont még a távolsági korlátok megsértése nélkül elmozdulhat:
+
+% $$ fdist(q,P,r) = \max(0, (\max_{p\inP}( ||p-q||_2 )-r )/r) $$
+$$ fdist(q,P,r) = \max(0,\frac{r-\max_{p\in P} d(p,q)}{r}) $$
+
+
+
+% Ez a kérdés nagyon hasonlít a következõhöz:
+
+% \xparagraph{Egy nem kipróbált alternatíva} lehetne a következõ is:
+% 	súlyozzuk a pontokat a normál átlagból látszási szögük szerint, vagy az aktuális pontból való látszatuk alapján.
+
+
+\subsection{Gráfcsúcsok - $\TOWER$}
+% a már beállt tornyok feladatai:
+% \begin{itemize}
+% 	\item	a gráf körmentesítése, melyhez segítséget nyújt majd a vezetõ által kiadott idõnkénti szívdobbanás, ha egy elem kiválik mert a jelenléte szükségtelenné vált akkor $\RECON$ állapotba vált
+% 	\item	minimalizálniuk kell a gráfhoz szükséges elemek számát,\\
+% 		minden torony a körülötte elhelyezkedõ tornyok közé akar állni.
+% 	\item	a kommunikációs pont meletti tornyok mérõcsomagokat adnak ki, mely kezdetben $1$-et majd minden toronyon való áthaladáskor egyel növelõdik.
+% 	\item	a heartbeat-nek egyedi azonosítója van melyet minden robot eltárol amikor megkapja,
+% 		ha másodszor is megkapja akkor kiválik a hálózatból.
+% \end{itemize}
+
+% \begin{wrapfigure}{r}{0.15\textwidth}
+% \vspace{-2em}
+% \psfrag{IC}[lt][lt]{\tiny{\IL}}
+% \psfrag{LE}[lb][lb]{\tiny{\LE}}
+% \psfrag{A}[cc][cc]{\tiny{A}}
+% \psfrag{B}[cc][cc]{\tiny{B}}
+% \psfrag{C}[cc][cc]{\tiny{C}}
+% % \psfrag{IC}[lt][lt]{\tiny{\IL}}
+% % \psfrag{LE}[lb][lb]{\tiny{\LE}}
+% \includegraphics[width=.15\textwidth]{dia/three_towers}
+% \end{wrapfigure}
+% 
+% \xparagraph{Három torony probléma:}
+% \sout{
+% 	ha túl közel kerül egymáshoz három torony akkor nem teljesen egyértelmû hogy mit is kellene tenni, ugyanis egy idõ után ha a tornyok válthatnak szomszédokat akkor elõállhatnak olyan  esetek hogy egy toronyra már nincs többé szükség - s újra keresésbe kezdhet.\\
+% A torony váltást a \SI üzenet hatására fogják ellenõrizni a tornyok:\\
+% Az \SI-bõl kiderül hogy egy toronyról van szó, s így az fogadó torony tudja ellenõrizni hogy át-e szeretne cserélni egy kapcsolatot.\\
+% Elõfordulhat hogy $A$ és $C$ egyszerre szeretne váltani ami által egyszerre küldenének \LE-t $B$ irányába, s egy ilyen esemény után a gráfban egyel csökkenne az aktív élek száma, aminek hatására több komponensre eshetne szét, ezért a váltást csak az a torony végezheti el akinek kissebb a sorozatszáma.\\
+% ILYEN MAR NINCS
+% }
+\xparagraph{Optimalizációs módszer}
+Két fázisból áll a fát kifeszítõ taktika:
+\begin{enumerate}
+ \item a tornyok az elõbb bemutatott rugóerõ szerû dolgot felhasználva megkeresi az energiaminimum szintjüket\\
+		ennek hatására egy picit össze kell ugrania a gráfnak
+ \item a legkisebb súlyú csúcstól távolodni probálnak az irány megtartva amíg csak lehet\\
+		a túl kicsi távolságokon álló ``csápok'' betolják a középpontok környékére csúcsokat, aminek hatására a kapcsolódó torony megváltozhat, s esetleg elhagyja egy már fölöslegessé vált torony a gráfot.
+\end{enumerate}
+A gráf optimalizálásának második fázisában minden torony üriti az optimalizáló halmazt($O$).
+Akik kommunikációs pont melett állnak, felveszik azt az $O$ halmazba, és elküldik minden szomszédjuknak a melységüket. Innentõl minden csúcs hasonlóként tesz, de bevárja minden csúcs hogy $d(v)-1$ darab optimalizációs csomagot kapjon, mielõtt továbbküldené azt, igy a fa pontbeli sugarát határozza meg.
+
+
+\xparagraph{A tornyok müködési algoritmusa}
+\begin{tabbing}
+\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\\
+$tower\_step()$\\
+		\>\small{// lo törlés}\\
+ 		\>$if$( $t \equiv 0 (\mod C_{opt})$ )\\
+		\>		\>\small{// optimalizálási távolságok törlése}\\
+		\>		\>\small{// amennyiben az optimalizáló csúcsok között van,}\\
+		\>		\>\small{//	akkor elküld egy \LO -t a szomszédainak($\setK$)}\\
+		\>\small{// üzenet feldolgozás}\\
+		\>$while$ (type,m,r)=fetch\_message()\\
+		\>		\>$switch$(type)\\
+		\>		\>		\>\SUR:\\
+		\>		\>		\>		\>visszaküld egy \SU-t, $d=\frac{p(r)-p}{|p(r)-p|}$-vel\\
+		\>		\>		\>		\>\small{//ebben a körben nem mozdulhat el és nem válhat ki a gráfból}\\
+		\>		\>		\>\IL:\\
+		\>		\>		\>	\>$\mathbb{K}=\mathbb{K}\Union \{r\}$\\
+		\>		\>		\>	\>$lo\_parent=\bot$\\
+% 		\>		\>		\>\HB:\\
+% 		\>		\>		\>		\>$if ( h(r) = h )$\\
+% 		\>		\>		\>		\>\hspace{1em}	\=visszaküld $r$-nek egy \LE-t\\
+% 		\>		\>		\>		\>$else$\\
+% 		\>		\>		\>		\>		\>elküldi $\forall t \in \mathbb{K}\setminus \{r\}$ -nek\\
+% 		\>		\>		\>		\>		\>$h=h(r)$\\
+		\>		\>		\>\LE:\\
+		\>		\>		\>		\>$\mathbb{K}=\mathbb{K}\setminus \{r\}$\\
+		\>		\>		\>\LI:\\
+		\>		\>		\>		\>$if( |\setK|>1 \AND counter>clear\_time \AND d(m.tower,p) < tx\_power \AND rand(2) )$\\
+		\>		\>		\>		\>	\>// lecseréli a küldõt ($r$) az $m.tower$-re\\
+		\>		\>		\>		\>	\>// \LE -t küld  $r$-nek\\
+		\>		\>		\>		\>	\>$\setK=\setK \setminus \{ r \}$\\
+		\>		\>		\>		\>	\>// \IL -t küld  $m.tower$-nek\\
+		\>		\>		\>		\>	\>$\setK=\setK \Union \{m.tower\} $\\
+		\>		\>		\>		\>	\>$counter=0$\\
+		\>		\>		\>\LÖ\\
+		\>		\>		\>		\>$if(r \in \setK \AND lo\_parent = \bot )$\\
+		\>		\>		\>		\>	\>$lo\_parent=k$\\
+		\>		\>		\>		\>	\>//	megtudja a következõket:\\
+		\>		\>		\>		\>	\>melyik szinû mérés tagja (lo\_source\_id)\\
+		\>		\>		\>		\>	\>mekkora az eddig mért leghosszabb él ami $2$ fokszámu csúcsokból áll(lo\_max\_known\_length)\\
+		\>		\>		\>		\>	\>milyen mélyen van a mérésben (lo\_depth)\\
+		\>		\>		\>		\>	\>// amennyiben a fokszáma nagyobb mint $2$, nullázza az aktuális hosszt\\
+		\>		\>		\>		\>	\>// elküldi egy-egy \LO csomagot minden szomszédjának a $r$-t kivéve\\
+		\>		\>		\>\SI:\\
+		\>		\>		\>		\>$if( s(k) = \TOWER \AND$\\
+		\>		\>		\>		\>		\>\hspace{1em}	\=$\AND \exists u\in \mathbb{K} : |p(u)-p|>\alpha|p(r)-p| \AND $\\
+		\>		\>		\>		\>		\>		\>$\AND \SER < \SER(r)) $\\
+		\>		\>		\>		\>		\>elküld $u$-nak egy \LE-t.\\
+		\>		\>		\>		\>		\>elküld $r$-nek egy \IL-t.\\
+		\>		\>		\>		\>		\>$\mathbb{K}=\mathbb{K}\setminus\{u\}\Union\{r\}$\\
+		\>		\>		\>\SI:\\
+		\>		\>		\>		\>$if( type = \TOWER \AND$\\
+		\>		\>		\>		\>	\>	\>$\AND counter>0$\\
+		\>		\>		\>		\>	\>	\>$\AND lo\_parent \neq \bot$\\
+		\>		\>		\>		\>	\>	\>$\AND lo\_source\_id = m.lo\_source\_id$	// ugyanazon szinu mérés\\
+		\>		\>		\>		\>	\>	\>$\AND m.lo\_max\_known\_length < lo\_max\_known\_length $// a küldõ nem kapcsolódik a mi általunk ismert legnehezebb élre	\\
+		\>		\>		\>		\>	\>	\>$\AND m.lo\_depth < lo\_depth$ // közelebb is van a forráshoz\\
+		\>		\>		\>		\>	\>	\>)\\
+		\>		\>		\>		\>	\>$lo\_candidate=r$\\
+		\>		\>		\>\MD:\\
+		\>		\>		\>		\>$O=O\Union \{k\}$\\
+		\>		\>		\>		\>$if( |O| = |\mathbb{K}|-1 )$\\
+		\>		\>		\>		\>		\>kiküldi a tavolságot összegezve a $\mathbb{K}\setminus O$ -nak\\
+		\>\small{// szimulációs lépés}\\
+		\>\HEAD\HEAD\HEAD\HEAD\HEAD{innentol mar nincs rendesen frissitve minden}\\
+		\>$if(|\mathbb{K}| < 2 \AND \neg leader)$\\
+		\>		\>elküldi $\forall t \in \mathbb{K}$ -nak \LE\phantom{x}üzenetet\\
+		\>		\>$s=\RECON$\\
+		\>		\>$return$\\
+		\>$if( in\_prio )$\\
+		\>		\>választ egy $t \in \setK$ elemet, és elküld neki egy \LI-t\\
+		\>		\>melyben egy tetszõleges $t'\in \setK$ -ról tesz említést.\\
+		\>$if( r \equiv C_{recon})$\\
+		\>		\>véletlenszerûen kiválaszt egy másik robotot($\notin \mathbb{K}$) és\\
+		\>		\>elküld neki egy \SI-t\\
+		\>$if( t \equiv 0 \mod  C_{opt} )$\\
+		\>		\>$O=\emptyset$\\
+		\>$if( t \mod  C_{opt} \equiv C_{spring} \AND  (\exists k\in\mathbb{K} : k\in\CP)$\\
+		\>		\>$O=O \Union \{k\}$\\
+		\>		\>elküld egy \MD\phantom{x}csomagot minden toronynak\\
+		\>		\> - kivéve $k$-t.\\
+% 		\>$if( t \mod  C_{opt} < C_{spring} )$\\
+		\>$\V=\frac{1}{|\mathbb{K}|}\sum_{k\in\mathbb{K}}	g(\frac{p(k)-p}{d_r},k\in^?O)$\\
+		\>elmozdul $\V*v_{tower}$ el.
+\end{tabbing}
+\MEGJ	szükséges hogy $C_{opt} - C_{spring}>R$, ha $R$ a gráf sugara.
+
+\xparagraph{A $g(\V,b)$ függvény}  egy $\setR^2 \times\setL \TO \setR^2$ leképzés.\\
+A $b$ logikai értéktõl függõen egy nem lineáris $0$-ba visszahúzó rugóerõt, vagy egy aszimetrikus rugót szimulál, mely a $[0:d_t]$-n lineárisan a $[d_t-1,0]$-n majd a $[d_t:1]$-en a $[0:1]$ intervallumot futja be.\\
+% max((q-0.9)*1/(1-0.9),0)+max(0,1-q)*0.1
+$
+g(\V,b)=\frac{\V}{|\V|}\left\{
+				\begin{array}{lr}
+|\V|^p_g		&			\mbox{ha }b=\false	\\	
+(d_t-1)\max(1-|\V|,0)+	&	\\
+\hspace{2em}+\frac{1}{1-d_t}\max(|\V|-d_t,0)	&	\mbox{ha }b=\true
+\end{array}\right.$\\
+a $p_g\in \setN $ a függvény paramétere, mely a rugó erejét givatott tompítani  a $[0:d_s]$ intervallumban, hogy ne tudja $2-3$ torony letépni egy másikról a kommunikációt biztosító tornyot.
+
+% \begin{enumerate}
+%  \item $b=\false$\\
+% 	
+% \end{enumerate}
+
+
+\MEGJ \sout{az $O$ és $\mathbb{K}$ halmaz melett tulajdonképpen még el kell tárolnia az $O$ halmazba bekerült pontok által megadott távolságot - ez a torony müködésében nem játszik szerepet csak a vezetõváltáshoz lesz rá szükség.}\\
+\MEGJ az említett szám és az $O$ és $\mathbb{K}$ halmazok az egyes tornyokról eltárolt információk - kivéve ha a tárolt pont egy kommunikációs pont, amikor az ezek helyett meg van jelölve (modjuk a távolsága $0$, s az $O$ ürítésénél csak a pozitívakat állitja a program $-1$-re).
+\ALL a már összekapcsolódott tornyok által kifeszitett gráf mindíg fát alkot.
+\BIZ mindig $n-1$ él van a gráfban:\\
+$1.$ az $\INIT$ állapotban megjelenik pontosan egy $\TOWER$ és mivel az élek száma $0$ ezért fennáll a tulajdonság\\
+$2.$ új $c\in\CP$ a meglévõ gráfba való bekapcsolódásakor nem romlik el a tulajdonság, ugyanis csupa $2$ fokszámú csúcs köti össze $c$-t és a már meglévõ fát, melyekbõl pontosan egynek megnövelte a fokszámát.\\
+$3.$ torony váltáskor nem romlik el a tulajdonság:\\
+A három torony problémájának megoldása kizárja hogy egyszerre több torony is megprobálja megszûntetni a kapcsolatot másikakkal míg csak egy új kapcsolatot hoznak létre.\\
+$4.$ torony kiválásakor már vagy $0$ a fokszáma a csúcsnak - ami esetén egyszerre kellett két oldalról \LE-t kapni (amit még nem látok hogy ki lenne-e zárva)\\
+vagy egyre csökken a fokszáma, ami esetén a jelenléte a gráfban fölöslegessé válik.
+
+
+\section{A prioritást adó függvény}
+El akartam kerülni a felesleges kommunikációt a prioritások megállapitására, ezért a sorozatszámból próbáltam egy trükk segitségével elõvarázsolni egy olyan prioritási tulajdonságot, mely egyszerre több egymástól független pontot is enged prioritáshoz jutni.\\
+\DEF	Adott egy $G=(V,E)$ gráf, és egy $\varphi : V \TO \setL$.
+A $\varphi$ egy megengedett priorizálása a csúcsoknak amennyiben:
+% $$ \forall v \in V : \varphi(v) : \nexists u \in V : \varphi(u) \AND (u,v) \in E $$
+$$ \nexists (u,v) \in E : \varphi(v) \AND \varphi(u) $$ %\nexists u \in V : \varphi(u) \AND (u,v) \in E $$
+
+A feladat a következõként fogalmazható meg:\\
+\FEL	Adott egy tetszõleges gráf melynek fokszámára ismerünk felsõ korlátot, s adott $2^s$ felsõ korlát a csúcsainak számára s adottak a $\tau=\{\varphi_1,...,\varphi_n\}$ priorizálások, amennyiben
+$\forall u \in V : \exists i\in[1:n] : \varphi_i(u)$ teljesül tetszõleges $k$ fokszám korlátos gráf esetén melynek legfeljebb $2^s$ csucsa van akkor $\tau$ megoldása a gráf szabad prioritásának\footnote{valahogy kénytelen voltam elnevezni}.
+
+\xparagraph{átgfogalmazás 1.}	Egy szobába $s$ darab izzó van, s bemegy egy ember $k$ darab cetlivel melyekre tetszõlegesen felírhatja hogy fényes vagy sötét. Mi az a legkisebb sorozat mely után biztos hogy teljesültek a feltételek.
+\xparagraph{átgfogalmazás 2.} Adott egy $s$ dimenziós hiperkocka, hány csúcsot kell kiválasztani belóle hogy minden csúcsát lefedjük $s-k$ távolságon belül?
+
+\xparagraph{alternatív feladat} vegyünk egy $l$ hosszu bináris sorozatot, s ennek $s$ hosszú részsorozatait $x_i,..x_{i+s-1}$ - ...
+
+\MEGO a $k=3$ esetre
+vegyünk egy részhalmazát a természetes számoknak legyen ez $S$.
+legyen $l=\ceil{\log_2{\max{S}}}$.
+\begin{align*}
+\forall a,b,c \in S : a\neq b \AND a\neq c : \exists t \in \setN :\\
+\varphi_t^l(a) > \varphi_t^l(b) \AND \varphi_t^l(b) < \varphi_t^l(c) 
+\end{align*}
+
+% \OTLET nezzunk binaris szamokat es figyeljuk meg az elso pontot ahol eloszor különbségek vannak a három sza
+
+a tulajdonságnak megfelelõ függvény:
+
+$\varphi(x,i,l)=\left\{\begin{array}{lr}
+x\Xor (2^i-1)				&	\mbox{ha } i<=l\\
+\varphi(x,i-l,l)\Xor (2^l-1)	&	\mbox{különben}
+\end{array}\right.$\\
+a fenti képletben: $\varphi_t^l(x)=\varphi(x,t,l)$
+\MEGJ	ez kb olyan mintha 1-1 negációs vihar szaladna át a számokon.
+elõször végignegálja elõször csak az elsõt aztán egyre többet, s amikor eléri a végét ugyanígy veszi le is ;)
+
+\BIZ	legyen: $a,b,c \in S$, rendezzük a számokat mondjuk $a>b>c$,
+ebben az állapotban a $c$ a legkisebb ezért az már teljesül is.
+Ha minden számot negálunk akkor a $a<b<c$ is teljesül. $\TO a$-val is kész vagyunk.
+vegyük azt az $i$. bitet melyen eldõlt hogy $b>c$, ezt, és az ennél kisebb helyiértékû biteket negálva már a tulajdonság megfordul. Ezért ez $k=3$-ra megoldás.
+
+\section{optimalizalas}
+
+
+
+\DEF	
+
+optimális gráfban
+\section{tovabb}
+
+
+\subsection{mélységi mérések - súlycsökkentés}
+
+\begin{figure}[h]
+\vspace{-1em}
+\includegraphics[width=.45\textwidth]{dia/depth_opt}
+\label{fig:comm1}
+\vspace{-1em}
+\caption{mélységi javítás}
+\end{figure}
+
+Minden $t_d$ idõnként egy elõre megadott kiválasztó funkció meghatározza a robotok egy csoportját akiktõl távolságot mérhet a többi.
+A méréshez használt csomagok a következõ információkat tartalmazzák:
+\begin{itemize}
+	\item	$l_c$:jelenlegi hossz
+	\item	$l_m$:maximális hossz\\
+	eddigi leghosszabb lánc
+	\item	$l_r$:mélység a kezdeményezõ csúcstól
+	\item	$i_r$:a mélységmérést kezdeményezõ azonosítója\\
+	erre azért van szükség hogy a különbözõ helyekrõl indított mérések ne keveredhessenek össze
+\end{itemize}
+Folyamatában ez a következõképpen zajlik, ha megkapja egy csúcs:
+\begin{itemize}
+	\item	ha már kapott korábban távolságmérõ csomagot akkor figyelmen kivûl hagyja
+	\item	ha a jelenlegi csúcs fokszáma $2$ - vagyis egy egyszerû összekötõ csúcs akkor: $l_c=l_c+1$, s ha ez meghaladja az $l_m$-et is akkor azt is növeli
+	\item	beállitja mélységi szülõnek a küldõt, s továbbküldi minden szomszédjának kivéve a szülõt
+\end{itemize}
+
+A haszna mindennek: ha létezik olyan él amit behúzva a gráfba és törölve a legnehezebb élet egy könnyebbet kapunk, akkor az ábrán látható helyzetben:
+	$$l_m^u + l_{chain} < l_m^v$$
+
+\DEF	Steiner fa:	Adott egy $G=(V,E)$ irányítatlan, összefüggõ gráf, és a terminál pontjainak egy $T$ halmaza ($V$ része), továbbá minden élhez hozzárendelünk egy költséget. Keressünk egy minimális költségû fát, amely az összes $T$-beli pontot tartalmazza.
+
+\DEF	Euklideszi Steiner fa: $T$ a sík pontjait tartalmazza
+
+\MEGJ	Ha egy $G=(V,E)$ Euklideszi Steiner fa egy $T\subset V$-ra tekintve $\IAO \nexists u,v\in V$ melyekkel ha a gráfba behúzzuk az $(u,v)$ élet akkor az ezzel alkotott kör ne lenne a legnehezebb éle a körnek.
+
+\BIZ	
+\FWD \\ha $G$ Steiner fa akkor a legkönnyebb fa ami a benne foglalt pontokat összeköti\\
+\BWD sajnos ez még nem stimmel...120 fok?, $|S|\leq|T|-2$, 
+
+\DEF	kb:egy Steiner fában a belsõ melyben a belsõ csúcsok fokszáma $3$ - azok a szomszédait 120 fokos szögben látják.
+
+\xparagraph{kapcsolatok a steiner fával}
+A rugóerõk melyek használatban vannak az optimalizáció elsõ részében olyanok amiknek a nyugalmi állapota a $0$ távolságon van, ezért a robotok ebben az állapotban az õket körülvevõk által meghatározott síkidom súltpontjába probálnak állni, mert ilyen esetben az az optimális. Ha $2$ szomszédja van akkor egy egyenesre áll velük, ha $3$ szomszédja van akkor a háromszögnek a súlypontjába ami ismert hogy súlypontból az egyes csúcsok $120$ fokot bezáróan látszanak.\\
+
+Reményeim szerint az algoritmus valamilyen közelítéssel egy Steiner fát probál megtalálni. A közelítés mértéke a radartávolsától függhet valamilyen mértékben.
+
+\subsection{kommunikációs minta}
+
+a torony szerepet betöltõ robotok két különbözõ módszerrel üzennek egymásnak -
+ s mivel a kettõ független alkalmazása megtöri az alakuló gráf fa tulajdonságát, ezért a következõ kommunikációs szabályokkal müködnek:
+\begin{itemize}
+	\item	minden robot $3$ idõegységre kap prioritást
+	\item	ha egy csúcs fokszáma egyre csökken - kiválhat a gráfból ha
+		\begin{itemize}
+			\item	van prioriása
+			\item	a lépés $0.$ fázisában
+		\end{itemize}
+	\item	\LI -t csak akkor küldhet egy torony ha
+		\begin{itemize}
+			\item	van prioritása
+			\item	a lépés $0.$ fázisában
+		\end{itemize}
+	\item	\SI -t csak akkor küldhet ha
+		\begin{itemize}
+			\item	van prioritása
+			\item	a lépés $1.$ fázisában
+		\end{itemize}
+\end{itemize}
+% ez a szabályrendsz
+
+\begin{figure}[h]
+\vspace{-1em}
+% \centering
+% \includegraphics[width=.94\textwidth]{dia/fuelpump_slowdown}
+% \hspace{-5em}
+\psfrag{SUBJ}[lt][lt]{`` téma ''}
+\psfrag{LINKI}[lt][lt]{{\LI}}
+\psfrag{SI}[lt][lt]{{\SI}}
+\psfrag{IL}[lt][lt]{{\IL}}
+\psfrag{LE}[lt][lt]{{\LE}}
+\includegraphics[width=.45\textwidth]{dia/comm1_3step}
+\label{fig:comm1}
+\vspace{-2em}
+\caption{$\TOWER$ comm}
+% \includegraphics[width=0.55\textwidth]{fig/scan_repos}
+% \vspace{-5em}
+\end{figure}
+
+Az igy kialakuló kommunikációs minta a mellékelt ábrán látható, melyen a következõk történnek:
+\begin{itemize}
+	\item a $r$ csúcs kiválik a gráfból, s az $1$-es fázisban már keresõvé is válik.
+	\item	a $b$ csúcsnak megvan a prioritása a körre, ezért tájékoztatja $c$-t az $a$ jelü szomszédjáról $|c-a| < d_{r}$
+	\item	az $1.$ fázis kezdetén $c$ eldöntötte hogy kiván élni a lehetõséggel és átveszi $b$-tõl az a csúcsot, ezért bontja a kapcsolatát $b$-vel, és jelzi $a$-nak hogy van egy új szomszédja
+	\item	eközben $b$ elküldi $u$-nak akit lát ugyan, de mivel nem ismeri ezért tájékoztatja arról hogy a legutolsó távolság mérésben mennyire is volt õ távol.
+	\item	a $u$ csúcsnak tetszik az ajánlat - könnyebbé válik a gráf ha õ $b$-vel van összekötve,
+		ezért bontja a kapcsolatát a mélységi szülõjével, és visszajelez $b$-nek hogy helyreálljon a szimmetria
+\end{itemize}
+
+\BIZ	(nem tudom hogy teljesen helyes-e)\\
+Ha ez a kommunikációs minta hibához vezetne, az kétféle képp képzelhetõ el:
+\begin{itemize}
+	\item	két komonensre szakad a gráf
+	\item	kialakul egy kör
+\end{itemize}
+mivel mindkét esetben a $|E|=|V|-1$ feltétel sérül ezért csak a következõt kell belátni:
+Nem fordulhat elõ az hogy két csúcs ugyanarról az élrõl nyilatkozik egymásnak különbözõ döntéseket:
+\begin{itemize}
+	\item 
+	a $0.$ körben csak \LE\ elküldésére kerülhet sor, mely ha a másik oldalról is \LE\ akkor éppen megszünik a gráfunk ami a vezetõ megléte miatt elképzelhetetlen.
+	valamint mivel jelenleg $r$ prioritásban van ezért senki nem nyilatkozik róla \LI\ üzenetben.
+	\item	az $1.$ körben elhangzó üzenetek kizárólag a $b$ csúcs kommunikácio környezetében levõ élekre vonatkozik, ezért biztosan csak maximum egy csúcs fog nyilatkozni két élrõl
+	\item	a $2.$ körben: ha az $1.$ körben történt események miatt változott a felállás az $u$ csúcs számára és már nincs összekötve a mélységi szülõjével akkor figyelmen kivûl kell hagynia az üzenetet (ha többet kap akkor is csak eggyel foglalkozik) és mivel a mélységi szülõjének õ nem lehet szülõje, ezért ott nem lehet üzenet duplazás. Mivel $u$ eddig nem volt összekötve $b$-vel ezért annak a kapcsolatnak a létrehozása semmilyen akadályba nem ütközhet.
+\end{itemize}
+
+
+
+
+% $\varphi(b) < \varphi(a) \AND \varphi(b) < \varphi(c)$
+
+
+
+
+\end{document}
+

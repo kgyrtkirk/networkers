@@ -1,0 +1,116 @@
+
+\subsection{Alternatívák}
+
+
+
+\b{ez a szekció valószinûleg kimarad - mert még mindíg kidolgozás alatt áll --> nem teljes/még nincs alkalmazva, a csúnya erõteres játékot ejti ki}
+
+
+
+
+Rögzítsünk egy $\alpha$ paramétert mely az egyes lépésekben való irányváltoztatás maximuma.\\
+Legyen $\vec{t_{i}^t}$ az $i.$ csúcs $t.$ idõpillanatában használt irányvektora.\\
+A fenti $\alpha$ korlátozás a következõket eredményezi:\\
+$\vec{d_{i}^t}\vec{d_{i}^{t+1}} \le \sin \alpha  $\\
+valamint mivel a szomszédoknak a saját irányvektorát közvetíti ezért igaz lesz a következõ is:\\
+$\vec{d_{i}^t}\vec{d_{i+1}^{t}} \le \sin \alpha  $\\
+$\vec{d_{i}^t}\vec{d_{i-1}^{t}} \le \sin \alpha  $\\
+
+\newpage
+\subsection{A hibázás büntetõfüggvénye}
+
+\begin{wrapfigure}{R}{0.33\textwidth}
+\vspace{-2em}
+\psfrag{EMIN}[lb][lb]{$e_{min}$}
+\psfrag{EMAX}[lb][lb]{$e_{max}$}
+\psfrag{E}[lb][lb]{$e$}
+\psfrag{G}[lt][lt]{$G$}
+\psfrag{S}[lt][lt]{$s$}
+\psfrag{P0}[lt][lt]{$P$}
+\includegraphics[width=.33\textwidth]{dia/scan_errors}
+% \includegraphics[width=.13\textwidth]{dia/scan_merge}
+% \caption{üzenetek keresés közben}
+\vspace{-2em}
+\label{ref:merge}
+\end{wrapfigure}
+
+Amennyiben be lehet vezetni egy olyan büntetõfüggvényt ami akkor kedvez a legjobban a elõrehaladásnak ha az minimális, viszont alacsonyan tartásáért a szomszéd ágens a felelõs akkor az automatikusan életbe fog lépni ha a lánc vége nem tudja tartani a tempót.\\
+Rögzítsünk egy keresõt az origóban, melynek a keresési iránya legyen az $(1,0)$ vektor, így felvehetünk egy $D=(0,s)$ pontot ami az elõnyben részesített pozíció lesz.\\
+
+
+
+asdasddas
+asdasddas
+asdasddas
+asdasddas\\
+asdasddas
+asdasddas
+asdasddas
+asdasddas\\
+asdasddas
+asdasddas
+asdasddas
+asdasddas\\
+asdasddas
+asdasddas
+asdasddas
+asdasddas\\
+asdasddas
+asdasddas
+asdasddas
+
+
+
+\subsection{Legrosszabb eset}
+
+
+\begin{wrapfigure}{L}{0.33\textwidth}
+\vspace{-2em}
+\psfrag{EMIN}[lb][lb]{$e_{min}$}
+\psfrag{EMAX}[lb][lb]{$e_{max}$}
+\psfrag{E}[lb][lb]{$e$}
+\psfrag{G}[lt][lt]{$G$}
+\psfrag{S}[lt][lt]{$s$}
+\psfrag{P0}[lt][lt]{$P$}
+\includegraphics[width=.33\textwidth]{dia/scan_worst_case}
+\vspace{-2em}
+\label{ref:merge}
+\end{wrapfigure}
+
+
+
+%Egy ágens maximálisan $v_{max}$ sebességgel mozoghat ezért
+
+A keresés folyamán a lánc mérete alapján egy csúcs maximum $\frac{k}{l}$ sebességgel mozoghat, ahol $l$ a teljes lánc hossza, és $k$ pedig a szóban forgó robot távolsága a kiindulas'iponttól.
+A fenti mozgató függvénynek ez alapján az alábbiakat kell teljesítenie:
+tegyük fel a legrosszabbat a keresõnk kicsúszott az ismert tõl mért $1$ sugarú körre.
+Vegyük ezt az elemet a $k.$-nak az $l$ hosszú láncban. És tegyük fel azt is hogy a $k-1$ - az ismerõse is kicsúszot, és a lehetõ legrosszabb irányba lép tovább,
+de mivel a $k-1$. csúcs csak maximálisan $\frac{k-1}{l}$ sebességgel mozdulhat el, ezért ha az $f$ függvény $1$ sugarú korén a vektorok tökéletesen befele mutatnának akkor soha nem fordulhatna elõ az hogy egy csúcs leszakad a keresõk közul.\\
+Ennek a tulajdonságnak az ellenõrzésére használható az alábbi módszer:
+	vegyük a következõ függvényt:
+\begin{align*}
+		w_x(x,y)&=-x \\
+		w_y(x,y)&=-y
+\end{align*}
+és amennyiben $\forall (x,y) \in \setR : x^2+y^2 \le 1 : f(x,y)+\frac{w(x,y)}{|w(x,y)|} > 0 $, akkor ez tulajdonság teljesül - és akkor egy megengedett állapotból kiindulva soha nem veszhet el elem.
+
+
+
+Külön-külön vizsgálva az egy pont körüli körmozgást és az egyenes irányba való elmozdulást
+
+
+
+irányvektor:	$\vec{t}$\\
+$\vec{t}$\\
+$ G = P + (0,s) $\\
+$ P=(0,0)$\\
+$ \vec{t}=(1,0) $\\
+$ P'= v_{max} ( \cos\alpha, -\sin\alpha)  $\\
+$ d=|P'-G| < 1$\\
+$ |P'-G|^2 < 1$\\
+% $ v_{max}^2 \cos\alpha^2 + $\\
+$ |(v_{max} \cos\alpha, s+v_{max} \sin\alpha)|^2 < 1 $\\
+$ s^2+2s v_{max}\sin\alpha +v_{max}^2-1 < 0 $\\
+$ s = v_{max}\sin\alpha+\frac{\sqrt{4\sin^2\alpha - 4 (v_{max}^2-1)}}{2}$\\
+$ s = v_{max}\sin\alpha+\sqrt{\sin^2\alpha -  (v_{max}^2-1)}$\\
+$ s = v_{max}\sin\alpha+\sqrt{1+\sin^2\alpha - v_{max}^2}$

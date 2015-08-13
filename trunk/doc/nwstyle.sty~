@@ -1,0 +1,5 @@
+\newcommand{\TOWER}{\widehat{tower}}
+\newcommand{\SWEEP}{\widehat{sweep}}
+\newcommand{\RECON}{\widehat{recon}}
+\newcommand{\INIT}{\widehat{init}}
+\newcommand{\CP}{\complement}

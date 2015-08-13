@@ -1,0 +1,529 @@
+\documentclass[30pt,xcolor=dvipsnames]{beamer}
+\usepackage[latin2]{inputenc}
+\usepackage[magyar]{babel}
+% 
+% % \usepackage{beamerthemesplit}
+% % \usetheme{Warsaw}
+% \useoutertheme{infolines}
+% \usetheme{Rochester}
+% 
+% % 
+% % \documentclass[xcolor=dvipsnames]{beamer} 
+% % \usecolortheme[named=Brown]{structure}
+% \usecolortheme[named=Apricot]{structure} 
+% 
+% 
+% % \usetheme{Rochester} 
+% 
+% 
+% % \usepackage{beamerthemeshadow}
+% \setbeamertemplate{items}[ball] 
+% \setbeamertemplate{navigation symbols}{} 
+% \setbeamertemplate{blocks}[rounded][shadow=true] 
+
+
+\usepackage{movie15}
+\usepackage{ktex}
+\usepackage{color}
+\usepackage{xcolor}
+\usepackage{epsfig} % Pour utiliser la commande \epsfig
+\usepackage{graphicx} % Pour utiliser la commande \includegraphics
+% \usepackage{flashmovie}
+\usepackage{pdftricks}
+\usecolortheme[RGB={100,100,128}]{structure} 
+\useoutertheme{infolines}
+\usetheme[height=7mm]{Rochester} 
+\setbeamertemplate{items}[circle] 
+\setbeamertemplate{blocks}[rounded][shadow=true]
+% \setbeamertemplate{frametitle}[default][colsep=-4bp,rounded=false,shadow=true]
+% \setbeamertemplate{navigation symbols}{} 
+
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{fixltx2e}
+\newtheorem{megj}{Megjegyzés}
+\newtheorem{feladat}{Feladat}
+% \usepackage{subfig}
+% \usepackage{subfloat}
+\usepackage{ulem}
+\usepackage{psfrag}
+\usepackage{wrapfig}
+
+\ifpdf
+\newcommand{\MOVIE}[1]{
+\centering
+% 	\includemovie[autoplay]{}{0.8\textheight}{#1}}
+	\includemovie[autoplay,rate=0.5]{0.6\textwidth}{0.8\textheight}{#1}}
+\else
+\newcommand{\MOVIE}[1]{
+\centering
+	placeholder - #1}
+\fi
+
+
+
+%SET FOOTLINE WITH PAGE NUMBER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\mode<beamer>
+{
+\setbeamertemplate{footline}
+{%
+\leavevmode%
+\hbox{%
+
+\begin{beamercolorbox}[wd=.5\paperwidth,ht=2.5ex,dp=1.125ex,right]{author
+in head/foot}
+\usebeamerfont{title in head/foot}\insertshortauthor\hspace{.3cm}
+\end{beamercolorbox}%
+
+\begin{beamercolorbox}[wd=.45\paperwidth,ht=2.5ex,dp=1.125ex,left]{title in head/foot}
+\usebeamerfont{author in head/foot}\hspace{.3cm}\insertshorttitle
+\end{beamercolorbox}%
+
+\begin{beamercolorbox}[wd=.05\paperwidth,ht=2.5ex,dp=1.125ex,center]{title in head/foot}
+\usebeamerfont{author in head/foot}\insertframenumber/\inserttotalframenumber
+
+% \usebeamerfont{author in head/foot}\insertframenumber/\inserttotalframenumber
+\end{beamercolorbox}%
+}%
+\vskip0pt%
+} %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+}
+
+% \newtheorem*{Theorem*}{}
+% \newtheorem*{Lemma*}{Lemma}
+% \newtheorem*{Corollary*}{Corollary}
+% \newtheorem*{Proposition*}{Proposition}
+% \newtheorem{dx}[theorem]{dx}
+% \newtheorem{dxx}{dxx}
+
+
+% Honnan tudjuk mennyit fogyaszt az autója
+\title[Networkers]{Networkers\\
+Felderítés és alapvetõ hálózat kiépítése raj intelligencia segítségével}
+\author[Nagy Zoltán]{Nagy Zoltán\\\tiny{kirk@rxd.hu}}
+% \usetheme{Warsaw} % ez a prezentáció pl. a Warsaw nev? stílust fogja használni, a theme-k általában 
+% \usetheme{Warsaw} % ez a prezentáció pl. a Warsaw nev? stílust fogja használni, a theme-k általában 
+\begin{document}
+\date{}
+
+
+\begin{frame} % ez a prezentáció címoldala lesz
+\titlepage
+\vspace{-5em}
+\tiny{
+\begin{columns}
+\column{.2\textwidth}
+\centering
+\includegraphics[width=\textwidth]{fig/elte-t}
+\column{.8\textwidth}
+	\begin{tabbing}
+	\hspace{0em}	 \=
+			Konzulens(ek):\=	Dr. Istenes Zoltán, egyetemi docens (ELTE-PSZT)\\
+		\>				\>	istenes@inf.elte.hu\\
+	\\
+		\>				\>	Csikor Levente, doktorandusz (BME-TMIT)\\
+		\>				\>	levente.csikor@tmit.bme.hu
+	\end{tabbing}
+
+\end{columns}
+}
+
+\begin{center}
+% 	2010. december 9.
+	2011. április 18.
+\end{center}
+
+\end{frame}
+
+
+% 2.
+\begin{frame}
+	\frametitle{Motiváció}
+% \begin{columns}[c]
+%  \column{1.5in}
+% 	asd\\
+% asd\\
+% asd
+% \coulmn{1.5in}
+% fsdaf
+% \end{columns}
+
+
+Ad-hoc hálozatok
+\begin{itemize}
+	\item	szenzorhálózatok
+	\item	mesh hálózatok
+	\item	Smart Dust
+	\item	DTN (Delay Tolerant Network)
+	\item	...
+\end{itemize}
+
+% \pause
+% Általánosságban ezek mind..
+% \begin{itemize}
+% 	\item	...mûködnek
+% 	\item	...támaszkodnak valamilyen háttér infrastruktúrára
+% \end{itemize}
+
+\pause
+
+
+% Vajon lehetséges-e ad-hoc halozat
+
+\vspace{2em}
+
+% \large{
+\textbf{
+Mi lenne, ha összekötnénk ezeket egy hálózati infrastruktúrával?}
+% }
+
+
+% Vajon lehetséges-e ilyen hal;ozatokat egy infrastrukturaval osszekotni.\\
+% Vajon lehetséges lenne-e kiegészíteni az ad-hoc hálózatokat ???? hálózati infrastruktúrával
+
+% 	\item	remekül mûködnek
+% 	\item	szeparálódhatnak
+% \end{itemize}
+
+\end{frame}
+
+% 2b
+% 2b
+% 2b
+\begin{frame}
+
+\frametitle{..mit szeretnénk létrehozni?}
+
+% Adott:
+\vspace{2em}
+Adott:
+\begin{columns}[c]
+\column{.7\textwidth}
+\begin{itemize}
+	\item<1->	
+			szétszort pontok (pl:ad-hoc hálózatszegmensek)
+% közötti hálózati szolgáltatást szeretnénk biztosítani
+% szétszórt igény hálózati szolgáltatásra 
+% 	\item<1->	melyek helyzete nem ismert
+	\item<1->	vezetéknélküli kommunikáció
+\end{itemize}
+
+\uncover<2->{
+	Például:
+	\begin{itemize}
+		\item<2->	3 hálózati góc
+		\item<3->	adjunk hozzá néhány új ``csúcsot'' -- ezeken majd valahogy átmennek a csomagok
+		\item<4->	amennyiben egy ilyen topológiává egészítjük ki, az már egy hálózatnak minõsül
+	\end{itemize}
+}
+\vspace{2em}
+
+\column{.3\textwidth}
+% \framebox{
+	\includegraphics<2>[width=.9\textwidth]{dia/problem_p0_rot}
+	\includegraphics<3->[width=.9\textwidth]{dia/problem_p1_rot}
+% 	}
+\end{columns}
+	
+\end{frame}
+
+
+% 4
+% 4
+% 4
+\begin{frame}
+ 	\frametitle{Matematikai megközelítés}
+% 		idõpillanat
+\begin{columns}[c]
+	\column{.7\textwidth}
+		\begin{itemize}[<+->]
+			\item	vegyünk néhány csúcsot
+			\item	a legkönnyebb fa mely összeköti õket...
+%  (felhasználva tetszõleges síkbeli pontot)
+% 					ezek lefedése egy fával amennyiben
+			\item	...az az Euklideszi Steiner fa
+			\item	adjunk hozzá egy új pontot..
+			\item	az új fa erõsen megváltozhat
+% 			\item	
+% 			\item	
+% 			\item	elõre nem ismert helyeken
+% 			\item	vezetéknélküli kommunikáció
+% 			\item	3 különbözõ ugyanazon protokollt használó góc
+% 		\end{itemize}
+% 		ettõl függetlenül
+% 		\begin{itemize}
+% 			\item	praktikus lenne megpróbálni elérni a Steiner fát
+		\end{itemize}
+		\vspace{2em}
+		\hspace{2em}
+		\uncover<+->{
+% 			\item	
+				A kiépiülõ hálózatnak ehhez kell közelítenie!
+		}
+
+	\column{.3\textwidth}
+		\framebox{
+			\includegraphics<1>[width=.9\textwidth]{dia/problem_p2}
+			\includegraphics<2-3>[width=.9\textwidth]{dia/problem_2}
+			\includegraphics<4>[width=.9\textwidth]{dia/problem_2pw}
+			\includegraphics<5->[width=.9\textwidth]{dia/problem_2px}
+	% 	\includegraphics[width=.9\textwidth]{dia/problem_p0}
+		}
+
+\end{columns}
+
+% \begin{columns}[c]
+% 	\column{.3\textwidth}
+% 		\framebox{
+% 			\includegraphics[width=.9\textwidth]{dia/problem_2}
+% 		}
+% 	\column{.7\textwidth}
+% 		\begin{itemize}
+% 			\item	szétszórt igény hálózati szolgáltatásra (ad-hoc csoportok)
+% 			\item	elõre nem ismert helyeken
+% 			\item	vezetéknélküli kommunikáció
+% 			\item	3 különbözõ ugyanazon protokollt használó góc
+% 		\end{itemize}
+% \end{columns}
+
+\end{frame}
+
+
+% 3
+% 3
+% 3
+\begin{frame}
+	\frametitle{Modell}
+\begin{columns}[c]
+\column{.7\textwidth}
+
+	\uncover<1->{
+		Kiszolgálandó kliensek:
+		\begin{itemize}
+			\item	nem ismert a helyzetük
+			\item	megszûnhet, esetleg új igény jelenhet meg
+		\end{itemize}
+	}
+	\uncover<2->{
+		\vspace{1em}
+		NetWorker (Autonóm robotok)
+		\begin{itemize}
+			\item	mozoghatnak
+			\item	korlátozott távolságban kommunikálhatnak
+			\item	raj intelligencia segítségével kooperálnak
+
+	% 		\item	\sout{üzenetekkel kommunikálhatnak}
+		\end{itemize}
+	}
+\column{.3\textwidth}
+	\\
+	\uncover<1->{
+	\includegraphics[width=.9\textwidth]{dia/prez_client}}\\
+	\uncover<2->{
+	\includegraphics[width=.9\textwidth]{dia/prez_nw}}
+\end{columns}
+% 	El szeretném kerülni a központosítását a dolgoknak, ezért a hálózatot ezek a robotok közösen építik majd - a saját megitéléseik alapján -- ezért egyfajta raj intelligencia segítségével próbálom meg megoldani.
+
+		\vspace{1em}
+	\uncover<3->{
+	Miért pont raj intelligencia?
+	\begin{itemize}
+		\item	megköveteli a közremûködést
+		\item	decentralizált
+		\item	lokális információk
+		\item	$\mathcal{O}(1)$ memóriafelhasználást tesz lehetõvé
+		\item	robosztussá tehetõ a hibákkal szemben
+	\end{itemize}
+	}
+
+% 	De valamivel még ki kell egészíteni..
+% 	\begin{itemize}
+% 		\item	..az elõbb én rajzoltam be, néhány kisegítõ egységet vegyünk ebbõl néhányat
+% 		\item	..mondjuk meg nekik hogy mi a feladatuk
+% 		\item	..hagyjuk érvényesülni õket
+% 	\end{itemize}
+% 
+% 
+% 	\begin{itemize}
+% 		\item	korlátozott kommunikációs távolság
+% 		\item	Miért raj intelligencia?
+% 		\begin{itemize}
+% 			\item önállóság
+% 			\item decentralizált
+% 		\end{itemize}
+% 	\end{itemize}
+\end{frame}
+
+
+% 5
+% 5
+% 5
+\begin{frame}[t]
+	\frametitle{egy NetWorker}
+
+% 	(játék)szabályok:
+
+
+\begin{itemize}[<+->]
+	\item	sosem hagyhatják el a rajt
+	\item	több féle szerepet tölthet be minden egyes egység
+\end{itemize}
+
+\begin{columns}[c]
+
+	\column{.48\textwidth}
+		\begin{block}{felderítõként
+\includegraphics[bb=0 0 22 18,width=1em]{pic/node_scan.png}}<+->
+			\begin{minipage}[c][.3\textheight][c]{\linewidth}
+% 			cél:	új kliensek keresése
+			\begin{itemize}
+				\item	új kliensek pontok keresése
+				\item	lánc formáció felvétele a lehetõ legjobb lefedésért
+			\end{itemize}
+			\end{minipage}
+		\end{block}
+	\column{.48\textwidth}
+		\begin{block}{közvetítõként
+\includegraphics[bb=0 0 22 18,width=1em]{pic/node_tower.png}}<+->
+			\begin{minipage}[c][.3\textheight][c]{\linewidth}
+			\begin{itemize}
+				\item	a már létrehozott hálózat karbantartása és fenntartása
+				\item	útmutatás a felderítõknek
+				\item	szükséges közvetítõk számának csökkentése
+% 				\item	a hálózat tulajdonságainak vizsgálata
+			\end{itemize}
+			\end{minipage}
+		\end{block}	
+\end{columns}
+
+
+
+% 		felderítõként
+% 		\begin{itemize}
+% 			\item	igényfeltárás
+% 			\item	nem szakadhat el a többiektõl
+% 		\end{itemize}
+% 		közvetítõként
+% 		\begin{itemize}
+% 			\item	a már létrehozott hálózat karbantartása és fenntartása
+% 		\end{itemize}
+% 
+
+\end{frame}
+
+
+
+% 6
+% 6
+% 6
+\begin{frame}
+
+% \begin{columns}[c]
+% 	\column{.48\textwidth}
+	\centering
+% 
+% 
+% 	\column{.48\textwidth}
+		\includegraphics<+>[height=.5\textheight]{dia/example_1}
+		\includegraphics<+>[height=.5\textheight]{dia/example_2}
+		\includegraphics<+>[height=.5\textheight]{dia/example_3}
+		\includegraphics<+>[height=.5\textheight]{dia/example_4}
+% 		\includegraphics<+>[height=.3\textheight]{dia/example_5}
+		\includegraphics<+>[height=.5\textheight]{dia/example_6}
+		\includegraphics<+>[height=.5\textheight]{dia/example_7}
+
+\vspace{3em}
+		\only<1>{keresõk láncformációban keresgélnek}
+		\only<2>{egyikük talál egy új kliens pontot}
+		\only<3>{közvetítõkké válnak, hogy a kapcsolatot biztosítság}
+		\only<4>{\phantom{közvetítõkké válnak, hogy a kapcsolatot biztosítság}}
+		\only<5>{egyikük elveszíti a közvetítõ szerepét}
+		\only<6>{újra felderítõvé válik}
+
+% \end{columns}
+% 	\frametitle{Felderítõk}
+% 		\begin{itemize}
+% 			\item	formációfelvétel segíthetné a keresést
+% 			\item	~~~a felderítõk elõbb utóbb bekapcsolnak egy új célpontot ``hálózati elem''
+% 			\item	miért nem mehetnek el messzebbre?
+% 		\end{itemize}
+% 
+% 		Egy ilyen formáció a már létezõ hálozatra merõleges ``lánc''.
+% 
+% 
+% 
+% % 		egyszerû szabályok a mûködésükre
+% 		
+% % 		Megpróbáltam a lehetõ legegyszerûbb szabályokat a kezükbe adni
+\end{frame}
+
+% % 7
+% % 7
+% % 7
+% \begin{frame}
+%  	\frametitle{?implementáció?}
+% 		\begin{itemize}
+% 			\item 
+% 		\end{itemize}
+% 
+% \end{frame}
+
+% 8
+% 8
+% 8
+\begin{frame}
+	\frametitle{video}
+\begin{center}
+ 		\MOVIE{video/nw2b.avi}
+\end{center}
+\end{frame}
+
+% 9
+% 9
+% 9
+\begin{frame}
+ 	\frametitle{Összefoglalás}
+
+	Hálózati infrastruktúrával nem rendelkezõ területen kommunikációs hálózat kialakítása.
+
+	\begin{itemize}
+		\item	raj intellegencia bevonásával
+% 		\item	a mesterséges raj célja együttmûködés és keresõ formáció kialakításával
+		\item	minél kevesebb egység felhasználásával
+% 		\item	folyamatosan kapcsolt steiner fához közelítõ hálózatot igyekszik kialaítani
+		\item	Steiner fát
+		
+% 		\item	
+	\end{itemize}
+
+	\begin{block}{Jövõbeni tervek}
+		\begin{itemize}
+			\item	Steiner fa tényleges elérése
+			\item	kliens pontok elmozdulása
+			\item	alternatív felderítési módok
+			\item	networkerek meghibásodásának kezelése
+% 			\item	a kliens pontok optimális lefedése az Euklideszi Steiner-fa probléma egy formája
+% 			\item	hatékonyabb felderítés
+		\end{itemize}
+	\end{block}
+		
+\end{frame}
+
+% 10
+% 10
+% 10
+\begin{frame}
+ 	\frametitle{Köszönöm a figyelmet}
+	\begin{tabbing}
+		e-mail:	\hspace{4em}\=	kirk@rxd.hu\\
+		networkers(svn):	\>	https://demeter.teteny.bme.hu/svn/networkers/trunk
+	\end{tabbing}
+\end{frame}
+
+
+
+
+
+
+\end{document}

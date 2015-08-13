@@ -1,0 +1,114 @@
+%% Redefine the \paragraph command:
+
+
+
+\newcommand{\xparagraph}[2][]{\vspace{1em}\paragraph{\hspace{-0.0em}{#2}}}
+% \newcommand{\xparagraph}[2][]{\paragraph{#2}}}
+% \newcommand{\xsection}[2][]{\section{\hspace{-0.5em}#2}}
+
+\newcommand{\ALL}{\xparagraph{Állítás:}}
+\newcommand{\BIZ}{\xparagraph{Biz:}}
+\newcommand{\FEL}{\xparagraph{Feladat:}}
+\newcommand{\MODEL}{\xparagraph{Model:}}
+\newcommand{\MEGJ}{\paragraph{\textit{{Megjegyzés:}}}}
+% \newcommand{\MEGJ}{\xparagraph{Megjegyzés:}}
+\newcommand{\MEGO}{\xparagraph{Megoldás:}}
+\newcommand{\PELDA}{\xparagraph{Példa:}}
+\newcommand{\START}{\widehat{start}}
+\newcommand{\STOP}{\widehat{stop}}
+\newcommand{\INPUT}{\xparagraph{input}}
+\newcommand{\DEF}{\xparagraph{Definíció}}
+\newcommand{\TETEL}{\xparagraph{Tétel}}
+\newcommand{\OTLET}{\paragraph{O:tlet}}
+\newcommand{\HEAD}{$\blacktriangledown$}
+
+\newcommand{\MISSING}{$\overline{\underline{{{\ast}missing\ast}}}$}
+\newcommand{\Inter}{\bigcap}
+
+% Turing/RAM
+\newcommand{\WORDS}{\Sigma_0^*}
+\newcommand{\SP}{\bigstar}
+% \newcommand{\IF}{\mbox{if }}
+\newcommand{\THEN}{ \mbox{ then } }
+\newcommand{\GOTO}{\mbox{ goto }}
+\newcommand{\AND}{\wedge}
+\newcommand{\OR}{\vee}
+\newcommand{\Xor}{\otimes}
+\newcommand{\true}{\uparrow}
+\newcommand{\false}{\downarrow}
+\newcommand{\IAO}{\Longleftrightarrow}
+\newcommand{\Not}{\urcorner}
+\newcommand{\Union}{\bigcup}
+\newcommand{\ceil}[2][]{\lceil #2 \rceil}
+\newcommand{\floor}[2][]{\lfloor #2 \rfloor}
+\newcommand{\Floor}[2][]{\left\lfloor #2 \right\rfloor}
+\newcommand{\series}[2][]{#2_1,...,#2_n}
+\newcommand{\TO}{\rightarrow}
+\newcommand{\INF}{\infty}
+\newcommand{\CONC}{\Rightarrow}
+
+\newcommand{\FWD}{$\Longrightarrow$}
+\newcommand{\BWD}{$\Longleftarrow$}
+
+\newcommand{\nequiv}{\not\equiv}
+
+\newcounter{rowcolorized}
+
+\newcommand{\ROWCOLOR}{
+  \ifnum\value{rowcolorized}=1
+    \setcounter{rowcolorized}{0}
+  \else
+	\rowcolor{MyDarkBlue}
+    \setcounter{rowcolorized}{1}
+  \fi
+}
+
+
+
+\newcommand{\XFIG}[4]{
+
+\begin{figure}[h!]
+% \begin{figure}[h]
+\vspace{1.5em}
+\centering
+\includegraphics[width=#1\textwidth]{#2}
+\caption{\textit{#4}}
+\vspace{1.5em}
+\label{#3}
+% \end{figure}
+\end{figure}
+}
+
+\newcommand{\XFIGG}[5]{
+
+\begin{figure}[h!]
+% \begin{figure}[h]
+\vspace{-0.5em}
+\centering
+#5
+\includegraphics[width=#1\textwidth]{#2}
+\caption{\textit{#4}}
+\vspace{-0.5em}
+\label{#3}
+% \end{figure}
+\end{figure}
+}
+
+% \newif\ifpdf
+% \ifx\pdfoutput\undefined
+%     \pdffalse          % we are not running PDFLaTeX
+% \else
+%     \pdfoutput=1       % we are running PDFLaTeX
+%     \pdftrue
+% \fi
+% 
+% 
+
+\newcommand{\setR}{\mathbb{R}}
+\newcommand{\setB}{\mathbb{B}}
+\newcommand{\setL}{\mathbb{L}}
+\newcommand{\setK}{\mathbb{K}}
+\newcommand{\setN}{\mathbb{N}}
+\newcommand{\setZ}{\mathbb{Z}}
+\newcommand{\setF}{\mathbb{F}}
+

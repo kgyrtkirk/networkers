@@ -1,0 +1,192 @@
+
+\subsubsection{A hálózatot reprezentáló gráf}
+
+A torony szerepet betöltõ networkerek egy fát próbálnak meg kifeszíteni a klienspontok közé. Ahhoz, hogy a tornyok képesek legyenek csökkenteni a hálózat fenntartásához szükséges robotok számát, ezt a gráfot kell megvizsgálniuk úgy, hogy az egyes networkerek alapvetõ tulajdonságait megismerhessék ennek a gráfnak.
+
+
+% A kiépülõ hálózat alapjául szolgáló gráf módosításához egy pillanatra az egészet kell megvizsgálni, hogy abból lokálisan felhasználható ötleteket nyerjünk.
+% A tornyok által használt üzenetek egy része a gráf bizonyos helyi vagy globális tulajdonságairól ad információt.
+
+\xparagraph{Átmérõmérés}
+
+Nagyon sokat elárul egy ágens számára, ha ismeri, hogy az egyes szomszédai mekkora átmérõjû részét képezik a teljes gráfnak. Ezen információ birtokában képesek lesznek megfeszíteni a gráfot, és ezáltal csökkenteni annak fenn\-tart\-á\-sá\-hoz szükséges ágensek számát.
+
+\DEF{Gráf átmérõje:}	egy gráf átmérõje $k$, amennyiben bármely két pontja között létezik egy legfeljebb $k$ hosszú út.
+
+% Gheorghe Antonoiu és Pradip K. Srimani \cite{SELF_STAB_MST}  önstabilizáló feszítõfa algoritmusa nagyon hasznos írásnak bizonyult. Az alkalmazott változat kis modosításokkal került beépítésre
+
+
+
+A gráf átmérõjét a következõ párhuzamos algoritmus(\cite{PA}) segítségével mér\-het\-jük le($K$ a szomszédok halmaza, $O$ egy kezdetben üres halmaz, valamint $d=0$)
+\begin{enumerate}
+	\item
+		amennyiben $|O|=|K|-1$
+		elküldi $d$-t a $t=O \char`\\ K$ elemnek és a $3$ fázisba lép
+	\item
+		várja, hogy valamelyik szomszédjától $s$ egy $d'$ mérést kapjon\\
+		$d=\max(d,d'+1)$\\
+		$O=O\Union \{s\}$\\
+		ugrás az $1$ pontra
+% 		várja hogy 
+% 		$O=\{\}$\\
+% 		amennyiben a csúcs fokszáma $1$ elküldi az egyetlen szomszédjának hogy a külsõ sugár nála $0$
+	\item 
+		várja, hogy az egyetlen szomszédjától ($t=O \char`\\ K$), akinek elküldte a saját mélységét, üzenetet kapjon $d'$ méréssel \\
+		ekkor a gráf átmérõje: $d'+1+d$\\
+		Ahhoz, hogy mindenki rendelkezzen ezzel az információval, még tovább kell küldenie a $d'+1$-et minden az $O$ halmazban felsorolt szomszédjának.
+\end{enumerate}
+
+A tornyok algoritmusa tartalmazza a fenti módszert, valamint az $O$ halmazt még arra is felhasználja, hogy annak ismeretében tisztában van vele az ágens, hogy a gráf nagyrésze a $t$ csúcs irányában van, ezért ahhoz az elemhez megy közelebb - így a hálozat peremvidékén maximális távolságba kerülhetnek az ágensek.
+% remek!
+
+\subsubsection{Több forrású mélységmérés}
+
+
+A gráf átmérõjének ismerete sokat segít, de sokszor elõfordulhatnak  feleslegesen kialakult bekötõutak, melyek helyett sokkal rövidebbekre is lehetõség lenne.
+
+Az ilyen jellegû hibákon javítani lehet, ha létezik egy olyan rövidebb még fel nem használt él, mely bevételével egy másik él válik a legnehezebbé.
+De ehhez szükséges valamilyen módon súlyozni:
+a két szomszéddal rendelkezõ tornyok igazából nem tekinthetõek belsõ pontoknak, sõt leginkább súlyok, mivel ha kevesebbel is megoldható, akkor azt valamilyen módon figyelembe kell venni. 
+
+Amennyiben véletlenszerûen választanánk egy csúcsot, és attól mérnénk minden csúcs tá\-vol\-sá\-gát, akkor lehetséges javítani az ilyen jellegû hibákon - azonban ha a gráf már viszonylag nagy, akkor ezen csúcs kiválasztása csak a környezetében lévõ hibákon tud segíteni a távolabbiakat nem fedi fel. Ezért egyszerre több csúcsot választok.
+A gráfot tulajdonképpen egyszerre több színnel színezem ki, ezáltal megnövelve az esélyét annak, hogy ezen hibák felfedhetõek legyenek.
+
+% Ahhoz, hogy az ilyeneken javítás történhessen viszont nem elegendõ csupán a gráf mélységére hagyatkozni ezért a gráfot több színnel fogom kiszinezni.
+Válasszunk néhány csúcsot véletlenszerûen, és mérjük meg minden csúcs tá\-vol\-sá\-gát ezektõl a csúcsoktól, valamint tételezzük fel, hogy létezik egy olyan összekapcsolható javítóél, amivel könnyíthetünk a gráfon.
+
+\XFIGG{0.95}{dia/depth_opt}{fig:comm1}{Mélységi javítás}{
+	\psfrag{CP}[cc][cc]{klienspontok}
+	\psfrag{TOWER}[cc][cc]{tornyok}
+	\psfrag{RECON}[rc][rc]{felderítõk}
+	\psfrag{G}[cc][cc]{$G$}
+}
+% \begin{figure}[h]
+% \vspace{-1em}
+% \includegraphics[width=.95\textwidth]{dia/depth_opt}
+% \label{fig:comm1}
+% \vspace{-1em}
+% \caption{mélységi javítás}
+% \end{figure}
+
+A \ref{fig:comm1}. ábrán látható egy olyan mélységmérés, mely esetében a távolságot az $r$ csúcstól mértük és egy javításra van lehetõségünk, ugyanis a felsõ ág $5$ hosszú, melyet elérhetünk egy $3$ hosszúval is. Az ábrán az egyes ágensek mellett feltüntetett értékpárok az $l_c/l_m$
+
+Minden $t_d$ idõnként egy elõre megadott kiválasztó funkció meghatározza a robotok egy csoportját, akiktõl távolságot mér a többi.
+A mérés elvégzése közben az alábbiakat közlik egymással:
+\begin{itemize}
+	\item	$l_c$: jelenlegi hossz\\
+			Láncok hosszát mérjük, és keressük az eddig elõforduló leghosszabbat. Ezt az értéket minden $2$ fokszámú csúcs növeli eggyel, a $3$ fokszámúak pedig $0$-ra állítják
+% zért tudatni kell a szomszéddal, hogy jelenleg hol járunk ezt lépésrõl lépésre növelik eggyel
+	\item	$l_m$: eddigi leghosszabb lánc, amit találtak\\
+			(a leghosszabb lánc legutolsó elemein $l_c=l_m$)
+	\item	$l_r$: mélység a kezdeményezõ csúcstól\\
+			szükséges megszabni az irányát a javításnak, a forráscsúcstól közelebbivel történhet csak javítás
+	\item	$i_r$: a mélységmérést kezdeményezõ pont azonosítója\\
+	erre azért van szükség, hogy a különbözõ helyekrõl indított mérések ne keveredhessenek össze. Tulajdonképpen ez a színe a mérésnek
+\end{itemize}
+Folyamatában ez a következõképpen zajlik, ha ilyen mérést kap egy csúcs, akkor az alábbiak szerint cselekszik:
+\begin{itemize}
+	\item	ha már kapott korábban távolságmérõ csomagot, akkor figyelmen kívül hagyja
+	\item	ha a jelenlegi csúcs fokszáma $2$ - vagyis egy egyszerû összekötõ csúcs -, akkor: $l_c=l_c+1$, s ha ez meghaladja az $l_m$-et is, akkor azt is növeli
+	\item	beállítja mélységi szülõnek a küldõt, és továbbküldi minden szomszédjának, kivéve a szülõt
+\end{itemize}
+
+Tehát, ha létezik olyan él, amit a gráfba behúzva és törölve  a kialakult kör legnehezebb élét egy könnyebbet kapunk, akkor a \ref{fig:comm1}. ábrán látható helyzetben:
+\begin{equation}
+ l_m^u + l_{chain} < l_m^v
+\end{equation}
+feltétel teljesül, így javítás végezhetõ.
+
+\DEF	Steiner-fa:	Adott egy $G=(V,E)$ irányítatlan, összefüggõ gráf, és a terminál pontjainak egy $T$ halmaza ($V$ része), továbbá minden élhez hoz\-zá\-ren\-de\-lünk egy költséget. Keressünk egy minimális költségû fát, amely az összes $T$-beli pontot tartalmazza.
+
+\DEF	euklideszi Steiner-fa: $V$ a sík pontjait tartalmazza
+\DEF	maximum $n-2$ darab Steiner-pontot tartalmaz egy $n$ terminálal rendelkezõ fa
+\DEF	minden Steiner-pont foka $3$ és az egyes élek $120$ fokban indulnak ki belõle.
+
+\newpage
+
+\XFIG{0.5}{dia/problem_p2}{st00}{Terminálisok ($T$)}
+Legyen $T$ a terminális pontok halmaza(\ref{st00}. ábra), melyeket szeretnénk lefedni egy euklideszi Steiner-fával.
+
+Ezen pontokra valamilyen módszer felhasználásával meghatározhatjuk a mini\-má\-lis Steiner-fát ($S_T$), mely lefedi ezen pontokat (\ref{st01}. ábra).
+\XFIG{0.5}{dia/problem_2}{st01}{A $T$-t lefedõ $S_T$ Steiner-fa}
+
+% \MEGJ: ilyen esetekben amennyiben ismert a $T$ halmaz a legjobb általam ismert létezo algoritmus a GeoSteiner algoritmus \cite{} mely lineáris programozás felhasználásával oldja meg a feladatot.
+% az euklideszi Steiner-fa NP-nehézsége miatt ennek meghatározása a $T$ halmaz méretétõl függõen 
+
+Mivel a felvetett  probléma esetében ez a $T$ terminálishalmaz akár meg is változhat idõvel, ezért érdemes megvizsgálni azt, hogy mi történik, ha már ismert egy $T$ terminálishalmaz Steiner-fája, és ez esetlegesen hogyan viszonyul egy olyan $T'$ terminálisokat lefedõ $S_{T'}$ fához, mely az eredeti $T$ terminálishalmaznak egy ponttal való bõvítése.
+\newpage
+
+Ennek a szemléltetéséhez a korábbi fát bõvítem egy új ponttal (\ref{st10}. ábra).
+
+\XFIG{0.5}{dia/problem_2pw}{st10}{Pont hozzáadása}
+
+Amennyiben az így létrejött $T'$ terminálishalmazra újra megkeressük az optimális Steiner-fát, abban az esetben a $T'$-höz tartozó $S_{T'}$ fa erõsen eltérhet a $T$ termináliscsoporthoz tartozó $S_T$ fától.
+
+Ezt illusztrálja a \ref{st11}. ábrán látható kék vonalak, melyek az új fa élei.
+
+\XFIG{0.5}{dia/problem_2px}{st11}{A $T'$-t lefedõ $S_T'$ Steiner-fa}
+
+
+\MEGJ	Az optimális Steiner-fa ilyen módon való keresése igényli a teljes $T$ halmaz ismeretét. Valamint további hátránya, hogy a terminális halmaz esetleges változása esetén a fa erõsen megváltozhat.
+% az optimális megoldás 'ltozása  felvetett probléma megköveteli hogy a $T$ 
+
+\newpage
+% Ezekbõl látszik hogy
+
+Egy olyan módszer segítségével lenne célszerû egy ilyen hálózatot felépíteni, mely megengedi az iteratív bõvítést, és fokozatosan képes közelíteni a Steiner-fa megoldását, anélkül hogy a fa megszakadna.
+
+A Steiner-fa probléma megoldása megközelíthetõ heurisztikus algoritmusok se\-gít\-sé\-gé\-vel, ezek közül kiemelném a Steiner Insertion Heuristic nevû \cite{Dreyer98twoheuristics} algoritmust, mely egy picit módosítva egy Steiner-fa bõvítõvé alakítható át.
+
+\xparagraph{steiner\_insertion(T,E)}
+\begin{enumerate}
+	\item	legkönnyebb feszítõfa megkeresése a $T$-n
+	\item	minden élre, mely terminálisokat köt össze $(t_x,t_y)$-ra:
+	\begin{enumerate}
+		\item	egy olyan $q$ csúcs keresése, mely vagy terminális vagy Steiner-pont,
+			valamint létezik a $(q,t_x)$ él, és ezen élek közül a legkisebb szöget zárja be a $(t_x,t_y)$ éllel.
+		\item	amennyiben a $(q,t_x),(t_x,t_y)$ élek szöge kisebb mint $120$ fok
+		\begin{enumerate}
+			\item	új steiner-pont felvétele ($s$) a $t_x$ pozíciójába
+			\item	élek eltávolítása:
+			\begin{itemize}
+			 		\item	$(q,t_x)$
+					\item	$(t_x,t_y)$
+			\end{itemize}
+			\item	új élek felvétele:
+			\begin{itemize}
+			 		\item	$(s,q)$
+			 		\item	$(s,t_x)$
+					\item	$(s,t_y)$
+			\end{itemize}
+		\end{enumerate}
+		\item	lokális optimalizáció
+	\end{enumerate}
+\end{enumerate}
+
+Alapesetben ez az algoritmus egy közelítést ad a $T$ ponthalmaz Steiner-fával való lefedésére. Amennyiben úgy módosítjuk hogy csak bõvítsen egy korábbi fát, akkor azzal már úgy közelíthetjük az új fát hogy a régit részben megtartjuk.
+
+Egy nagyon nagy elõnye ennek a módszernek hogy amennyiben úgy tekintünk az egyes csúcsokra mint entitások, s az éleket mint szomszédsági kapcsolatokra, akkor a fenti algoritmus bizonyos formában lokális kommunikációkra alapozva kivitelezhetõ az élek mentén.
+
+% \newpage
+% Az euklideszi Steiner-fát tekintve a következõk igazak:
+
+\DEF
+Ha egy $G=(V,E)$ euklideszi Steiner-fa egy $T\subset V$-ra tekintve $\IAO \nexists u,v\in V$ csúcsok, melyek közé élet behúzva a keletkezõ körnek az $(u,v)$ éle könnyebb lenne a kör bármely élénél.
+
+\MEGJ	A többforrású mélységmérés segítségével a networkers algoritmus ilyen élek ellenõrzésével igyekszik csökkenteni a kialakított gráf súlyát.
+% t akkor az ezzel alkotott kör ne lenne a legnehezebb éle a körnek.
+
+% \BIZ	
+% \FWD \\ha $G$ Steiner fa akkor a legkönnyebb fa ami a benne foglalt pontokat összeköti\\
+% \BWD sajnos ez még nem stimmel...120 fok?, $|S|\leq|T|-2$, 
+
+% \DEF	kb:egy Steiner fában a belsõ melyben a belsõ csúcsok fokszáma $3$ - azok a szomszédait 120 fokos szögben látják.
+
+% \xparagraph{Kapcsolatok a Steiner fával}
+% \sout{
+% Amennyiben sikerül a fentiek alapján folyamatosan javítani a hálózaton, úgy bizonyos mértékben megközelíthetõ a pontok Steiner fával való lefedése. Ezt a képességet jelenleg még teljes mértékben nem sikerült beépíteni, amennyiben két torony egymás kommunikációs környezetébe ér elvégzik a meg\-fe\-le\-lõ élek cseréjét. A felderítõkre való kiterjesztését még nem fejeztem be.
+% Steiner fát lehetséges és ajánlott is approximációs algoritmusokkal közelíteni, a fenti módszer kialakításához sokat segít Dreyer és Overton cikke a Steiner-fát közelítõ heurisztikákról (\cite{Dreyer98twoheuristics},).
+% % A tornyok által használt erõk, melyek használatban vannak az optimalizáció elsõ részében olyanok, amiknek a nyugalmi állapota a $0$ távolságon van. Ezért a robotok ebben az állapotban az õket körülvevõk által meghatározott síkidom súlypontjába probálnak állni. Ha $2$ szomszédja van, akkor egy egyenesre áll velük, ha $3$ szomszédja van, akkor a háromszögnek a súlypontjába, ami ismert, hogy súlypontból az egyes csúcsok $120$ fokot bezáróan látszanak.\\
+% % Reményeim szerint az algoritmus valamilyen közelítéssel egy Steiner fát probál megtalálni. A közelítés mértéke a radartávolsától függhet valamilyen mértékben.
+% }
+\newpage

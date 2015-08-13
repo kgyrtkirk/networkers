@@ -1,0 +1,78 @@
+
+\subsubsection{Kommunikációs minta}
+
+Amennyiben a torony szerepet betöltõ robotok üzeneteire nem teszek meg\-kö\-tést, akkor megtörhet a fa jellege a kiépített hálózatnak, ezért a networkerek a kommunikációjukat az alábbi szabályok alapján végzik:
+
+
+% két különbözõ módszerrel üzennek egymásnak,
+% %  mivel a kettõ független alkalmazása megtörné az alakuló gráf fa tulajdonságát. Ezért a következõ kommunikációs szabályokkal mûködnek:
+\begin{itemize}
+	\item	minden robot $3$ idõegységre kap prioritást
+	\item	ha egy csúcs fokszáma $1$-re csökken - kiválhat a gráfból, ha
+% 		\begin{itemize}
+% 			\item	
+van prioritása a lépés $0.$ fázisában.
+% 		\end{itemize}
+	\item	\LI -t csak akkor küldhet egy torony, ha
+% 		\begin{itemize}
+% 			\item	
+van prioritása
+% 			\item	
+a lépés $0.$ fázisában
+% 		\end{itemize}
+	\item	\SI -t csak akkor küldhet, ha
+% 		\begin{itemize}
+% 			\item	
+van prioritása
+% 			\item	
+a lépés $1.$ fázisában
+% 		\end{itemize}
+\end{itemize}
+% ez a szabályrendsz
+
+\begin{figure}[h]
+\vspace{-1em}
+% \centering
+% \includegraphics[width=.94\textwidth]{dia/fuelpump_slowdown}
+% \hspace{-5em}
+\centering
+\psfrag{SUBJ}[lt][lt]{`` téma ''}
+\psfrag{LINKI}[lt][lt]{{\LI}}
+\psfrag{SI}[lt][lt]{{\SI}}
+\psfrag{IL}[lt][lt]{{\IL}}
+\psfrag{LE}[lt][lt]{{\LE}}
+\includegraphics[width=.55\textwidth]{dia/comm1_3step}
+\vspace{-2em}
+\caption{$\TOWER$ comm}
+\label{asd1}
+% \includegraphics[width=0.55\textwidth]{fig/scan_repos}
+% \vspace{-5em}
+\end{figure}
+
+Az így kialakuló kommunikációs minta \ref{asd1}. ábrán látható, melyen a következõk történnek:
+\begin{itemize}
+	\item a $r$ csúcs kiválik a gráfból, s az $1$-es fázisban már keresõvé is válik.
+	\item	a $b$ csúcsnak megvan a prioritása a körre, ezért tájékoztatja $c$-t az $a$ jelû szomszédjáról $|c-a| < d_{r}$
+	\item	az $1.$ fázis kezdetén $c$ eldöntötte, hogy kiván élni a lehetõséggel és átveszi $b$-tõl az $a$ csúcsot, ezért bontja a kapcsolatát $b$-vel és jelzi $a$-nak, hogy van egy új szomszédja
+	\item	eközben $b$ elküldi $u$-nak, akit lát ugyan, de mivel nem ismeri, ezért tájékoztatja arról, hogy a legutolsó távolság mérésben mennyire is volt õ távol.
+	\item	az $u$ csúcsnak tetszik az ajánlat - könnyebbé válik a gráf ha õ $b$-vel van összekötve,
+		ezért bontja a kapcsolatát a mélységi szülõjével, és visszajelez $b$-nek, hogy helyreálljon a szimmetria
+\end{itemize}
+
+\BIZ
+Ha ez a kommunikációs minta hibához vezetne, az kétféleképp képzelhetõ el:
+\begin{itemize}
+	\item	két komponensre szakad a gráf
+	\item	kialakul egy kör
+\end{itemize}
+mivel mindkét esetben a $|E|=|V|-1$ feltétel sérül, ezért csak a következõt kell belátni:
+nem fordulhat elõ az, hogy két csúcs ugyanarról az élrõl nyilatkozik egymásnak különbözõ döntéseket:
+\begin{itemize}
+	\item 
+	a $0.$ körben csak \LE\ elküldésére kerülhet sor, mely ha a másik oldalról is \LE, akkor éppen megszünik a gráfunk, ami a vezetõ megléte miatt elképzelhetetlen.
+	Valamint, mivel jelenleg $r$ prioritásban van, ezért $r$ egyetlen éle sem szünhet meg, ugyanis a szomszédai biztosan nincsenek prioritásban.
+	\item	az $1.$ körben elhangzó üzenetek kizárólag a $b$ csúcs kommunikáció környezetében levõ élekre vonatkozik, ezért biztosan csak maximum egy csúcs fog nyilatkozni két élrõl
+	\item	a $2.$ körben: ha az $1.$ körben történt események miatt változott a felállás az $u$ csúcs számára és már nincs összekötve a mélységi szülõjével, akkor figyelmen kívül kell hagynia az üzenetet (ha többet kap, akkor is csak eggyel foglalkozik), és mivel a mélységi szülõjének õ nem lehet szülõje, ezért ott nem lehet üzenet duplazás. Mivel $u$ eddig nem volt összekötve $b$-vel, ezért annak a kapcsolatnak a létrehozása semmilyen akadályba nem ütközhet.
+\end{itemize}
+
+\newpage

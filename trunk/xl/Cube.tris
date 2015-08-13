@@ -1,0 +1,72 @@
+normal -1.0,  0.0,  0.0
+color 0.333, 0.0, 0.0
+beginPolygon
+vertex -1.0,  1.0, -1.0
+vertex -1.0, -1.0, -1.0
+vertex -1.0,  1.0,  1.0
+end
+beginPolygon
+vertex -1.0, -1.0,  1.0
+vertex -1.0,  1.0,  1.0
+vertex -1.0, -1.0, -1.0
+end
+normal  1.0,  0.0,  0.0
+color 0.667, 0.0, 0.0
+beginPolygon
+vertex  1.0, -1.0, -1.0
+vertex  1.0,  1.0, -1.0
+vertex  1.0, -1.0,  1.0
+end
+beginPolygon
+vertex  1.0,  1.0,  1.0
+vertex  1.0, -1.0,  1.0
+vertex  1.0,  1.0, -1.0
+end
+normal  0.0, -1.0,  0.0
+color 0.0, 0.333, 0.0
+beginPolygon
+vertex  1.0, -1.0, -1.0
+vertex  1.0, -1.0,  1.0
+vertex -1.0, -1.0, -1.0
+end
+beginPolygon
+vertex -1.0, -1.0,  1.0
+vertex -1.0, -1.0, -1.0
+vertex  1.0, -1.0,  1.0
+end
+normal  0.0,  1.0,  0.0
+color 0.0, 0.667, 0.0
+beginPolygon
+vertex -1.0,  1.0, -1.0
+vertex -1.0,  1.0,  1.0
+vertex  1.0,  1.0, -1.0
+end
+beginPolygon
+vertex  1.0,  1.0,  1.0
+vertex  1.0,  1.0, -1.0
+vertex -1.0,  1.0,  1.0
+end
+normal  0.0,  0.0, -1.0
+color 0.0, 0.0, 0.333
+beginPolygon
+vertex  1.0, -1.0, -1.0
+vertex -1.0, -1.0, -1.0
+vertex  1.0,  1.0, -1.0
+end
+beginPolygon
+vertex -1.0,  1.0, -1.0
+vertex  1.0,  1.0, -1.0
+vertex -1.0, -1.0, -1.0
+end
+normal  0.0,  0.0,  1.0
+color 0.0, 0.0, 0.667
+beginPolygon
+vertex -1.0, -1.0,  1.0
+vertex  1.0, -1.0,  1.0
+vertex -1.0,  1.0,  1.0
+end
+beginPolygon
+vertex  1.0,  1.0,  1.0
+vertex -1.0,  1.0,  1.0
+vertex  1.0, -1.0,  1.0
+end

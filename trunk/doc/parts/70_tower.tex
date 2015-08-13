@@ -1,0 +1,168 @@
+\subsection{Gráfcsúcsok - $\TOWER$}
+\label{c_tower}
+
+Azon felderítõk, melyek egy új értékes klienspontot találnak, tornyokká vál\-nak. Ebben az állapotban az ágens feladata néhány szomszédjával
+történõ
+ kapcsolattartás (oly módon, hogy azoknak ne kerüljön hatósugarán kívülre), va\-la\-mint az arra tévedõ felderítõknek való útmutatás.
+
+Minden torony állapotban lévõ robot rendelkezik szomszédai halmazával ($K$). Ez a halmaz mindig tartalmaz legalább egy elemet - amennyiben pontosan egy elemet tartalmaz, akkor az ágens megpróbál leválni, és felderítõként tovább folytatni a kutatást egy új klienspont után.
+
+Ha egy keresõ új csúcsot talál, akkor ennek hatására egy \IL üzenet végigfut a keresõláncon, amíg el nem éri a már meglévõ gráf peremét. Habár ezután az új klienspont hozzá van kapcsolva a már létezõ hálózathoz, de könnyen megeshet, hogy a keresõk elég ügyetlenül találták meg (például a kelleténél sûrûbben álltak fel). Ezért
+mindenképp jó lenne kihasználni a tornyok esetében is azok mobilitási képességét, és megpróbálni csökkenteni a hálózat fenntartásához szükséges ágensek számát, és így egyúttal növelni a keresõk számát.
+
+% A tornyok feladatának összetettsége indokolta hogy olyan 
+
+
+Olyan módszerre van szükség, mely segítségével a tornyok elmozdulhatnak, de meg kell tudni tartaniuk a kapcsolataikat a szomszédos tornyokkal. 
+Az irodalomban több helyen találkoztam a rugóerõkkel (\cite{1208965},\cite{SPR}), mely egy nagyon egyszerû és jól használható módszer.
+
+\subsubsection{Rugóerõk}
+
+
+Közelebbi vizsgálódás során néha anomáliák léptek fel, mely annak volt kö\-szön\-he\-tõ, hogy rugóerõk alkalmazása esetén a \ref{springs}. ábrán látható problémával kell szembesülni. Ugyanis a rugóerõk képesek egy adott irányba túlságosan is nagy erõt kifejteni, amennyiben több pont csoportosul egy másikkal szemben.
+
+
+\XFIG{.4}{dia/spring_power}{springs}{A rugóerõkkel való probléma szemléltetése }
+
+
+
+
+% \begin{figure}[h]
+% \vspace{-1em}
+% \includegraphics[width=.45\textwidth]{dia/spring_power}
+% \vspace{-1em}
+% \caption{rugóerõk }
+% \label{fig:spring_power}
+% \end{figure}
+
+% Ezért a rugóerõk lecserélésekor a következõ céloknak kellett megfelelnie az 
+A helyettesítésére egy olyan módszert kerestem, ami megtartja a rugóerõ pozitív tulajdonságait, de kevésbé érzékeny az \ref{springs}. ábrán látható csoportosulásra. Egy olyan középértéket kellett keresni, ami a rugóerõhöz hasonlóan valamilyen energiaminimum-pont felé tendál, viszont nem annyira érzékeny arra, hogy a pontok milyen formában helyezkednek el.
+Ez a probléma hasonlít egy pontcsoport legjobb belsõ pontjának meghatározásához.
+
+\FEL{Adott} $n$ pont a síkon $p_i \in \setR^2$, cél meghatározni egy olyan pontot, mely közel azonos távolságra van a pontoktól azok csoportosulásától függetlenül.
+
+\MEGJ	A súlypont elég közel áll a probléma megoldásához, csak a pont\-cso\-por\-tot kell jól megválasztani.
+
+
+% \vspace{1em}
+\vspace{1em}
+
+
+Az alapötlet ($gavg$) az, hogy úgy szeretném súlyozni, hogy a pontok száma ne számítson annyira. Ezért a pontok által kifeszített sokszög éleinek összes pontja alapján állapítom meg a középpontot.
+
+\xparagraph{gavg}
+Vegyük a pontokat valamilyen körüljárási irány szerint rendezve, például az átlagolt pontból nézve (ez az amit megadnak a $0$-ban eltûnõ rugóerõk ), ezután konstruálhatunk olyan $f_i(x)$ függvényeket, melyek az $i.$ él pontjait végiglátogatják. $f_i(\lambda)=x_{i-1} * \lambda + (1-\lambda)*x_i$.
+Ahova szeretnénk eljutni az a következõ: átlagoljuk az alakzatunk éleinek pontjainak vektorait, ezt úgy tehetjük meg, hogy  az $f$ függvényünk minden pontját megsúlyozzuk az ottani deriválttal.
+\begin{equation}
+\frac{\int_0^1 \|f'\| f}{\int_0^1 \|f'\|}
+\end{equation}
+
+Némi fejtegetés után a következõ egyszerûsített képlet adódik:
+
+\begin{equation}
+ gavg(P) = \frac{\sum_{i=1}^n \vec{x_i} * ( || x_{i-1} - x_i||_2 + || x_{i} - x_{i+1}||_2 ) }{2  \sum_1^n || x_{i} - x_{i-1}||_2 }
+\end{equation}
+
+
+\MEGJ{Az egyszerûség kedvéért az $x_0$ pont megegyezik az $x_n$-el.}
+\MEGJ{A $P=\{ x_1,x_2 ... x_n \}$ ponthalmaz, például az óramutató járása szerint rendezve.}
+
+% Az így meghatározott pont jelentõsen csökkentette a csúnya 
+
+
+\XFIG{.3}{dia/freedist}{fdist}{Szabad mozgási tér (fdist)}
+
+Függetlenül az alkalmazott középpont meghatározási módszertõl, az adott közép\-pont még nem biztosít tervezett távolságot a kiindulópontoktól. Ezért szükség van a következõ segítõ függvényre:
+\xparagraph{A szabadtávolság (fdist)} Azt adja meg, hogy mekkora az a távolság, amit az adott pont még a távolsági korlátok megsértése nélkül elmozdulhat (\ref{fdist}. ábra):
+
+% $$ fdist(q,P,r) = \max(0, (\max_{p\inP}( ||p-q||_2 )-r )/r) $$
+\begin{equation}
+  fdist(q,P,r) = \max(0,\frac{r-\max_{p\in P} d(p,q)}{r})
+\end{equation}
+
+
+% Ez a kérdés nagyon hasonlít a következõhöz:
+
+% \xparagraph{Egy nem kipróbált alternatíva} lehetne a következõ is:
+% 	súlyozzuk a pontokat a normál átlagból látszási szögük szerint, vagy az aktuális pontból való látszatuk alapján.
+
+
+
+
+% \subsection{Gráfcsúcsok - $\TOWER$}
+% % a már beállt tornyok feladatai:
+% % \begin{itemize}
+% % 	\item	a gráf körmentesítése, melyhez segítséget nyújt majd a vezetõ által kiadott idõnkénti szívdobbanás, ha egy elem kiválik mert a jelenléte szükségtelenné vált akkor $\RECON$ állapotba vált
+% % 	\item	minimalizálniuk kell a gráfhoz szükséges elemek számát,\\
+% % 		minden torony a körülötte elhelyezkedõ tornyok közé akar állni.
+% % 	\item	a kommunikációs pont meletti tornyok mérõcsomagokat adnak ki, mely kezdetben $1$-et majd minden toronyon való áthaladáskor egyel növelõdik.
+% % 	\item	a heartbeat-nek egyedi azonosítója van melyet minden robot eltárol amikor megkapja,
+% % 		ha másodszor is megkapja akkor kiválik a hálózatból.
+% % \end{itemize}
+% 
+% % \begin{wrapfigure}{r}{0.15\textwidth}
+% % \vspace{-2em}
+% % \psfrag{IC}[lt][lt]{\tiny{\IL}}
+% % \psfrag{LE}[lb][lb]{\tiny{\LE}}
+% % \psfrag{A}[cc][cc]{\tiny{A}}
+% % \psfrag{B}[cc][cc]{\tiny{B}}
+% % \psfrag{C}[cc][cc]{\tiny{C}}
+% % % \psfrag{IC}[lt][lt]{\tiny{\IL}}
+% % % \psfrag{LE}[lb][lb]{\tiny{\LE}}
+% % \includegraphics[width=.15\textwidth]{dia/three_towers}
+% % \end{wrapfigure}
+% % 
+% % \xparagraph{Három torony probléma:}
+% % \sout{
+% % 	ha túl közel kerül egymáshoz három torony akkor nem teljesen egyértelmû hogy mit is kellene tenni, ugyanis egy idõ után ha a tornyok válthatnak szomszédokat akkor elõállhatnak olyan  esetek hogy egy toronyra már nincs többé szükség - s újra keresésbe kezdhet.\\
+% % A torony váltást a \SI üzenet hatására fogják ellenõrizni a tornyok:\\
+% % Az \SI-bõl kiderül hogy egy toronyról van szó, s így az fogadó torony tudja ellenõrizni hogy át-e szeretne cserélni egy kapcsolatot.\\
+% % Elõfordulhat hogy $A$ és $C$ egyszerre szeretne váltani ami által egyszerre küldenének \LE-t $B$ irányába, s egy ilyen esemény után a gráfban egyel csökkenne az aktív élek száma, aminek hatására több komponensre eshetne szét, ezért a váltást csak az a torony végezheti el akinek kissebb a sorozatszáma.\\
+% % ILYEN MAR NINCS
+% % }
+
+
+A fenti két ötlet segítségével kifeszítik a gráfot az ágensek és a távolságokat egyenletesen elosztják, úgy ahogy rugóerõk esetében történt volna.
+
+Viszont ennek mellékhatása, hogy két ágens közötti távolság nagyon kicsivé is válhat, ezért szükséges egy másik módszer is, melyek felváltva alkalmazásával a tervezett távolságra kerülnek a csúcsok egymástól.
+
+\xparagraph{Optimalizációs fázisok}
+
+A gráf kifeszítése két alapvetõ fázisból áll:
+\begin{enumerate}
+ \item A tornyok az elõbb bemutatott rugóerõszerû dolgot felhasználva megkeresik az energiaminimum-szintjüket és egyenletes távolságra kerülnek egymástól.
+ \item	A gráf mélységmérésébõl ismertté válik az a szomszéd, mely leginkább a gráf belseje fele van.
+	Amennyiben ehhez a csúcshoz közelebb kerül az ágens, abban az esetben a hálózat széleit feszíti ki.
+\end{enumerate}
+
+
+% \newpage
+% \XFIG{0.7}{dia/tower_stage_opt}{tso}
+\begin{figure}[h!]
+% \begin{figure}[h]
+% \vspace{-1.5em}
+\centering
+\psfrag{KX}[lb][lb]{$\hat{k}$}
+\psfrag{K1}[rt][rt]{$k_1$}
+\psfrag{K2}[lt][lt]{$k_2$}
+\includegraphics[trim=50mm 50mm 50mm 50mm,clip,width=.7\textwidth]{dia/tower_stage_opt}
+% \vspace{-2em}
+
+
+
+\caption{A $\hat{k}$ irányába való ellépés}
+% \vspace{-2em}
+% \caption{rugóerõk }
+% \label{fig:spring_power}
+\label{tso}
+% \end{figure}
+\end{figure}
+
+A \ref{tso}. ábrán látható egy torony, melynek a szomszédai $\hat{k},k_1$ és $k_2$.
+A mélységi mérésbõl ismert, hogy a $\hat{k}$ szomszédján át érhetõ el a hálózat nagyobb része. Az ágens ebben az esetben a $\hat{k},k_1$ és $k_2$ által megengedett maximális elmozulási határok között a $\hat{k}$ szomszéd irányába maximálisan lép el, így rákényszeríti a $k_1$ és $k_2$ csúcsokat, hogy mégjobban megfeszítsék saját szomszédaikat. Sok lépésen keresztül alkalmazva a módszert minden csúcs a tervezett távolságba kerül egymástól.
+
+A gráf optimalizálásának második fázisában minden torony üríti az optimalizáló halmazt($O$).
+Akik kommunikációs pont mellett állnak, felveszik azt az $O$ halmazba, és elküldik minden szomszédjuknak a mélységüket. Innentõl minden csúcs hasonlóként tesz, de bevárja, hogy $d(v)-1$ darab optimalizációs csomagot kapjon, mielõtt továbbküldené azt, meghatározva ezzel a fa pontbeli átmérõjét.
+
+\newpage
+

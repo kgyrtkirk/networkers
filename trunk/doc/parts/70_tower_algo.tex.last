@@ -1,0 +1,142 @@
+\subsubsection{Tornyok mûködése}
+Minden torony mûködése közben nyilvántarja a torony szomszédait egy $K$ halmazban.
+
+
+A lépéseiket a kapott üzenetek feldolgozásával kezdik, a felderítõkhöz hasonlóan ugyanúgy használnak egy véletlen algoritmust az arra járó networkerek tá\-jé\-koz\-ta\-tás\-á\-ra a jelenlegi állapotukról és szerepükrõl egy \SI se\-gít\-ség\-é\-vel. Amennyiben egy torony kap \SI-t egy társától figyelmen kí\-vül hagyja azt.\\
+Amennyiben egy \IL üzenetet kap, abban az esetben valamelyik szom\-széd\-ja felvette õt mint szomszédot, ebben az esetben ennek a csúcsnak is fel kell vennie a konzisztencia megõrzése céljából.\\
+A szomszédos tornyok dönthetnek úgy, hogy megszüntetik a kapcsolatukat ezzel a toronnyal, ekkor egy \LE üzenetet kap - ekkor törölnie kell a $K$ halmazból az üzenet küldõjét a korábban említett okokból.\\
+A tornyok által használt mélységmérõ csomagoknak a már korábban tárgyalt módszer szerint kell tudniuk kezelni a csúcsokat, melyektõl már kaptak \\\MD üzenetet, egy $O$ halmazban nyilván kell tartaniuk és egészen addig nem küldhetnek tovább \MD csomagot, míg az $|O|+1=|K|$ feltétel nem teljesül. Amennyiben $|O|=|K|$ teljesül, a küldõt leszámítva minden szomszédjukat értesíteniük kell a mélység mérés befejezõdésének érdekében.\\
+A helyi kitüntetettséget biztosító prioritás segítségével lehetõség van arra, hogy más tornyokkal úgy kommunikáljon, hogy azok alárendeltek legyenek abban a körben a prioritásban lévõ networker szemszögébõl, ugyanis nem prioritásban lévõ networkereknek tilos kiválnia a gráfból.\\
+A kommunikációs minta szerint $3$ fázist különböztet meg az algoritmus, és egy-egy ilyen $3$ lépésbõl álló sorozatra szereznek a tornyok helyi prioritást. Az elsõ fázisban egy torony nyilatkozhat egy szomszédjáról egy másik szomszédjának a \LI üzenet segítségével, ezáltal lehetõséget adva arra, hogy õt kiegyszerûsíthessék, amennyiben látja a megemlített szomszédot.\\
+A gráf véletlenszerû pontoktól mért távolsága az átmérõméréshez hasonló módon történik, annyi módosítással, hogy visszafele nem jön róla üzenet. Amennyiben egy csúcsnak már van mérés szerinti színe, akkor minden további mérõcsomagot eldob.\\
+A tornyok végül a fent leírt módszerekkel megállapítják, hogy merre és mennyit mozduljanak el.
+% Három fázis
+
+
+% \newpage
+% 
+% \xparagraph{A tornyok mûködési algoritmusa}
+% % \extrasmall
+% \scriptsize 
+% \begin{tabbing}
+% \hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\\
+% $tower\_step()$\\
+% 		\>\small{// lo törlés}\\
+%  		\>$if$( $t \equiv 0 (\mod C_{opt})$ )\\
+% 		\>		\>\small{// optimalizálási távolságok törlése}\\
+% 		\>		\>\small{// amennyiben az optimalizáló csúcsok között van,}\\
+% 		\>		\>\small{//	akkor elküld egy \LO -t a szomszédainak($\setK$)}\\
+% 		\>\small{// üzenet feldolgozás}\\
+% 		\>$while$ (type,m,r)=fetch\_message()\\
+% 		\>		\>$switch$(type)\\
+% 		\>		\>		\>\SUR:\\
+% 		\>		\>		\>		\>visszaküld egy \SU-t, $d=\frac{p(r)-p}{|p(r)-p|}$-vel\\
+% 		\>		\>		\>		\>\small{//ebben a körben nem mozdulhat el és nem válhat ki a gráfból}\\
+% 		\>		\>		\>\IL:\\
+% 		\>		\>		\>	\>$\mathbb{K}=\mathbb{K}\Union \{r\}$\\
+% 		\>		\>		\>	\>$lo\_parent=\bot$\\
+% % 		\>		\>		\>\HB:\\
+% % 		\>		\>		\>		\>$if ( h(r) = h )$\\
+% % 		\>		\>		\>		\>\hspace{1em}	\=visszaküld $r$-nek egy \LE-t\\
+% % 		\>		\>		\>		\>$else$\\
+% % 		\>		\>		\>		\>		\>elküldi $\forall t \in \mathbb{K}\setminus \{r\}$ -nek\\
+% % 		\>		\>		\>		\>		\>$h=h(r)$\\
+% 		\>		\>		\>\LE:\\
+% 		\>		\>		\>		\>$\mathbb{K}=\mathbb{K}\setminus \{r\}$\\
+% 		\>		\>		\>\LI:\\
+% 		\>		\>		\>		\>$if( |\setK|>1 \AND counter>clear\_time \AND d(m.tower,p) < tx\_power \AND rand(2) )$\\
+% 		\>		\>		\>		\>	\>// lecseréli a küldõt ($r$) az $m.tower$-re\\
+% 		\>		\>		\>		\>	\>// \LE -t küld  $r$-nek\\
+% 		\>		\>		\>		\>	\>$\setK=\setK \setminus \{ r \}$\\
+% 		\>		\>		\>		\>	\>// \IL -t küld  $m.tower$-nek\\
+% 		\>		\>		\>		\>	\>$\setK=\setK \Union \{m.tower\} $\\
+% 		\>		\>		\>		\>	\>$counter=0$\\
+% 		\>		\>		\>\LO\\
+% 		\>		\>		\>		\>$if(r \in \setK \AND lo\_parent = \bot )$\\
+% 		\>		\>		\>		\>	\>$lo\_parent=k$\\
+% 		\>		\>		\>		\>	\>//	megtudja a következõket:\\
+% 		\>		\>		\>		\>	\>melyik színû mérés tagja (lo\_source\_id)\\
+% 		\>		\>		\>		\>	\>mekkora az eddig mért leghosszabb él, ami $2$ fokszámú csúcsokból áll(lo\_max\_known\_length)\\
+% 		\>		\>		\>		\>	\>milyen mélyen van a mérésben (lo\_depth)\\
+% 		\>		\>		\>		\>	\>// amennyiben a fokszáma nagyobb mint $2$, nullázza az aktuális hosszt\\
+% 		\>		\>		\>		\>	\>// elküldi egy-egy \LO csomagot minden szomszédjának a $r$-t kivéve\\
+% % 		\>		\>		\>\SI:\\
+% % 		\>		\>		\>		\>$if( s(k) = \TOWER \AND$\\
+% % 		\>		\>		\>		\>		\>\hspace{1em}	\=$\AND \exists u\in \mathbb{K} : |p(u)-p|>\alpha|p(r)-p| \AND $\\
+% % 		\>		\>		\>		\>		\>		\>$\AND \SER < \SER(r)) $\\
+% % 		\>		\>		\>		\>		\>elküld $u$-nak egy \LE-t.\\
+% % 		\>		\>		\>		\>		\>elküld $r$-nek egy \IL-t.\\
+% % 		\>		\>		\>		\>		\>$\mathbb{K}=\mathbb{K}\setminus\{u\}\Union\{r\}$\\
+% % 		\>		\>		\>\SI:\\
+% % 		\>		\>		\>		\>$if( type = \TOWER \AND$\\
+% % 		\>		\>		\>		\>	\>	\>$\AND counter>0$\\
+% % 		\>		\>		\>		\>	\>	\>$\AND lo\_parent \neq \bot$\\
+% % 		\>		\>		\>		\>	\>	\>$\AND lo\_source\_id = m.lo\_source\_id$	// ugyanazon szinu mérés\\
+% % 		\>		\>		\>		\>	\>	\>$\AND m.lo\_max\_known\_length < lo\_max\_known\_length $// a küldõ nem kapcsolódik a mi általunk ismert legnehezebb élre	\\
+% % 		\>		\>		\>		\>	\>	\>$\AND m.lo\_depth < lo\_depth$ // közelebb is van a forráshoz\\
+% % 		\>		\>		\>		\>	\>	\>)\\
+% % 		\>		\>		\>		\>	\>$lo\_candidate=r$\\
+% 		\>		\>		\>\MD:\\
+% 		\>		\>		\>		\>$O=O\Union \{k\}$\\
+% 		\>		\>		\>		\>$if( |O| = |\mathbb{K}|-1 )$\\
+% 		\>		\>		\>		\>		\>kiküldi a távolságot összegezve a $\mathbb{K}\setminus O$ -nak\\
+% 		\>		\>		\>		\>$if( |O| = |\mathbb{K}| )$\\
+% 		\>		\>		\>		\>		\>kiküldi a távolságot minden szomszédjának kivéve a küldõt,\\
+% 		\>		\>		\>		\>		\>a beágyazott gráfmélységmérés itt ér véget ezen csúcs számára\\
+% 		\>\small{// szimulációs lépés}\\
+% % 		\>\HEAD\HEAD\HEAD\HEAD\HEAD{innentol mar nincs rendesen frissitve minden}\\
+% 		\>$if( in\_prio \AND phase = PHASE\_TOWER\_LINK\_INFO )$\\
+% 		\>		\>választ egy $t \in \setK$ elemet, és elküld neki egy \LI-t\\
+% 		\>		\>melyben egy tetszõleges $t'\in \setK$ -ról tesz említést.\\
+% 		\>$if(|\mathbb{K}| < 2 \AND \neg leader \AND \mbox{``nincs tõle függõ keresõ}$\\
+% 		\>		\>$ \AND  phase=PHASE\_TOWER\_RELEASE)$\\
+% 		\>		\>elküldi $\forall t \in \mathbb{K}$ -nak \LE üzenetet\\
+% 		\>		\>$s=\RECON$\\
+% 		\>		\>$return$\\
+% 		\>$if( r \equiv C_{recon})$\\
+% 		\>		\>véletlenszerûen kiválaszt egy másik robotot($\notin \mathbb{K}$) és\\
+% 		\>		\>elküld neki egy \SI-t\\
+% 		\>$if( t \equiv 0 \mod  C_{opt} )$\\
+% 		\>		\>$O=\emptyset$\\
+% 		\>$if( t \mod  C_{opt} \equiv C_{spring} \AND  (\exists k\in\mathbb{K} : k\in\CP)$\\
+% 		\>		\>$O=O \Union \{k\}$\\
+% 		\>		\>elküld egy \MD\phantom{x}csomagot minden toronynak\\
+% 		\>		\> - kivéve $k$-t.\\
+% % 		\>$if( t \mod  C_{opt} < C_{spring} )$\\
+% 		\>
+% % 		\>$\V=\frac{1}{|\mathbb{K}|}\sum_{k\in\mathbb{K}}	g(\frac{p(k)-p}{d_r},k\in^?O)$\\
+% 		elmozdul a fentebb leírtaknak megfelelõen $\frac{1}{|K|}v_{tower}$-el.
+% \end{tabbing}
+% \normalsize
+% % \MEGJ	szükséges hogy $C_{opt} - C_{spring}>R$, ha $R$ a gráf sugara.
+% 
+% % \xparagraph{A $g(\V,b)$ függvény}  egy $\setR^2 \times\setL \TO \setR^2$ leképzés.\\
+% % A $b$ logikai értéktõl függõen egy nem lineáris $0$-ba visszahúzó rugóerõt, vagy egy aszimetrikus rugót szimulál, mely a $[0:d_t]$-n lineárisan a $[d_t-1,0]$-n majd a $[d_t:1]$-en a $[0:1]$ intervallumot futja be.\\
+% % % max((q-0.9)*1/(1-0.9),0)+max(0,1-q)*0.1
+% % $
+% % g(\V,b)=\frac{\V}{|\V|}\left\{
+% % 				\begin{array}{lr}
+% % |\V|^p_g		&			\mbox{ha }b=\false	\\	
+% % (d_t-1)\max(1-|\V|,0)+	&	\\
+% % \hspace{2em}+\frac{1}{1-d_t}\max(|\V|-d_t,0)	&	\mbox{ha }b=\true
+% % \end{array}\right.$\\
+% % a $p_g\in \setN $ a függvény paramétere, mely a rugó erejét givatott tompítani  a $[0:d_s]$ intervallumban, hogy ne tudja $2-3$ torony letépni egy másikról a kommunikációt biztosító tornyot.
+% % 
+% % % \begin{enumerate}
+% % %  \item $b=\false$\\
+% % % 	
+% % % \end{enumerate}
+% % 
+% % 
+% % \MEGJ \sout{az $O$ és $\mathbb{K}$ halmaz melett tulajdonképpen még el kell tárolnia az $O$ halmazba bekerült pontok által megadott távolságot - ez a torony müködésében nem játszik szerepet csak a vezetõváltáshoz lesz rá szükség.}\\
+% \MEGJ Az említett szám és az $O$ és $\mathbb{K}$ halmazok az egyes tornyokról eltárolt információk - kivéve ha a tárolt pont egy kommunikációs pont, amikor az ezek helyett meg van jelölve (mondjuk a távolsága $0$, s az $O$ ürítésénél csak a pozitívakat állítja a program $-1$-re).
+
+\ALL A már összekapcsolódott tornyok által kifeszített gráf mindig fát alkot.
+\BIZ Mindig $n-1$ él van a gráfban:\\
+$1.$ az $\INIT$ állapotban megjelenik pontosan egy $\TOWER$, és mivel az élek száma $0$, ezért fennáll a tulajdonság\\
+$2.$ új $c\in\CP$ a meglévõ gráfba való bekapcsolódásakor nem romlik el a tulajdonság, ugyanis csupa $2$ fokszámú csúcs köti össze $c$-t és a már meglévõ fát, melyekbõl pontosan egynek megnövelte a fokszámát.\\
+$3.$ torony váltáskor nem romlik el a tulajdonság:\\
+kizárt hogy egyszerre több torony is megpróbálja megszüntetni a kapcsolatot szom\-szé\-da\-i\-val, míg csak egy új kapcsolatot hoznak létre, mert a $c$ környezetében csak 1 csúcsnak küld $c$ \LI üzenetet.\\
+$4.$ torony kiválásakor már vagy $0$ a fokszáma a csúcsnak - ami esetén egyszerre kellett két oldalról \LE-t kapni - ezt a lehetõséget a kommunikációs minta zárja majd ki -, vagy egyre csökken a fokszáma, ami esetén a jelenléte a gráfban fölöslegessé válik.
+
+\newpage

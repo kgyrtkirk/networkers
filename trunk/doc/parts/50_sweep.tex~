@@ -1,0 +1,109 @@
+
+\newpage
+\subsection{Pásztázás ($\SWEEP$)}
+\label{c_sweep}
+
+% Kezdetben az algoritmusnak nem volt inicializálási fázisa melynek hatására elég nehézkesen indult el a tényleges mûködése.
+
+A lényegi mûködés eléréséhez elengedhetetlen egy inicializálási fázis. Ez egy elõfelderítési állapotot takar, mely nélkül a hasznos munka beindulásáig sok idõnek kellene eltelnie.
+
+Ennek a késlekedésnek az okáról a felderítõk bemutatása után a  \ref{c_recon_sweep} részben lesz szó.
+
+% \begin{figure}[h]
+% {.33\textwidth}
+
+\XFIG{.33}{dia/sweep_f}{xy}{Tervezett feltöltés}
+% \vspace{-0.5em}
+% \centering
+% \includegraphics[width=.33\textwidth]{dia/sweep_f}
+% % \caption{üzenetek keresés közben}
+% \vspace{-0.5em}
+% \caption{Tervezett feltöltés}
+% % \label{ref:merge}
+% \label{xy}
+% \end{figure}
+
+% \begin{wrapfigure}{R}{.33\textwidth}
+% \vspace{-1em}
+% \includegraphics[width=.33\textwidth]{fig/e1}
+% % \caption{üzenetek keresés közben}
+% \vspace{-2em}
+% \label{ref:merge}
+% \end{wrapfigure}
+
+
+% Ennek a zavaró hibának a kiküszöbölésére egy elõfelderítési állapottal lett kiegészítve ez egy elhagyható kiegészítése az algoritmusnak - hiányában tovább tart mire ``hasznos'' munkát kezdenek végezni.
+
+
+Alap esetben a síkon egy pontból indul mindegyik robot, s mivel minden robot minden másikat lát, ezért a beépített véletlen algoritmus lassan és túl nagy láncot kezdene építeni.
+
+Ezért szükséges egy kezdeti alakzat, melynek megválasztásakor fontos volt, hogy minél hosszabb láncok alakulhassanak majd ki belõle - ha lehet minden irányba. Ennek elérése érdekében én egy 3 levelû legyezõszerû formációt választottam.
+
+\xparagraph{Legyezõ}
+A cél egy olyan $f(s) \TO \setN \times \setN$ függvény meghatározása, mely 
+feltölti a sík $y \ge 0, x < y$ részét sorról-sorra az \ref{xy}. ábrán látható módon.
+Kezdve:
+$$f(0)=[0,1], f(1)=[0,2], f(2)=[1,2], f(3)=[0,3] ...$$
+Tehát a kérdés: \\$f_y(s*(s+1)/2) \approx s$, ha felteszem azt, hogy $n$ lenne az $f_y(s)$ értéke, akkor az alábbiak teljesülnének:
+\begin{align*}
+s&=n*(n+1)/2\\
+0&=n^2+n-2s\\
+n&=(-1+\sqrt{1+8s})/2
+\end{align*}
+% innen, legyen 
+% $$  x(s) = \floor$$
+% 
+% A következõ sorozatra próbáltam rálelni:
+% $$ x(k) = \max\{ l\in \setN : \frac{l*(l+1)}{2} \le k \}$$
+% a teljesitõ funkció:
+% $$ x(k)= \floor{ (\sqrt{1+8k}+1)/2 }$$
+% ennek segítségével megkonstruálható egy olyan funkció
+% mely feltölti a sík $y \ge 0, x \le y$ részét sorról sorra.
+így:
+\begin{align}
+\label{asd}
+f_x(s)&=s-x(s)*(x(s)+1)/2	\\
+\label{asd2}
+f_y(s)&=x(s)
+\end{align}
+
+Mivel minden robot rendelkezik egyedi azonosítóval - , melyet 1-tõl kezdve kapnak meg - így a kialakuló pontok közül nem marad ki egy sem. 
+Azaz a \eqref{asd} és \eqref{asd2} egyenletek sorozatszámra való alkalmazása esetén az \ref{xy}. ábrán látható eredményt kapjuk.
+
+
+% \newpage
+\begin{figure}[h!]
+ % \begin{wrapfigure}{R}{.25\textwidth}
+\vspace{-0.5em}
+\centering
+\psfrag{X1}[lb][lb]{$x_1$}
+\psfrag{X2}[lb][lb]{$x_2$}
+\psfrag{X3}[lb][lb]{$x_3$}
+\psfrag{Y1}[lb][lb]{$y_1$}
+\psfrag{Y2}[lb][lb]{$y_2$}
+\psfrag{Y3}[lb][lb]{$y_3$}
+\includegraphics[width=.35\textwidth]{dia/sweep_hexagon}
+\caption{A legyezõ alapvektorai}
+% \caption{üzenetek keresés közben}
+\vspace{-0.5em}
+\label{hex}
+\end{figure}
+
+A tervezett alakzat eléréséhez még szükség van arra, hogy $3$ részre osszuk a robotokat a sorozatszámuk alapján $s'(x)=s(x) \mod 3$, valamint a formáció felvételéhez $x,y$ irányoknak egy hatszög irányvektorait vegyük a \ref{hex}. ábra szerint. Ezek után már fel tudnak állni a helyükre az ágensek.
+
+% \newpage
+\begin{figure}[h!]
+\vspace{-0.5em}
+\centering
+\includegraphics[width=.35\textwidth]{dia/sweep_start}
+\caption{A pásztázás végeredménye}
+\vspace{-0.5em}
+\label{sst}
+\end{figure}
+
+
+A kialakított struktúra eredményeként a keresõk egy olyan formációt vettek fel, melyben minden elem $1$ sugarú környezetében van a nála $3$-mal kisebb sorozatszámmal rendelkezõ társa. Ez az elem lesz az, amit a keresõ a vezetõjének fog választani, s az így kialakuló kezdeti struktúra a \ref{sst}. ábrán látható.
+
+A pásztázás utolsó lépéseként a networkerek üzenetet küldenek (\SI) minden látható szomszédjuknak és felderítõ állapotba lépnek át. Ezeket az üzeneteket már keresõként értelmezik, majd fel fogják venni a helyes szom\-széd\-ju\-kat mint útmutatót.
+
+\newpage

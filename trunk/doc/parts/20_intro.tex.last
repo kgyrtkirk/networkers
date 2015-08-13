@@ -1,0 +1,113 @@
+
+\section{Bevezetés}
+
+
+
+% Egyre több autonóm alkalmazás jelenik meg napjainkban s ma már nem lepõdik meg az ember azon hogyha egy weboldalon felkínálja a segítségét egy robot vagy azon hogy a tõzsdéknek mára már kidolgozott programozói felülete van algoritmusok számára.
+\hspace{1em}Napjainkban az autonóm rendszerek térhódításának köszönhetõen már fel sem tûnik az embernek a mindennapi internetezés közben, hogy már néhány weboldalon ún. robotok ``próbálják'' hatékonyabbá és kényelmesebbé tenni a böngészést.
+Ugyanakkor a robotikával és autonóm ágensekkel foglalkozó szakirodalomban fellelhetõ írások gyakran már-már egy konkrét feladatot ragadnak meg, s néhány esetben már élesben mûködõ robotokkal is dolgoznak \cite{Labella04self-organisedtask},
+\cite{Parker06experimentswith},\cite{Balch99behavior-basedformation}. 
+A technológia gyors fejlõdésének köszönhetõen az utóbbi években elterjedt ARM processzorok is képesek már autonóm ágensek futtatására, így nem is tûnik olyan távolinak több ágensû alkalmazások megvalósítása ezen - a mobilitásra is képes eszközöket nagymértékben támogató - architektúrákon.
+
+Hálózatok kialakítása és karbantartása az egyik alappillére a mai világ\-unkban zajló kommunikációknak.
+A ma használatban lévõ hálózati elemek nagyrészét szakszerûen és körültekintõen telepítik, de elõfordulhatnak olyan szituációk, 
+amikor ezekre nincs lehetõség, vagy idõ hiányában nem kivitelezhetõ, esetleg környezeti tényezõk akadályozzák. 
+
+Ilyen esetekben elõfordulhat, hogy bizonyos fontosnak megjelölt pontok - pl. városok -  között kell egyfajta hálozati infrastruktúrát létesíteni, azonban a mai világban sokkal reálisabb helyzet lehet egy katasztrófasújtotta területen a men\-tõ\-csa\-pa\-tok\-kal történõ kommunikáció biztosítása egy - a már infrastruktúrával nem rendelkezõ - területen. A vezetéknélküli technológiáknak köszönhetõen lehetõség nyílik ezen problémák valamilyen szintû megoldására. Ebben az irányban már történtek e\-lõ\-re\-lé\-pé\-sek az úgynevezett késleltetés toleráns hálozatok terén\cite{Fall:2003:DNA:863955.863960}\cite{springerlink_x}, melynek lé\-nye\-ge, hogy a kommunikáló felek az üzeneteiket úgy próbálják eljuttatni az egyik pontból a másikba, hogy nagyban támaszkodnak a csomópontok mozgására. A csomópontok tehát - a levelezési rendszerknél már megismert - ``tárol-és-továbbít'' elvet alkalmazzák az üzenetek célbajuttatására. Azonban az ilyen helyzetekben, ahol a legnagyobb ellenség az idõ, ott a legfontosabb a közel 100\%-os megbízhatóság, amit ezek nem képesek biztosítani. 
+Ennek elérése érdekében jobbnak tûnik egy tényleges, de ideiglenes infrastruktúra kiépítése, amelyet a lehetõségekhez képest gyorsan és minimális számú eszközt felhasználva kell(ene) kivitelezni.
+Amennyiben maradandó hálózatot szeretnénk létesíteni a kliensek közé közvetítõ egységek bevetésével, a Steiner-fa problémájának egy változatával találkozunk, melyrõl ismert, hogy NP-teljes.
+% Ez a probléma már tulajdonképpen a gráfelmélet terén már jól ismert Steiner-fa problémával ekvivalens, amelyrõl tudjuk, hogy nagyon nehéz.
+
+Ezen téma sok más külföldi kutatót is foglalkoztat. A több ágens közötti kommunikációból adódó problémák megoldásához Torben Weis és Helge Parzyjegla \cite{SELF_STAB_ROLES} dolgozott ki egy, a szerepkörök kiosztásán alapuló módszert, mely az általam javasolt algoritmus megvalósításában is fontos szerepet játszott. Az ágensek
+közötti optimális távolság megtartásához (Andrew Howard és társai \cite{Howard02mobilesensor}) sikerrel alkalmaztak rugóerõket .
+Yi Zou és Krishnendu Chakrabarty \cite{1208965} szenzor szétszóródási algoritmusa is rugóerõs meggondolásokon alapszik csoport vezetõk bevonásával.
+Sok szenzorhálózat kialakító algoritmus használ fel virtuális erõket a lefedés növeléséhez (\cite{Wang04movement-assistedsensor,1208965}).
+A mobil ágensek mozgásához kapcsolódik Fruchterman és társainak 
+gráfrajzolási módszere is \cite{Fruchterman:1991:GDF:137556.137557}.
+Jól koordinált mozgásra láthatunk példát Zhang és társai munkájában \cite{SELF_STAB_STRUCT}, melyben egy nagyon érdekes problémát oldanak meg: adott egy sokszög, melyet el szeretnénk szállítani, kérdés, hogyan álljanak fel a robotok.
+
+A dolgozatban tárgyalt problémakörhöz a legközelebbi írások(\cite{Howard:2002:ISA:591557.591931,Howard02mobilesensor,Parker06experimentswith,Howard:2002:ISA:591557.591931,SPR}), általában egy zárt környezetet próbálnak meg kitölteni szenzorokkal, és ennek se\-gít\-sé\-gé\-vel kialakítani a hálózatot .
+
+Jelen munka bemutat egy algoritmust (networkers), melynek 
+célja, hogy minél nagyobb hálózatot hozzon létre egy síkon különbözõ fontosnak megjelölt pontok között, külsõ beavatkozás nélkül, folyamatosan adaptálódva a változásokhoz, behatásokhoz.
+Ezen kijelölt pontok lehetnének városok, melyek esetében egyfajta hálózatkiépítésben segíthet, illetve lehetnének sérültek, akiknek így lehetõséget nyújt\-hat a men\-tõ\-csa\-pa\-tok\-kal való kommunikációra.
+A feladat természetébõl adódóan a kezdeti felderítési fázisra is nagy hangsúlyt kell fektetni.
+
+
+A következõ fejezetben bemutatásra kerül a konkrét megoldandó probléma, ez\-u\-tán ismertetem a javasolt networkers algoritmust. Végül következtetéseket vonok le, és kitérek a jövõbeni lehetõségekre.
+
+% A dolgozat további része a következõként van tagolva, elõször
+
+
+% 
+% \HEAD\HEAD\HEAD
+% \HEAD\HEAD\HEAD
+% \HEAD\HEAD\HEAD
+% 
+% 
+% steiner-0:\cite{STEINER1}\\
+% 
+% 
+% Amennyiben szeretnénk minimalizálni a felhasznált energiát egy szenzorhálózat lehelyezésénél akkor bizonyíthatóan létezik egy energia optimális megoldás de sajnos a lefedési idõ helyes de lefedési sebességet \cite{MINIMAL_ENERGY_SENSOR_DEPLOYMENT}\\
+% 
+% 
+% 
+% A Steiner-fával való kapcsolat észrevétele után néhány heurisztikus algoritmus áttekintése rámutatott arra hogy mire? \cite{Dreyer98twoheuristics}
+% 
+% 
+% steiner-fa algoritmusok \cite{Zachariasen98algorithmsfor}
+% 
+% 
+% Egy formáció fenntartásának nehézségének 
+% Behavior-based Formation Control for Multi-robot Teams
+% autok/etc
+% \cite{Balch99behavior-basedformation}\\
+% 
+% 
+% Local Spreading Algorithms for Autonomous Robot
+% Systems   !!! 1D fun!!! \cite{Cohen07localspreading}
+
+% 
+% An Incremental Self-Deployment Algorithm for Mobile Sensor
+% Networks\cite{Howard:2002:ISA:591557.591931}
+
+% \newpage
+
+% 
+% 
+% \HEAD\HEAD
+% 
+% A feladat megoldásához azonos felépítésû autonóm hálózati eszközök állnak rendelkezésre, melyek egy adott sugáron belül megbízhatóan tudnak kommunikálni. Helyváltoztatásra képesek, de az elérhetõ maximális sebesség korlátozott.
+% 
+% \sout{Az algoritmus megtervezésekor elsõdlegesen a raj intelligencia bevonása volt a cél, ugyanis ilyen esetekben elõfordulhat, hogy nem csak egy mentõcsapat van, s így az irányítás megkötésétõl való szabadulás a mûködésben sokat segíthet - ezáltal robosztusabbá válhat a rendszer, ugyanis a legfontosabb célja az egyes elemeknek a szoros összetartás a cél elérése érdekében.}
+% 
+% % Más szemszögbõl vizsgálva a feladatot egy kis 
+% 
+% 
+% \newpage
+% \xparagraph{Használt jelölések --- ne legyen ilyen?}
+% 
+% \begin{tabbing}
+% $\CP$\hspace{3em}\=Kliens pontok halmaza\\
+% $s(x)$\>az $x$ robot állapotát adja meg $\{\RECON , \TOWER, \SWEEP \}$	\\
+% $p(x)$\>az $x$ robot pozícióját adja meg\\
+% $v(x)$\>az $x$ robot által megadott irányvektor(2d irányvektor)\\
+% $\Gamma(x)$\>az $x$ robot sorozatszáma\\
+% % $d(x)$\>az $x$ robot által megadott körbejárási irány ${left,right}$\\
+% $t(m)$\>az $m$ üzenet típusát adja meg\\
+% $d_r$\>a radar hatótávolsága	-- a világhoz mértékegységében \footnote{at lehetne irni ugy hogy ez egyseg meretu, akkor sokminden egyszerusodik}	\\
+% $d_t$\>tervezett toronytávolság -- $d_t \in[0:1]$  \\
+% $d_s$\>keresési távolság -- $d_s \in[0:1]$ \\
+% $\alpha$		\>tornyonváltási arányszám mely: $\alpha=1+\epsilon : \epsilon > 0$\\
+% $C_{recon}$	\>környezet felderítési idõ	$\approx 16$\\
+% $C_{opt}$		\>optimalizálási ciklus hossza $\approx 2n$\\
+% $C_{spring}$	\>kifeszítés idõtartama $\approx n$\\
+% % $C_{q}$\>egy rögzített $q$-hoz kapcsolódó állandó ($\in \mathbb{N}$)\\
+% $\mathbb{K}$\>	halmaz - a kapcsolatban lévõ tornyokat jelöli\\
+% $O$	\>		halmaz - az optimalizálandó csúcsok halmaza
+% \end{tabbing}
+% \MEGJ Az éppen szóban forgó robot pozíciója, állapotát, sorozatszámát paraméter nélkül:
+% 	$p$,$s$ valamint $\Gamma$-val jelölöm.
+
+
+\newpage

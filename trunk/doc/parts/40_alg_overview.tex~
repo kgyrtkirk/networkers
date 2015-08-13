@@ -1,0 +1,111 @@
+
+\section{Networkers algoritmus}
+
+Úgy próbáltam megoldani a feladatot, hogy a kialakuló algoritmus tovább\-fejleszt\-hetõ lehessen. Az egyik távoli cél, hogy a hálózat kiépítésében résztvevõ networkerek esetleges meghibásodási hibáival szembe tudjon majd szállni. Ennek a célkitûzésnek eléréséhez az egyes networkerek autonóm egységekként önálló döntéseket hoznak és rajként próbálják megoldani együtt a problémát - ez a hosszú távú cél megkönnyíti, de sok helyen megnehezíti az algoritmus kidolgozását.
+
+% Az algoritmus megtervezésekor elsõdlegesen a raj intelligencia bevonása volt a cél, ugyanis elõfordulhat, az irányítás megkötésétõl való szabadulás a mûködésben sokat segíthet - ezáltal robosztusabbá válhat a rendszer, mivel a legfontosabb az egyes elemek szoros összetartása a közös cél elérése érdekében.
+
+% \HEAD
+% Minden igyekezet ellenére az algoritmus végül annyira sok kicsi építõkõbõl épült fel hogy nem férne el kényelmesen egy oldalon. Ezért az áttekinthetõség megtartása miatt minden egyes részt külön-külön vizsgálunk meg.
+
+\subsection{Áttekintés}
+
+Mielõtt még mélyebben szó lenne a konkrét megoldó algoritmusról, elõször fontos, hogy az olvasó egy vázlatos képet kapjon róla általánosságban.
+
+Az algoritmus több szerepkörben tekint az egyes networkerekre, a kü\-lön\-bö\-zõ szerepkört betöltõ networkerek együttmûködve segítik egymást. Az egyes networkerek a szerepük szerint más-más céllal cselekszenek:
+
+% \sout{Minden egyes networker több feladat ellátására képes az hogy éppen hogyan viselkedik az állapotától függ.}
+
+\xparagraph{Pásztázó:}
+Az algoritmus indulását megnehezíti az egy pontból való indulás. A kezdeti zsúfolt helyzetet a pásztázók oldják fel egy formációval, melyrõl a \ref{c_sweep} fejezetben lesz szó.
+A pásztázók feladata megszüntetni azt, hogy egy-egy networker látótávolságában ne legyen túl sok társuk.
+% \sout{Az algoritmus indulásakor felvett állapot a zûrzavar elkerûlése érdekében. Az algoritmus indulásakor ha azonnal keresõk jelennek meg akkor a $2$-es elemnek nem létezik vezetõje, de minden más keresõ számára a ráépített lánc megfelel a szabályoknak. De a $2$ csak akkor válik hasznos felderítõvé, ha az $1$-es toronytól üzenetet kap, hogy az már egy torony; ennek pedig $\frac{1}{n}$ a valószínûsége.}
+
+\xparagraph{Felderítõk:} Feladatuk, hogy láncokba fejlõdve új klienspontokat kapcsoljanak az épülõ há\-ló\-zat\-hoz. A felderítõk mûködésérõl a \ref{c_recon} fejezetben lesz szó.
+
+\xparagraph{Torony:} A toronyként viselkedõ robotok a hálózat infrastruktúráját biztosítják. Jelentõsen nem változtatják meg a helyzetüket, javarészt a hálózat életben\-tartásához szükséges robotszámot próbálják csökkenteni.
+
+\xparagraph{További mindig teljesülõ tulajdonságok:}
+\begin{itemize}
+	\item mindig létezik legalább egy torony állapotú robot, s ezáltal mindig létezik az a gráf, melyet a torony állapotú robotok feszítenek.
+	\item	nem szakadhat le egy ágens sem
+\end{itemize}
+
+\hspace{-1em}Minden körben három fõ mûveletet végeznek el az egyes ágensek:
+\begin{enumerate}
+	\item	üzenetek feldolgozása
+	\item	döntés az állapotváltásról
+	\item	elmozdulás
+\end{enumerate}
+
+
+\newpage
+
+\subsubsection{Üzenetek}
+
+Az egyes robotok a betöltött szerepüknek megfelelõen különbözõ üzeneteket hasz\-nál\-nak az egymással történõ kommunikációhoz, melyek típustól függetlenül a következõ idõpillanatra érnek el a feladótól a címzettig.
+
+% Az algoritmus több típusú üzenetet használ a kommunikációkhoz - ezen üzenetek mindig csak a következõ idõpillanatra érnek el a címzetthez.
+
+Az üzeneteket egységesen dõlt betûkkel és felülvonalással jelölöm.
+
+\begin{itemize}
+	\item{\SI :}	az algoritmus tartalmaz egy véletlenen alapuló üzenetküldést, mely lehetõvé teszi a fogadó számára, hogy tudomást szerezzen valamely szomszédja azonosítójáról és állapotáról.\\
+	\item{\IL :}
+		Két ágens közötti kommunikációs él kialakításához szük\-sé\-ges üzenet. Az ilyen élek mindkét végpontja torony szerepet tölt be legkésõbb ezen üzenet fogadása után.
+% amennyiben szükséges hogy két ágens között egy kommunikációs él jöjjön létre azt ezzel az üzenettel jelzik egymásnak.
+
+% 	A szóbanforgó él a feladó ~ küldõ közötti.\\
+
+	\item{\SUR :}	a felderítõ robotoknak mindig van egy ``ismerõse '', akihez mérten a láncformációt fel szeretné venni - de ehhez szüksége van a formáció irányvektorára, ami idõközben változhat, ezért minden körben megkérdezi.
+	\\
+	\item{\SU :}	a felderítésben résztvevõ ágensek minden körben tá\-jé\-koz\-tat\-ják a szomszédjukat a jelenleg alkalmazott keresési irányról - ezt az üzenetet csak válaszként kaphatja egy robot a \SUR -re.\\
+	\item{\LE :}
+		Az elõbbi üzenet hatására kialakított kommunikációs élek meg\-szün\-te\-té\-sé\-hez szükséges.
+% ha egy ágens úgygondolja hogy egy kommunikációs élre már nincs szükség ezzel az üzenettel jelzi az él megszûntetését a szomszédnak.
+
+	Ahogy az \IL üzenetnél, itt is a feladó-küldõ élrõl történik nyilatkozás.
+
+	\item{\MD :}	a gráf maximális átmérõjét méri
+
+	\item{\LO :}	beágyazásra került egy véletlen többforrású gráf\-mély\-ség\-mé\-rés - ezt az üzenettípust külön fejezetben tárgyalom
+
+\end{itemize}
+
+
+\newpage
+
+% \subsection{Klienspontok}
+\subsubsection{Elvárások a klienspontoktól}
+
+Mivel az algoritmusnak megvan a maga menete, ezért a kli\-ens\-pon\-tok\-tól is megkövetel egy bizonyos szintû protokollt,
+mely a következõképp fogalmaz\-ható meg:
+amennyiben egy összekötõvel nem rendelkezõ klienspont \SI \phantom{x} üzenetet kap, azt egy \IL üzenettel nyugtáznia kell.
+% hogyha egy \SI üzenet kap akkor ha még nincs összekötõje akkor nyugtáznia kell a kérést egy
+%  \IL üzenet visszaküldésével.
+Emellett, ha már létezik összekötõje, de az távolabb van, mint a kérdezõ, akkor azt a megfelelõ üzenetekkel cserélje le a közelebb lévõre.
+
+
+% \XFIG{.33}{dia/problem_2pw}{xy}{Tervezett feltöltés}
+% \XFIG{.33}{dia/problem_2px}{xy}{Tervezett feltöltés}
+
+
+\subsubsection{Indulás}
+Minden egység keresõ($\RECON$) és továbbító($\TOWER$), ezt az aktuális állapota határozza meg.
+Mindemellett egy kezdeti($\INIT$) állapottal, valamint egy szét\-szóró\-dási fá\-zis\-sal($\SWEEP$) is rendelkeznek.
+
+A kezdeti állapotban minden ágens a szétszóródásra készül fel, kivéve az $1$-es sorszámú robotot, amely azonnal toronnyá válik.
+
+Az $1$-es ágens toronnyá válása kötelezõ, mert az algoritmus csak a már meglévõ gráfot bõvíti az összefüggõség biztos megõrzése érdekében.
+
+
+% \subsubsection{Az algor
+
+% \subsubsection{Az algoritmus kialakításához felhasznált
+
+
+% _____
+
+
+
+

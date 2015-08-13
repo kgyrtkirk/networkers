@@ -1,0 +1,37 @@
+\section{Összefoglalás}
+
+Jelen munka bemutatott egy olyan módszert, mely képes egy inf\-ra\-struktúra\-men\-tes területen külsõ beavatkozás nélkül az esetlegesen felmerülõ ig\-ény\-ek\-et felderíteni, hálozatba kapcsolni, és esetleges megszûnésükkor új\-ra\-cso\-por\-to\-sít\-ani az erõforrásait. A Networkers algoritmusban használt két szerepkör elég\-nek bizonyult egy szimulált környezetben való hálózat kiépíthetõségének vizs\-gá\-la\-tá\-ra.
+
+A kezdetben egy bolyból induló networkerek képesek viszonylag gyorsan megkezdeni az aktív hálózatkiépítést a kezdeti pásztázási fázis után. Ezután a felderítõk egyre nagyobb láncokba szervezõdve próbálnak meg egyre távolabbi pontokat a hálózatba bekapcsolni, míg a tornyok a hálózat fenntartásához szükséges egységek csökkentésére koncentrálnak.
+
+Az algoritmusnak készült egy implementációja, mely segítségével az elméleti megoldások helyességét egy szimulált környezetben teszteletem.
+A meg\-va\-ló\-sí\-tott programban jól követhetõ, ahogyan a sok száz ágens párhuzamosan döntéseket hoz és követik a változó igényeket a síkon, mely a felépített hálózatot folyamatos változásokra készteti.
+
+% Így derült fény olyan problémákra melyeket
+A sikeres problémamegoldás mellett azonban van néhány hátránya is a jelenlegi változatnak, ugyanis az algoritmus kialakításakor egyáltalán nem vettem figyelembe annak energiafelhasználását. Így a felderítõk fáradhatatlanul kutatnak új kliens pont után. Amennyiben a kliens pontok nem szûnnek meg és nem jelennek meg újak, tanácsos lenne ezt a tevékenységüket felfüggeszteni. Mindemellett a Steiner-fa kialakítását még nem sikerült teljesen elérni.
+
+% Az algoritmusban kidolgozása közben felmerülõ problémák megoldása több terület ismeretét igényli, ezért a kidolgozása 
+% elkészítése által választ adtam arra a kérdésre miszerint: ``Lehet-e elosztottan, csupán lokális információkra hagyatkozva hálózatot építeni?'' Igen, lehetséges.
+
+Ha még most azonnal nem is, de az algoritmus késõbbi változata már képes lehet majd helytállni a valódi világban és hálózatot építeni külsõ beavatkozás nélkül. Ennek a legnagyobb hasznát olyan helyen vennénk, ahova nem tudunk eljutni, vagy a hálózat kiépítésének annyira gyorsan kell követnie a változásokat, hogy egyáltalán nem éri meg kiépíteni. Elképzelhetõnek tartom, hogy a kliens pontok úgyszintén autonóm robotok, amik szabadon járják a területet, a networkerek feladata pedig, hogy folyamatosan kapcsolatban tartsák õket egymással.
+% A networkerek elképzelésem szerint apró helikopterek lennének valamilyen wireless eszközzel felszerelve.
+
+% Az algoritmust igyekeztem úgy kialakitani hogy egyszerû legyen és kizárólag a megoldásokat igyekeztem finomítani. 
+
+Az itt alkalmazott technikák segítségével felismertem, hogy a formációba\-állás és annak megtartása milyen komoly problémákat vethet fel. Jelenleg tervezés alatt áll egy általánosabb módszer a formáció felvételre, mely a dolgozatban tárgyaltnál valószínûleg hatékonyabban oldja majd meg a felderítés problémáját.
+
+
+% Célom az algoritmus további finomítása, valamint az eddig megismert korlátozások megszûntetése.
+% , jövõben az út közben megismert korlátozások megszûntetése.
+
+
+UJ:
+
+A tervezéskor felhasznált geometriai távolság nem feltétlenül egyezik meg a rádiós kommunikáció által elérhetõvel.
+
+
+A tornyok igyekeznek igyekeznek a kommunikációs távolságukat a lehetõ legjobban kihasználni, amennyiben egy ilyen hálózaton tényleges hálózati forgalom jelenne meg, abban az esetben ez az áteresztõképességet gyengíti. Amennyiben a tornyoknak tudomása van a rajtuk keresztülfolyó forgalom mennyiségérõl, akkor azt algoritmus kiterjeszthetõ hogy azt
+
+
+
+\newpage

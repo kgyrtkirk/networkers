@@ -1,0 +1,12 @@
+build:
+	_deb_name_		_gentoo_pkg_		_url
+	plib|plib1.8.4-dev	media-libs/plib		plib.sourceforge.net	
+	libglpng-dev		media-libs/glpng	http://www.fifi.org/doc/libglpng-dev/glpng.html
+
+doc:	texlive
+
+
+libsdl1.2-dev
+
+it seems today that glpng is in 'libarb-dev' pkg
+and i had to pull 

@@ -1,0 +1,116 @@
+\section{Feladat pontosítása}
+
+\hspace{2em}
+Mivel jelen esetben nem feltétlenül egyértelmû, hogy mi is a feladat, ezért ennek tisztázása elkerülhetetlen.
+Adott egy sík, melyen elõre nem ismert helyeken olyan egységek vannak (klienspontok), melyek nem tudnak kommunikálni egymással.
+A cél egy olyan kommunikációs réteg kialakítása, melynek segítségével ezen pontok egymással kapcsolatba léphetnek.
+% a ként fogok hivatkozni.
+
+A klienspontok idõvel akár meg is szûnhetnek, ezért az algoritmusnak meg kell tudni birkóznia a változó világgal, melyben ezen pontok megszünhetnek vagy meghibásodhatnak.
+
+A feladat megoldásához azonos felépítésû autonóm hálózati eszközök (networkerek) állnak rendelkezésre, melyek egy adott sugáron belül megbízhatóan tudnak kommunikálni. Helyváltoztatásra képesek, de az elérhetõ maximális sebesség korlátozott. Ezen robotok egy starthelyrõl indulnak, ahol mindannyian egymás kommunikációs távolságán belül helyezkednek el.
+Az \ref{start} ábrán látható egy elképzelt kezdeti állapot. A networkerek semmilyen információval nem rendelkeznek a klienspontokról, de a céljuk, hogy valamilyen hálózatot építsenek ki azok közé (\ref{start2}).
+
+
+\begin{figure}[h!]
+% \begin{figure}[h]
+\vspace{-0.5em}
+\centering
+\subfloat[Kezdeti állapot]{
+	\psfrag{START}[cc][cc]{kezdõpont}
+	\psfrag{CP}[cc][cc]{klienspontok}
+\includegraphics[width=.45\textwidth]{dia/problem}
+\vspace{-0.5em}
+\label{start}
+}
+\subfloat[Egy lehetséges hálózat]{
+% 	\psfrag{START}[cc][cc]{kezdõpont}
+% 	\psfrag{CP}[cc][cc]{klienspontok}
+\includegraphics[width=.45\textwidth]{dia/problem_2}
+\vspace{-0.5em}
+\label{start2}
+}
+
+\caption{\textit{Szituáció}}
+% \end{figure}
+\end{figure}
+
+% \ref{start}
+% \XFIGG{0.33}{dia/problem}{start}{Kezdet}{
+% 	\psfrag{START}[cc][cc]{kezdõpont}
+% 	\psfrag{CP}[cc][cc]{klienspontok}
+% }
+% 
+% \XFIGG{0.33}{dia/problem}{start}{Kezdet}{
+% 	\psfrag{START}[cc][cc]{kezdõpont}
+% 	\psfrag{CP}[cc][cc]{klienspontok}
+% }
+
+Feltételezem, hogy a rendelkezésre álló eszközökön a memória korlátos, ezért a megoldó algoritmus nem használhat fel tetszõleges mennyiségût ebbõl az erõforrásból. Így csupán csak lokális információkra alapozhatóak az ágensek által meghozott döntések. 
+
+% A feladat megoldásához autonóm robotok állnak rendelkezésre melyek egy starthelyrõl indulnak. 
+
+% CSÚSSZON ÁT A KÖV OLDALRA
+
+A robotok az alábbi fontos jellemzõkkel rendelkeznek:
+
+\xparagraph{Azonosítás:} Mindegyik egység rendelkezik egy saját azonosítóval, mely garantáltan nincs kiosztva mégegyszer a bolyon (ezalatt az összes robot értendõ) belül.
+
+\xparagraph{Látókör:}
+A robotok rendelkeznek egy korlátozott látókörrel ($R$), mely funkcióját egy valódi alkalmazásnál egy szonár vagy egy radar láthatná el. A kommunikáció szoros összefüggésben áll a látókörrel. Két egység között akkor és csak akkor zajlik le a kommunikáció hiba nélkül, ha azok látják egymást.
+
+
+\xparagraph{Mobilitás:}
+Az egységek minden lépésben bármelyik irányba képesek maximálisan $v_{max}$ sebességgel a pozíciójuk megváltoztatására.
+% Az egységek képesek a pozíciójuk megváltoztatására. Minden lépésben maximálisan $v_{max}$-al bármely irányba megváltoztathatják a helyzetüket.
+
+\xparagraph{Közös óra:} A szimuláció egyszerre kezdõdik minden résztvevõ robot számára és mindannyiuk órája a $0$-n áll.
+
+\xparagraph{Összefüggõség:} Ha a robotkra úgy tekintünk mint pontokra és minden olyan csúcspárt, amely $<R$ távolságra van egymástól összekötünk, akkor egy összefüggõ gráfot kapunk.
+
+\xparagraph{Kommunikációs sebesség:} Minden információ pontosan egy idõegység alatt ér el a küldõtõl a cím\-zett\-hez.
+
+\xparagraph{Körökre osztott világ} Az összes networker egy idõegység alatt egyet lép.
+
+% \vspace{1em}
+\newpage
+\subsection{Steiner-fa}
+% \MEGJ
+Átfoglamazva a felvetett problémát a matematika nyelvére: ``adott a síkon k darab pont, keressük azt a minimális élköltségû fát, mely lefedi az összes pontot'', ez a probléma az euklideszi Steiner-fa probléma néven vált ismertté - és az NP-nehéz feladatok körébe tartozik, így a kiépülõ kezdetleges gráf javításához olyan módszereket kell bevetni, ami Steiner fa elõállítását segíti elõ.
+%  - amennyiben ez lehetséges.
+
+
+
+% \subsubsection{}
+
+% Amennyiben az algoritmust nem üres 
+	
+
+% \begin{tabbing}
+% \hspace{2em}\=1.	\\
+% \>2. 
+% \>\hspace{2em}\=
+% \end{tabbing}
+
+
+
+
+% Ezek 
+
+% A Steiner fák 
+
+
+
+
+
+
+
+
+%                         \includegraphics<1>[width=.9\textwidth]{dia/problem_p2}
+%                         \includegraphics<2-3>[width=.9\textwidth]{dia/problem_2}
+%                         \includegraphics<4>[width=.9\textwidth]{dia/problem_2pw}
+%                         \includegraphics<5->[width=.9\textwidth]{dia/problem_2px}
+
+
+
+\newpage

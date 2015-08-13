@@ -1,0 +1,99 @@
+\begin{thebibliography}{10}
+
+\bibitem{PA}
+Iványi Antal.
+\newblock Párhuzamos algoritmusok, 2003.
+
+\bibitem{Balch99behavior-basedformation}
+Tucker Balch, Ronald~C. Arkin, and Senior Member.
+\newblock Behavior-based formation control for multi-robot teams.
+\newblock {\em IEEE Transactions on Robotics and Automation}, 14:926--939,
+  1999.
+
+\bibitem{Dreyer98twoheuristics}
+D~R Dreyer and M~L Overton.
+\newblock Two heuristics for the euclidean steiner tree problem.
+\newblock {\em Journal of Global Optimization}, (13):95--106, 1998.
+
+\bibitem{Fall:2003:DNA:863955.863960}
+Kevin Fall.
+\newblock A delay-tolerant network architecture for challenged internets.
+\newblock In {\em Proceedings of the 2003 conference on Applications,
+  technologies, architectures, and protocols for computer communications},
+  SIGCOMM '03, pages 27--34, New York, NY, USA, 2003. ACM.
+
+\bibitem{Fruchterman:1991:GDF:137556.137557}
+Thomas M.~J. Fruchterman and Edward~M. Reingold.
+\newblock Graph drawing by force-directed placement.
+\newblock {\em Softw. Pract. Exper.}, 21:1129--1164, November 1991.
+
+\bibitem{Howard:2002:ISA:591557.591931}
+Andrew Howard, Maja~J. Matari\'{c}, and Sukhat~Gaurav S.
+\newblock An incremental self-deployment algorithm for mobile sensor networks.
+\newblock {\em Auton. Robots}, 13:113--126, September 2002.
+
+\bibitem{Howard02mobilesensor}
+Andrew Howard, Maja~J Matari\'{c}, and Gaurav~S Sukhatme.
+\newblock Mobile sensor network deployment using potential fields: A
+  distributed, scalable solution to the area coverage problem.
+\newblock pages 299--308, 2002.
+
+\bibitem{SPR}
+Andrew Howard, Maja~J Matari\'{c}, and Gaurav~S Sukhatme.
+\newblock Mobile sensor network deployment using potential fields: A
+  distributed, scalable solution to the area coverage problem.
+\newblock 2002.
+
+\bibitem{Labella04self-organisedtask}
+M~Labella, T~H Dorigo, and J-L Deneubourg.
+\newblock Self-organised task allocation in a group of robots.
+\newblock In {\em Proceedings of the 7th International Symposium on Distributed
+  Autonomous Robotic Systems (DARS04}, 2004.
+
+\bibitem{springerlink_x}
+Anders Lindgren, Avri Doria, and Olov Schelén.
+\newblock Probabilistic routing in intermittently connected networks.
+\newblock In Petre Dini, Pascal Lorenz, and José Neuman~de Souza, editors, {\em
+  Service Assurance with Partial and Intermittent Resources}, volume 3126 of
+  {\em Lecture Notes in Computer Science}, pages 239--254. Springer Berlin /
+  Heidelberg, 2004.
+
+\bibitem{COMPLEX}
+Lovász László.
+\newblock Computation complexity, 1999.
+
+\bibitem{Parker06experimentswith}
+Lynne~E. Parker and Andrew Howard.
+\newblock Experiments with a large heterogeneous mobile robot team:
+  Exploration, mapping, deployment and detection.
+\newblock {\em International Journal of Robotics Research}, 25:431--447, 2006.
+
+\bibitem{Wang04movement-assistedsensor}
+Guiling Wang, Student Member, Guohong Cao, and Thomas F.~La Porta.
+\newblock Movement-assisted sensor deployment.
+\newblock pages 2469--2479, 2004.
+
+\bibitem{SELF_STAB_ROLES}
+Torben Weis, Helge Parzyjegla, Michael~A. Jaeger, and Gero M{\"u}hl.
+\newblock Self-organizing and self-stabilizing role assignment in
+  sensor/actuator networks.
+\newblock In Robert Meersman and Zahir Tari, editors, {\em The 8th
+  International Symposium on Distributed Objects and Applications (DOA 2006)},
+  volume 4276 of {\em LNCS}, pages 1807--1824, Montpellier, France, October
+  2006. Springer.
+
+\bibitem{SELF_STAB_STRUCT}
+Yansheng Zhang, Farokh Bastani, and I-Ling Yen.
+\newblock Self-stabilizing structure forming algorithms for distributed
+  multi-robot systems.
+\newblock In {\em Proceedings of the 2007 international conference on Embedded
+  and ubiquitous computing}, EUC'07, pages 754--766, Berlin, Heidelberg, 2007.
+  Springer-Verlag.
+
+\bibitem{1208965}
+Y.~Zou and Krishnendu Chakrabarty.
+\newblock Sensor deployment and target localization based on virtual forces.
+\newblock In {\em INFOCOM 2003. Twenty-Second Annual Joint Conference of the
+  IEEE Computer and Communications. IEEE Societies}, 2003.
+
+\end{thebibliography}

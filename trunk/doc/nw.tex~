@@ -1,0 +1,168 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{fixltx2e}
+\usepackage{float}
+
+\usepackage[latin2]{inputenc}
+% \usepackage{huhyphn}
+\usepackage[magyar]{babel}
+% \newcommand{\setR}{\mathbb{R}}
+% \newcommand{\setB}{\mathbb{B}}
+% \newcommand{\setL}{\mathbb{L}}
+% \newcommand{\setK}{\mathbb{K}}
+% \newcommand{\setN}{\mathbb{N}}
+\usepackage{algorithmic}
+
+\usepackage{fancyhdr}
+\usepackage{wrapfig}
+% \usepackage{dottex}
+\usepackage{psfrag}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{setspace}
+\usepackage{graphicx,color}
+% \usepackage[top=2cm, bottom=1cm, left=3cm, right=1cm]{geometry}
+\usepackage[top=2.5cm, bottom=2.5cm, left=3.5cm, right=2.5cm]{geometry}
+\usepackage{subfig}
+% \usepackage{supertabular}
+\usepackage{longtable,colortbl,tabularx,ulem}
+\usepackage{hyperref}
+
+
+\makeatletter
+\renewcommand\paragraph{\@startsection{paragraph}{4}{0mm}%
+{0.0\baselineskip}%
+{0.1\baselineskip}%
+{\normalfont\bfseries}%
+}%
+
+\usepackage{ktex}
+% \usepackage[utf8]{inputenc}
+
+\usepackage{amssymb}
+\usepackage{textcomp}
+
+% \linespread{1}
+
+% % PAGE STYLE
+\pagestyle{fancyplain}
+\pagenumbering{arabic}
+\fancyhead[CO,CE]{}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+\fancyhead[RO,LE]{\tt{NetWorkers}
+% \tiny{(r\REVISION)}
+}
+% \newcommand{\tailrulewidth}{0.4pt}
+\fancyfoot[C]{}
+% \lhead[]{TITLE}
+% \rhead[]{\thepage}
+% \fancyhead[LE,RO]{\thepage}
+\fancyheadoffset[]{1em}
+
+\definecolor{MyDarkBlue}{rgb}{0.85,0.85,0.85}
+
+\usepackage{ltxtable}
+% \fancyfoot[LO,RE]{\bf{ffc\_center}	\VEH }
+% \rfoot{\thepage}
+% \rhead{\thepage}
+\usepackage{subfig}
+
+\input{version.tex}
+
+% \documentclass[12pt]{report}
+
+
+\newcommand{\MSG}[2][]{$\overline{\mbox{\textit{#2}}}$\phantom{.}}
+\newcommand{\SER}{\Gamma}
+
+% \newcommand{\MSG}[2][]{$\overline{{{#2}}}$}
+\newcommand{\SUR}{\MSG{scan\_update\_req}}
+\newcommand{\SU}{\MSG{scan\_update}}
+\newcommand{\SI}{\MSG{scan\_info}}
+\newcommand{\LI}{\MSG{link\_info}}
+\newcommand{\IL}{\MSG{interlock}}
+\newcommand{\HB}{\MSG{heartbeat}}
+\newcommand{\LE}{\MSG{link\_error}}
+\newcommand{\MD}{\MSG{measure\_depth}}
+\newcommand{\HO}{\MSG{hand\_over}}
+\newcommand{\LO}{\MSG{length\_opt}}
+
+
+\newcommand{\TOWER}{\widehat{tower}}
+\newcommand{\SWEEP}{\widehat{sweep}}
+\newcommand{\RECON}{\widehat{recon}}
+\newcommand{\INIT}{\widehat{init}}
+\newcommand{\CP}{\complement}
+\newcommand{\LEADER}{\spadesuit}
+
+\newcommand{\V}{\underline{v}}
+\newcommand{\M}{\underline{m}}
+\usepackage{rotating}
+\fancyfoot[CO,CE]{\thepage}
+% \fancyfoot[C]{}
+% \fancyfoot[RO,RE]{\slshape 7/15/2002}
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}
+
+\begin{document}
+
+
+
+
+% \chead{}
+\normalfont
+
+\boldmath
+\normalsize
+\numberwithin{equation}{section} 
+
+\input{parts/10_cover}
+\input{parts/20_intro}
+\input{parts/30_problem}
+\input{parts/40_alg_overview}
+\input{parts/50_sweep}
+\input{parts/60_recon}
+\input{parts/70_tower}
+\input{parts/90_opt}
+\input{parts/80_priority}	
+\input{parts/90_comm_pattern}
+\input{parts/70_tower_algo}
+\input{parts/95_open_issues}
+
+
+%----------
+
+% \input{parts/A0_conclusion}
+% \xparagraph{open issuies--------}
+% \input{parts/61_recon_a}
+
+
+% \cite{PA}
+\renewcommand*{\refname}{} % This will define heading of bibliography to be empty, so you can...
+\section{Irodalomjegyzék}  
+
+\bibliographystyle{plain}	% (uses file "plain.bst")
+\bibliography{bibtex}		% expects file "myrefs.bib"
+% \bibliography{}		% expects file "myrefs.bib"
+
+
+% \section{Szimulációs környezet}
+% Az algoritmust futtató szimulációs rendszer erre a célra lett készítve, a megjelenítéshez/mûködéshez OpenGL-re és 
+
+
+% \begin{center}
+% Network building and maintenance is the foundation of today's information exchange methods -
+% but in a hostile or evolving environment it can be hard to maintain a network with the classical methods.
+% This papers aim is to explore the possibilities, problems and options how the global network could be handled locally.
+% \sout{cooperative network building from local informations\\
+% kooperativ robotok hálózatépítésre}
+% \end{center}
+
+% \newcommand{\cp}{\complement}
+
+
+
+
+\end{document}
+

@@ -1,0 +1,136 @@
+
+\subsubsection{Prioritás}
+
+\hspace{2em}Az ágenseknek szüksége van egyfajta idõrõl idõre történõ kitüntetésre, például egy kapcsolat megszüntetése és annak helyettesítése egy másikkal egy ágens számára megengedett kell legyen, de amennyiben több ágens is egyszerre ``gondolja\phantom{}'' ezt, akkor az zûrzavart okozhat.
+
+A prioritás bevezetésére csak lokálisan van szükség, ugyanis egy torony esetében elégséges, ha a szomszédaihoz mérten van prioritása.
+
+% Több helyen gondot okozhatna egyidejû döntéshozatal ezért szükséges volt egy megoldás bevezete
+
+Elõnyös lenne, ha nagyon gyakran kerülne újra és újra prioritásba minden csúcs és a legjobb lenne, ha nem kellene hozzá kommunikáció. Ezért a sorozatszámok, valamint az eltelt idõ segítségével kell kiszámolni egy logikai értéket.
+
+A prioritás függvénnyel szemben azonban támasztanunk kell egy megkötést - nem lehet két szomszéd egyszerre prioritásban:
+\DEF	Adott egy $G=(V,E)$ gráf, és egy $\varphi : V \TO \setL
+% \footnote{$\setL = \{true,false\}$ logikai értékek}
+$.
+A $\varphi$ egy megengedett priorizálása a csúcsoknak amennyiben:
+% $$ \forall v \in V : \varphi(v) : \nexists u \in V : \varphi(u) \AND (u,v) \in E $$
+\begin{equation}
+\nexists (u,v) \in E : \varphi(v) \AND \varphi(u)
+\end{equation}
+
+A feladat a következõként fogalmazható meg:
+\FEL	Adott egy tetszõleges gráf, melynek fokszámára ismerünk felsõ kor\-lá\-tot. Va\-lamint adott $2^s$ felsõ korlát a csúcsok számára és adottak a $\tau=\{\varphi_1,...,\varphi_n\}$ priorizálások, amennyiben
+$\forall u \in V : \exists i\in[1:n] : \varphi_i(u)$ teljesül tet\-szõ\-le\-ges $k$ fokszám korlátos gráf esetén, melynek legfeljebb $2^s$ csúcsa van, akkor $\tau$ megoldása a gráf szabad prioritásának.
+
+% A problémát megközelíthetjük úgyis, hogy feltesszük, hogy egy szobában $s$ darab izzó van. Bemegy egy ember $k$ darab cetlivel melyekre tetszõlegesen felírhatja hogy fényes vagy sötét. Hogy kapcsoljuk az izzokat hogy a leheto legkevesebb lépés után a cetliknek megfelelõen világítsanak az izzók?
+% 
+% Egy másik átfogalmazásban ugyanez a probléma: Vegyünk egy $s$ dimenziós hiperkockát, hány csúcsot kell kiválasztani belõle hogy minden csúcsát lefedjük $s-k$ távolságon belül?
+
+% \xparagraph{alternatív feladat} vegyünk egy $l$ hosszu bináris sorozatot, s ennek $s$ hosszú részsorozatait $x_i,..x_{i+s-1}$ - ...
+
+% \MEGO a $k=3$ esetre
+% vegyünk egy részhalmazát a természetes számoknak legyen ez $S$.
+% legyen $l=\ceil{\log_2{\max{S}}}$.
+% \begin{align}
+% \forall a,b,c \in S : a\neq b \AND a\neq c : \exists t \in \setN :\\
+% \varphi_t^l(a) > \varphi_t^l(b) \AND \varphi_t^l(b) < \varphi_t^l(c) 
+% \end{align}
+% 
+% % \OTLET nezzunk binaris szamokat es figyeljuk meg az elso pontot ahol eloszor különbségek vannak a három sza
+% 
+% a tulajdonságnak megfelelõ függvény:
+% 
+% $\varphi(x,i,l)=\left\{\begin{array}{lr}
+% x\Xor (2^i-1)				&	\mbox{ha } i<=l\\
+% \varphi(x,i-l,l)\Xor (2^l-1)	&	\mbox{különben}
+% \end{array}\right.$\\
+% a fenti képletben: $\varphi_t^l(x)=\varphi(x,t,l)$
+% \MEGJ	ez kb olyan mintha 1-1 negációs vihar szaladna át a számokon.
+% elõször végignegálja elõször csak az elsõt aztán egyre többet, s amikor eléri a végét ugyanígy veszi le is ;)
+% 
+% \BIZ	legyen: $a,b,c \in S$, rendezzük a számokat mondjuk $a>b>c$,
+% ebben az állapotban a $c$ a legkisebb ezért az már teljesül is.
+% Ha minden számot negálunk akkor a $a<b<c$ is teljesül. $\TO a$-val is kész vagyunk.
+% vegyük azt az $i$. bitet melyen eldõlt hogy $b>c$, ezt, és az ennél kisebb helyiértékû biteket negálva már a tulajdonság megfordul. Ezért ez $k=3$-ra megoldás.
+
+
+% \xparagraph{``Kizáró vagy'' mûvelet felhaszálása erre a célra}
+% Adott $k+1$ darab szám: $x^1,x^2,...,x^k$ valamint $y$, ezek közül szeretnénk belátni hogy létezik olyan $z$ szám mely esetén:
+% \newcommand{\XOR}{\otimes}
+% $$ z\XOR y < z \XOR x_i : \forall i \in [1:k]$$
+% létezik $t_1,t_2,...,t_k$ egész számok melyekkel ahol $y$ és $x_i$ elõszõr térnek el. Amennyiben ezt a
+
+
+\xparagraph{Címkézés}
+Vegyünk egy tetszõleges $k$ fokszám korlátos egyszerû gráfot($G(V,E)$), és egy olyan címkézését a csúcsoknak, mely minden csúcshoz különbözõ számokat rendel a $\setN$ halmazból.
+
+
+Irányítsuk meg a gráf éleit a címkézés szerint értelmezet '$<$' reláció segítségével.\\
+Értelmezzük a gráf $x,y$ csúcsaira a következõ függvényt:
+\begin{align}
+ t(x,y)=\Floor{\log_2 ( s(x) \Xor s(y) ) }
+\end{align}
+Címkézzük fel az éleket a következõ módon:
+az $(x,y)\in E$ élhez rendeljük a $t(x,y)$ függvény értékét:
+$b_{x,y}=t(x,y)$.
+
+% Címkézzük fel a gráf éleit a $t$ függvény segítségével.
+A $t(x,y)$ függvény megmondja hogy a címkézés hányadik bitjének negálása fordítaná meg az $x$ és $y$ csúcsok közötti '$<$' relációt.
+
+Vegyük az így elkészített gráf egy $u$ csúcsát és vizsgáljuk meg a szomszédait ($N(u)=\{ v_1,v_2,..,v_r\}$).
+
+% \newpage
+
+
+ \XFIGG{0.9}{dia/fp_1}{fp_1}{Az $u$ csúcs és szomszédai}{
+  \psfrag{N_1}[cc][lb]{$v_1$}
+  \psfrag{N_2}[cc][lb]{$v_2$}
+%   \psfrag{N_k1}[cc][lb]{$n_{k-1}$}
+  \psfrag{N_k}[cc][lb]{$v_r$}
+  \psfrag{N_i}[cc][lb]{$v_i$}
+  \psfrag{N_j}[cc][lb]{$v_j$}
+  \psfrag{1}[lb][lb]{$b_1$}
+  \psfrag{2}[lb][lb]{$b_2$}
+  \psfrag{i}[lb][lb]{$b_i$}
+  \psfrag{j}[lb][lb]{$b_j$}
+  \psfrag{k}[lb][lb]{$b_r$}
+  \psfrag{U}[cc][lb]{$u$}
+ }
+
+Az elkészített gráf és az élek címkézése látható a \ref{fp_1}. ábrán.
+\ALL
+Amennyiben $u$ két különbözõ szomszédjával ($v_i,v_j$)  összekötõ   élekre ugyanazon ($b_i=b_j$) címke került, akkor ezen két él nem alkothat utat a $v_i,v_j$ csúcsok között.
+\BIZ
+Az élek címkézése a legnagyobb ($z.$) bitet jelöli, melynek negálása esetén a köztük fennálló '$<$' reláció megfordul.
+Az $u,v_i,v_j$ csúcsokon kívül dobjuk el a gráf összes többi pontját.
+És a csúcsok címkézését szûkítsük le a $z.$ bitre. Mivel az $u,v_i,v_j$ csak ettõl függött, ezért a köztük futó élek iránya és címkéje az eredetivel megegyezõ marad. A leszûkítés miatt viszont már csak két értéket tartalmaz a csúcsokhoz rendelhetõ címkék halmaza, de így biztosan nem alakulhat ki három hosszú irányított út.
+
+\ALL
+Válasszunk egy $(u,v_i)$ élet, és egy tetszõleges $r\in \setN$ számot.
+Ekkor, az $s'(x)=s(x) \Xor 2^r$ újracímkézés esetén az $(u,v_i)$-él irányítása akkor és csak akkor fordul meg ha $r$ megegyezik az él címkéjével $z$, vagyis ha $z=r$ teljesül.
+% Amennyiben az $(u,v_i)$ él $z$-vel van címkézve, egy $s'$ címkézés esetén, melyet úgy kaptunk hogy: $s'(x)=s(x) \Xor 2^r$, akkor és csak akkor fordul meg az új címkézésben megkonstruált gráfban ez az él amennyiben $z=r$.
+\BIZ
+\begin{itemize}
+ \item 
+$r>z$ esetében az $s(u)$ és $s(v_i)$ számok $r.$ bitje meg kellett hogy egyezzen, ezért a negálása nem változtat a köztük fennálló reláción.
+\item
+	$r<z$ esetében mivel a $z.$ bit nagyobb helyiértéket foglal el, ezért a reláció erre érzéketlen marad.
+\item	$r=z$	esetében megfordul a reláció.
+\end{itemize}
+
+\xparagraph{Következmény}
+Készítsünk el egy számot az $u$-ból ki/befutó élek címkézése és iránya alapján. A kifutó élekre írt címkéket gyûjtsük a $G$ halmazba, a befutókat pedig az $L$ halmazba. Vegyünk egy olyan számot($w$) melynek $G$ halmazba tartozó bitjei $0$-ák, és minden $L$ halmazba tartozó bitje $1$.
+Mivel $G \Inter L=\emptyset$, ezért ilyen szám létezik.
+
+Vegyük az $s'(x)=s(x) \Xor w$ címkézést, ebben az esetben az $u$ csúcsnak csak kifutó élei lesznek.
+
+% Nem létezik $v_i,v_j$ szomszéd melyek $(u,v_i)$ és $(u,v_j)$ élei ugyanazon számmal lettek címkézve
+
+Egy olyan átcímkézõre van szükség, mely képes véletlenszerûen csúcsokat ki\-tün\-tet\-ni. A fentiek alapján minden csúcs rendelkezik valahány bitre való elõírással annak kitüntetéséhez - viszont a többi bitre nincs kikötése.
+
+\xparagraph{Megoldás: véletlen}
+
+A fenti feltételeket egy véletlenszámgenerátor teljesíti, ugyanis abban tet\-szõ\-le\-ge\-sen távol álló bitek mintavételezése esetén  egyenletes eloszlást kapunk \cite{COMPLEX}. Így a prioritások megállapítása történhet egy olyan pszeudo vé\-let\-len\-szám\-ge\-ner\-á\-tor\-ral, mellyel minden körben az összes ágensen ugyanazt a véletlen számot állítja elõ, és ezzel a véletlenszámmal bitenkénti kizáró vagyot használva újracímkézzük az összes csúcsot, melyek az így átcímkézett gráfban minden szomszédjuknál kisebbek lesznek prioritásban.
+
+\newpage

@@ -1,0 +1,196 @@
+\documentclass[a4paper,10pt,twoside]{article}
+\usepackage{fixltx2e}
+\usepackage{float}
+
+\usepackage[latin2]{inputenc}
+% \usepackage{huhyphn}
+\usepackage[magyar]{babel}
+\newcommand{\setR}{\mathbb{R}}
+\newcommand{\setB}{\mathbb{B}}
+\newcommand{\setL}{\mathbb{L}}
+\newcommand{\setK}{\mathbb{K}}
+\newcommand{\setN}{\mathbb{N}}
+
+\usepackage{fancyhdr}
+\usepackage{wrapfig}
+% \usepackage{dottex}
+\usepackage{psfrag}
+\usepackage{multirow}
+\usepackage{amsmath}
+\usepackage{graphics,color}
+% \usepackage[top=2cm, bottom=1cm, left=3cm, right=1cm]{geometry}
+\usepackage[top=2cm, bottom=2cm, left=1cm, right=1cm]{geometry}
+\usepackage{subfig}
+% \usepackage{supertabular}
+\usepackage{longtable,colortbl,tabularx,ulem}
+\usepackage{hyperref}
+\usepackage{ktex}
+% \usepackage[utf8]{inputenc}
+    \usepackage{lscape}
+
+\usepackage{amssymb}
+\usepackage{textcomp}
+
+% % PAGE STYLE
+\pagestyle{fancyplain}
+\pagenumbering{arabic}
+\fancyhead[CO,CE]{}
+% \newcommand{\headrulewidth}{0.4pt}
+% \newcommand{\tailrulewidth}{0.4pt}
+\fancyfoot[C]{}
+% \lhead[]{TITLE}
+% \rhead[]{\thepage}
+\fancyhead[LE,RO]{\thepage}
+\fancyheadoffset[]{1em}
+
+\definecolor{MyDarkBlue}{rgb}{0.85,0.85,0.85}
+
+\usepackage{ltxtable}
+% \fancyfoot[LO,RE]{\bf{ffc\_center}	\VEH }
+\rfoot{\thepage}
+% \rhead{\thepage}
+
+\input{version.tex}
+
+% \documentclass[12pt]{report}
+
+\begin{document}
+
+\fancyhead[LO,RE]{r\REVISION}
+\chead{\tt{freeprio}}
+\normalfont
+\newcounter{daysub}
+\newcounter{stopcntr}
+\newcommand{\newday}{\
+\setcounter{daysub}{0}\
+\setcounter{stopcntr}{0}\
+\newpage\
+}
+% \newcommand{\VSTART}{\begin{large}$\blacktriangleright$\end{large}}
+\newcommand{\VSTART}{\begin{large}$\blacktriangleright$\end{large}}
+\newcommand{\VSTOP}{$\blacksquare$}
+\newcommand{\STOPCNTR}{\addtocounter{stopcntr}{1}\arabic{stopcntr}}
+
+\boldmath
+\begin{center}
+\huge{freeprio}\\
+\small{Nagy Zoltán\footnote{kirk@bteam.hu}}\\
+\small{\today\\ svn\footnote{https://demeter.teteny.bme.hu/svn/freeprio/trunk}r\REVISION}
+\end{center}
+
+\normalsize
+\begin{center}
+szabad ablak szekvencia ( igazából nem tudom jól elnevezni )
+\end{center}
+
+\section{Probléma}
+Adott $k,n \in N^+ : k\le n $ - a kérdés a legrövidebb olyan bináris szekvencia $x_0,x_1,...,x_l \in \{0,1\}$ mely teljesíti az alábbi feltételeket:
+
+$\forall i_1,i_2 ... i_k \in [1:n]$ páronkénk nem egyezõ indexsorozattal s egy tetszõlegesen választott $q\in [0:2^k-1]$ számhoz $\exists u \in \setN : q= \sum_{j=1}^{k} x_{(i_j+u \mod l)} 2^{j-1}$
+
+\MEGJ ha $k=n$ akkor egy De Bruijn szekvencia a megoldás
+
+\subsection{Átfogalmazás}
+Van egy szoba melybe beszereltek $n$ darab izzót, ebbe a szobába bemegy Emil és megjelöl legfeljebb $k$ darab izzót hogy égjen-e vagy sem - a megjelölést nem ismerjük.\\
+hogy váltsuk az izzókat? Hogy a lehetõ legrövidebb idõn belül biztosan beáljon a kívánt állapot\\
+
+
+\section{valodi problema}
+Adott egy tirányitatlan $G$ gráf melyben minden csúcshoz hozzárendeltünk egy-egy számot egy $[0:2^n-1]$ intervallumból, valamint ismert a gráf fokszámára egy felsõ korlát melyet $k$-val jelölök
+
+\MEGJ: az intervallum lehet kissebb is mint $|V|$, de ekkor teljesülni kell hogy $\forall (v_i,v_j) \in E : id(v_i)\neq id(v_j)$
+
+A cél hogy az idö és egy fent használt szekvencia segitségével lokálisan kitüntetett csúcsokat jöhessenek létre.\\
+Ha a fenti feltételt teljesitõ bináris szekvenciát az egyes idõpillanatokban párhuzamosan tolják végig a saját azonosítojukon ( bitenkénti kizáró vagy segítségével) az eléri a kivánt hatást.
+
+\MEGJ nehány a fenti feltetelt teljesito szekvenciat megkerestem, s mellekeltem a $k$ $4$ es eseteit % amig $l<=32$
+ezen kívûl még találtam jópárat néhány heurisztika segítségével, de azokról nem merem kijelenteni hogy a legrövidebbek az alkalmazott módok a következõk voltak: legy $\hat u,\hat v$ egy-egy $t$ bites szám, s legyen $\neg \hat u$ az $\hat u$ bitenkenti negáltja\\
+tükör mód: $ \hat u \neg \hat u $	\\
+axAx mód: $ \hat u \hat v \neg \hat u \hat v $			
+%  $x_0, ... x_{l/2-1}, \neg x_0 ... \neg x_{l/2-1}$
+
+\section{egy also korlat}
+\MEGJ	ami ugy nez ki nem mûködik.
+
+Egy $s$ bit hosszu szamban $k$ bitet $\binom{s}{k}$ fele keppen valaszthatunk ki, s minden ilyen esetben $2^k$ fele lefedesre van szükségünk.\\
+ha veszünk a sorozatból egy fix kezdõ bitet $x_i$-t akkor ez az elem $\binom{s-1}{k-1}$ hasznos lefedesben van benne, igy:
+
+$$ 2^k \binom{s}{k} \le l \binom{s-1}{k-1} $$
+ami atrendezve:
+$$ 2^k \frac{s}{k} \le l $$
+
+ez nem mûködött mert aláment - a probléma az lehet hogy mindegy hogy az $s$ hosszú számban honnan kezdõdik a szekvencia mert egyszer úgyis odaérünk, viszont hogyha azt is rögzítem akkor csak $2^k \le l$ adódik, ami igazából nem túl hasznos.
+
+% de ez nem tartalmazza azt a nyereseget hogy a jelenlegiben $\binom{s-2}{k-2}$
+% $\binom{l}{k
+
+
+
+\newcommand{\XZERO}{$\lozenge$}
+\newcommand{\XONE}{$\blacklozenge$}
+% \newpage
+\begin{tiny}
+% 
+% % \newcommand{\XZERO}{$\square$}
+% % \newcommand{\XONE}{$\blacksquare$}
+% \begin{longtable}{c|c||cccc|cccc|cccc|cccc|cccc|}
+% \hline
+% \multicolumn{10}{r}{{...next?}} \\\hline
+% \endfoot
+% \hline\hline
+% \endlastfoot
+%         3&8&0&0&0&1&0&1&1&1\\
+%         3&8&0&0&0&1&1&1&0&1\\
+%         4&10&0&0&0&1&0&1&1&1&0&1\\
+%         4&10&0&0&0&1&0&1&1&1&0&1&0&1&0&1&0&1&0&1\\
+% 	x&q&0&0&0&0&0&0&0&0&0&0&0&0&0&0&0&0&0&0&0&0
+% % 	\input{_o3.tex}
+% \end{longtable}
+
+% 
+% 
+% \begin{tiny}
+% \newcommand{\XZERO}{$\lozenge$}
+% \newcommand{\XONE}{$\blacklozenge$}
+% % \newcommand{\XZERO}{$\square$}
+% % \newcommand{\XONE}{$\blacksquare$}
+% \begin{longtable}{c|c|}
+% \hline
+% % \multicolumn{10}{r}{{...next?}} \\\hline
+% \endfoot
+% \hline\hline
+% \endlastfoot
+% a&x\\
+% a&x\\
+% a&x\\
+% a&x\\
+% \end{longtable}
+
+
+% 
+    \begin{landscape}
+
+
+
+\begin{longtable}{c|c||cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc|cccc|}
+\hline
+\multicolumn{10}{r}{{...next?}} \\\hline
+\endfoot
+\hline\hline
+\endlastfoot
+%         3&8&0&0&0&1&0&1&1&1\\
+%         3&8&0&0&0&1&1&1&0&1\\
+%         4&10&0&0&0&1&0&1&1&1&0&1\\
+	\input{_o4.tex}
+\end{longtable}
+
+    \end{landscape}
+\end{tiny}
+
+% \xparagraph{Használt jelölések}
+% \begin{tabbing}
+% $n$\hspace{3em}\=a megkcélzott tartomány legnagyobb elemének a hossza bitekben\\
+% \end{tabbing}
+
+\end{document}
+

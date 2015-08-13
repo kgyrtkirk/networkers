@@ -1,0 +1,69 @@
+\select@language {magyar}
+\contentsline {section}{\numberline {1.}Bevezet\'es}{3}{section*.1}
+\contentsline {section}{\numberline {2.}Feladat pontos\IeC {\'\i }t\'asa}{5}{section*.1}
+\contentsline {paragraph}{\hspace {-0.0em}{Azonos\IeC {\'\i }t\'as:}}{6}{section*.1}
+\contentsline {paragraph}{\hspace {-0.0em}{L\'at\'ok\"or:}}{6}{section*.1}
+\contentsline {paragraph}{\hspace {-0.0em}{Mobilit\'as:}}{6}{section*.1}
+\contentsline {paragraph}{\hspace {-0.0em}{K\"oz\"os \'ora:}}{6}{section*.1}
+\contentsline {paragraph}{\hspace {-0.0em}{\"Osszef\"ugg\H os\'eg:}}{6}{section*.1}
+\contentsline {paragraph}{\hspace {-0.0em}{Kommunik\'aci\'os sebess\'eg:}}{6}{section*.1}
+\contentsline {paragraph}{\hspace {-0.0em}{K\"or\"okre osztott vil\'ag}}{6}{section*.1}
+\contentsline {subsection}{\numberline {2.1.}Steiner-fa}{7}{section*.2}
+\contentsline {section}{\numberline {3.}Networkers algoritmus}{8}{section*.2}
+\contentsline {subsection}{\numberline {3.1.}\'Attekint\'es}{8}{section*.3}
+\contentsline {paragraph}{\hspace {-0.0em}{P\'aszt\'az\'o:}}{8}{section*.3}
+\contentsline {paragraph}{\hspace {-0.0em}{Felder\IeC {\'\i }t\H ok:}}{8}{section*.3}
+\contentsline {paragraph}{\hspace {-0.0em}{Torony:}}{8}{section*.3}
+\contentsline {paragraph}{\hspace {-0.0em}{Tov\'abbi mindig teljes\"ul\H o tulajdons\'agok:}}{8}{section*.3}
+\contentsline {subsubsection}{\numberline {3.1.1.}\"Uzenetek}{10}{section*.3}
+\contentsline {subsubsection}{\numberline {3.1.2.}Elv\'ar\'asok a klienspontokt\'ol}{11}{section*.3}
+\contentsline {subsubsection}{\numberline {3.1.3.}Indul\'as}{11}{section*.3}
+\contentsline {subsection}{\numberline {3.2.}P\'aszt\'az\'as ($\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle sweep$}\mathaccent "0362{sweep}$)}{12}{section*.3}
+\contentsline {paragraph}{\hspace {-0.0em}{Legyez\H o}}{12}{section*.3}
+\contentsline {subsection}{\numberline {3.3.}Kollaborat\IeC {\'\i }v felder\IeC {\'\i }t\'es ($\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle recon$}\mathaccent "0362{recon}$)}{15}{section*.3}
+\contentsline {subsubsection}{\numberline {3.3.1.}Rendez\H od\'es}{15}{section*.4}
+\contentsline {paragraph}{\textit {{Megjegyz\'es:}}}{16}{section*.4}
+\contentsline {paragraph}{\hspace {-0.0em}{Legrosszabb eset: egy pont k\"or\"uli forg\'as}}{16}{section*.4}
+\contentsline {subsubsection}{\numberline {3.3.2.}Er\H ot\'er}{16}{section*.4}
+\contentsline {paragraph}{\hspace {-0.0em}{Az er\H ot\'er alkot\'oelemei:}}{17}{section*.4}
+\contentsline {subsubsection}{\numberline {3.3.3.}L\'anchossz}{20}{section*.4}
+\contentsline {subsubsection}{\numberline {3.3.4.}P\'aszt\'az\'asi f\'azis n\'elk\"ul}{20}{section*.4}
+\contentsline {paragraph}{\hspace {-0.0em}{Az algoritmus pszeudo k\'odj\'aban haszn\'alt jel\"ol\'esek}}{21}{section*.4}
+\contentsline {subsection}{\numberline {3.4.}Gr\'afcs\'ucsok - $\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle tower$}\mathaccent "0362{tower}$}{23}{section*.4}
+\contentsline {subsubsection}{\numberline {3.4.1.}Rug\'oer\H ok}{23}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Feladat:}}{24}{section*.5}
+\contentsline {paragraph}{\textit {{Megjegyz\'es:}}}{24}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{gavg}}{24}{section*.5}
+\contentsline {paragraph}{\textit {{Megjegyz\'es:}}}{24}{section*.5}
+\contentsline {paragraph}{\textit {{Megjegyz\'es:}}}{25}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{A szabadt\'avols\'ag (fdist)}}{25}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Optimaliz\'aci\'os f\'azisok}}{25}{section*.5}
+\contentsline {subsubsection}{\numberline {3.4.2.}A h\'al\'ozatot reprezent\'al\'o gr\'af}{27}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{\'Atm\'er\H om\'er\'es}}{27}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Defin\IeC {\'\i }ci\'o}}{27}{section*.5}
+\contentsline {subsubsection}{\numberline {3.4.3.}T\"obb forr\'as\'u m\'elys\'egm\'er\'es}{28}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Defin\IeC {\'\i }ci\'o}}{30}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Defin\IeC {\'\i }ci\'o}}{30}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Defin\IeC {\'\i }ci\'o}}{30}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Defin\IeC {\'\i }ci\'o}}{30}{section*.5}
+\contentsline {paragraph}{\textit {{Megjegyz\'es:}}}{32}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{steiner\_insertion(T,E)}}{33}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Defin\IeC {\'\i }ci\'o}}{34}{section*.5}
+\contentsline {paragraph}{\textit {{Megjegyz\'es:}}}{34}{section*.5}
+\contentsline {subsubsection}{\numberline {3.4.4.}Priorit\'as}{35}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Defin\IeC {\'\i }ci\'o}}{35}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Feladat:}}{35}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{C\IeC {\'\i }mk\'ez\'es}}{35}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{\'All\IeC {\'\i }t\'as:}}{36}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Biz:}}{36}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{\'All\IeC {\'\i }t\'as:}}{37}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Biz:}}{37}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{K\"ovetkezm\'eny}}{37}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Megold\'as: v\'eletlen}}{37}{section*.5}
+\contentsline {subsubsection}{\numberline {3.4.5.}Kommunik\'aci\'os minta}{38}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Biz:}}{39}{section*.5}
+\contentsline {subsubsection}{\numberline {3.4.6.}Tornyok m\H uk\"od\'ese}{40}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{\'All\IeC {\'\i }t\'as:}}{41}{section*.5}
+\contentsline {paragraph}{\hspace {-0.0em}{Biz:}}{41}{section*.5}
+\contentsline {section}{\numberline {4.}\"Osszefoglal\'as}{42}{section*.5}
+\contentsline {section}{\numberline {5.}Irodalomjegyz\'ek}{44}{section*.5}

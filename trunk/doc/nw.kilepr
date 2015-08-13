@@ -1,0 +1,169 @@
+[General]
+img_extIsRegExp=false
+img_extensions=.eps .jpg .jpeg .png .pdf .ps .fig .gif
+kileprversion=2
+kileversion=2.0
+lastDocument=parts/90_opt.tex
+masterDocument=
+name=nw
+pkg_extIsRegExp=false
+pkg_extensions=.cls .sty
+src_extIsRegExp=false
+src_extensions=.tex .ltx .latex .dtx .ins
+
+[Tools]
+MakeIndex=
+QuickBuild=
+
+[item:ktex.sty]
+archive=true
+column=0
+encoding=ISO 8859-1
+highlight=LaTeX
+line=82
+open=false
+order=12
+
+[item:nw.tex]
+archive=true
+column=0
+encoding=ISO 8859-1
+highlight=LaTeX
+line=40
+open=true
+order=0
+
+[item:parts/10_cover.tex]
+archive=true
+column=0
+encoding=ISO 8859-1
+highlight=LaTeX
+line=177
+open=false
+order=1
+
+[item:parts/20_intro.tex]
+archive=true
+column=79
+encoding=ISO 8859-1
+highlight=LaTeX
+line=36
+open=false
+order=6
+
+[item:parts/30_problem.tex]
+archive=true
+column=31
+encoding=ISO 8859-1
+highlight=LaTeX
+line=27
+open=false
+order=4
+
+[item:parts/40_alg_overview.tex]
+archive=true
+column=93
+encoding=ISO 8859-1
+highlight=LaTeX
+line=93
+open=false
+order=5
+
+[item:parts/50_sweep.tex]
+archive=true
+column=100
+encoding=ISO 8859-1
+highlight=LaTeX
+line=7
+open=false
+order=7
+
+[item:parts/60_recon.tex]
+archive=true
+column=182
+encoding=ISO 8859-1
+highlight=LaTeX
+line=261
+open=false
+order=8
+
+[item:parts/61_recon_a.tex]
+archive=true
+column=0
+encoding=
+highlight=
+line=0
+open=false
+order=-1
+
+[item:parts/70_tower.tex]
+archive=true
+column=2
+encoding=ISO 8859-1
+highlight=LaTeX
+line=138
+open=false
+order=9
+
+[item:parts/70_tower_algo.tex]
+archive=true
+column=96
+encoding=ISO 8859-1
+highlight=LaTeX
+line=138
+open=false
+order=3
+
+[item:parts/80_priority.tex]
+archive=true
+column=86
+encoding=ISO 8859-1
+highlight=LaTeX
+line=129
+open=false
+order=2
+
+[item:parts/80_priority2.tex]
+archive=true
+column=0
+encoding=
+highlight=
+line=0
+open=false
+order=-1
+
+[item:parts/90_comm_pattern.tex]
+archive=true
+column=25
+encoding=ISO 8859-1
+highlight=LaTeX
+line=19
+open=false
+order=10
+
+[item:parts/90_opt.tex]
+archive=true
+column=0
+encoding=ISO 8859-1
+highlight=LaTeX
+line=122
+open=false
+order=11
+
+[item:parts/95_open_issues.tex]
+archive=true
+column=84
+encoding=ISO 8859-1
+highlight=LaTeX
+line=29
+open=false
+order=4
+
+[item:parts/A0_conclusion.tex]
+archive=true
+column=0
+encoding=ISO 8859-1
+highlight=LaTeX
+line=0
+open=false
+order=13

@@ -1,0 +1,25 @@
+This is pdfTeXk, Version 3.1415926-1.40.9 (Web2C 7.5.7) (format=pdflatex 2011.4.11)  11 APR 2011 20:05
+entering extended mode
+ %&-line parsing enabled.
+**.tex
+(/usr/share/texmf-dist/tex/latex/tools/.tex
+LaTeX2e <2005/12/01>
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, hungarian, loaded.
+File ignored)
+*
+! Emergency stop.
+<*> .tex
+        
+End of file on the terminal!
+
+ 
+Here is how much of TeX's memory you used:
+ 5 strings out of 495054
+ 207 string characters out of 1182403
+ 45110 words of memory out of 3000000
+ 3285 multiletter control sequences out of 10000+50000
+ 3640 words of font info for 14 fonts, out of 3000000 for 5000
+ 28 hyphenation exceptions out of 8191
+ 5i,0n,1p,89b,8s stack positions out of 5000i,500n,10000p,200000b,50000s
+!  ==> Fatal error occurred, no output PDF file produced!

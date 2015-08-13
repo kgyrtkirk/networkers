@@ -1,0 +1,354 @@
+\subsection{Kollaboratív felderítés ($\RECON$)}
+\label{c_recon}
+
+A feladat megoldásához szükséges, hogy az ágensek együttmûködve derítsenek fel minél nagyobb területet. Mivel nem ``veszíthetik el egymást szem elõl'', ezért a legjobb, ha minél hosszabb láncokba fejlõdve kutatnak új klienspontok után.
+
+% A felderítõk felada hogy együtmûködve láncokba fejlõdve új pontokat keressenek a gráfhoz.
+A felfeljõdéshez szükség van arra, hogy minden ágens egy másik robotot mint ismerõst tartson számon, akihez mérten próbálja felvenni a formációt.
+Ettõl a robottól fog útmutatást kérni és kapni az alakzatba történõ ren\-de\-zõ\-dés\-hez.
+
+% hogy éppen milyen paraméterekkel rendezõdjön mellé formációba.
+
+\subsubsection{Rendezõdés}
+
+\begin{wrapfigure}{r}{0.33\textwidth}
+\vspace{-1em}
+\psfrag{SU}[lc][lb]{\SU}
+\psfrag{SUR}[lc][lb]{\SUR}
+\psfrag{SI}[lc][lb]{\SI}
+\includegraphics[width=.33\textwidth]{dia/scan_merge}
+% \caption{üzenetek keresés közben}
+\vspace{-1em}
+\caption{\textit{Felderítõk beszúrása}}
+\label{merge}
+\end{wrapfigure}
+
+% \begin{figure}[0.33\textwidth]
+% % \vspace{-2em}
+% \includegraphics[width=.33\textwidth]{dia/scan_merge}
+% % \vspace{-4em}
+% \end{figure}
+
+
+
+% Minden láncba amennyiben ahhoz új keresõ szeretne társulni annak be kell tudnia lépni valahova.
+Minden ``társulni vágyó'' robotnak egyértelmû helyének kell lennie egy már kialakult láncban.
+Ennek a feltételnek a sérülése esetén nem lehetne konkrétan eldönteni, hogy ki vezeti a láncot. A kezdetben adott azonosítók felhasználhatók arra, hogy a keresõláncokban minden ágensnek legyen fenntartott helye, mivel ha minden keresõ a nála kisebbek között keresi a maximálist, akkor az tetszõleges részhalmazban egyértelmûen létezik.
+Tehát egy keresõt vezetõ társnak az azonosítója minden esetben kisebb kell legyen a megvezetett sorozatszámánál.
+% , de ha lehetõsége van rá ezt nagyobbra cserélheti.
+
+A \ref{merge}. ábrán látható a keresõk lánc\-ba\-szer\-ve\-zõdése. Minden egyes keresõ az õt kalauzolótól kérdezi a keresési irányt (teli nyilak), s válaszként megkapja a jelenlegi irányt, ami alapján a vezetõ mellé kell állnia $d_s$ távolságra.
+
+Ha egy idõpillanatban egy $r$ so\-ro\-zat\-szá\-mú ágensnek lehetõsége van egy $C$ halmazból új ve\-ze\-tõ választására, akkor azt az $s$ azonosítójú á\-genst választja mely:
+\begin{equation}
+s=\max\{ i | i\in C \AND i<r \}
+\end{equation}
+Tehát egy $r$ robot kalauza mindig a nála kisebb sorozatszámúak közül a legnagyobb azonosítójú.
+
+\MEGJ
+A fenti feltétel nem zárja ki, hogy egy idõpillanatban egy felderítõ több társának nyújtson útmutatást. Sõt egy éppen épülõ lánc felépítése közben az új elemek megkeresik a láncban a helyüket.
+%  Az elõretekintõ hibajavítást ez nagyban megnehezíti majd.
+
+\xparagraph{Legrosszabb eset: egy pont körüli forgás}
+
+% Érdekes megfigyelni hogy amennyiben ismernénk a keresõ
+Amennyiben egy $\vec{t}$ irányban keresnek olyan körülmények között, hogy minden idõpillanatban számítani kell arra, hogy jelenleg éppen egy körmozgást kell végezni egy $O$ pont körül, akkor ha a keresõlánc $n$ pontból áll - s feltételezve a legrosszabb esetet, az $O$ ponttól sugár irányba helyezkednek el az ágensek - akkor az $i.$ ágens maximum $\frac{i}{n}v_{max}$ sebességgel mozoghat.
+
+Ebbõl látható, hogy ennek a megközelítésnek van egy olyan mellékhatása, ami miatt a keresõlánc sebessége $\frac{1}{n}$-re fog visszaesni.
+
+% \subsection{Együttesen egy irányba való mozgás}
+% Amennyiben feltesszük hogy sikerül felállnia egy láncnak a keresési irányra merõlegesen, akkor igazából készvagyunk s ..
+
+% \xparagraph{
+
+\vspace{-0.5em}
+\subsubsection{Erõtér}
+% \vspace{-0.4em}
+
+% A vezetõ robotok rendelkeznek egy erõtérrel amik a 
+\hspace{2em}A robotok a lánc formációt egy úgynevezett erõtérfüggvény segítségével érik el.
+Tehát egy olyan függvény meghatározása a cél, ami egyrészrõl nem engedi, hogy elveszítsék egymást, s kommunikációs távolságon kívülre kerüljenek. Mindemellett azzal a tulajdonsággal is rendelkezik, hogy az energiaminimum-pontja a láncba szervezõdést segíti elõ.
+Ennek a meghatározásához a függvény koordinátarendszerét úgy rögzítjük, hogy az relatív legyen a vezetõ robothoz képest (így az az origóba kerül), valamint a keresési irányt rögzíthetjük, hogy az az $x$ tengellyel párhuzamosan a pozitív irányba történik.
+
+Amit keresünk az egy $\setR^2 \TO \setR^2$ függvény.
+A kitûzött cél egy olyan irányítási rendszer leírása, mely feltételezi az ismert jelenlétét az origóban, és ez alapján a $(0,t)$-be küldi a jelenlegi pontot iterációs lépések folytán. Ott egy adott mértékû elõrehaladást feltételezve próbálja meg elõre követni a lépesben úgyszintén elmozduló origóban álló kalauzt.
+% A helyes pozíció beállításához némi tartalék energiát tart meg.
+
+Az \ref{repos}. ábrán látható a kialakított erõtér, mely az origóban elhelyezkedõ vezetõhöz képest adja meg az elmozdulás irányát és nagyságát. A $s$ körön kívüli pontokban az erõtér $1$ hosszt ír elõ a középpont irányába, ezért amennyiben a networker vezetõje nem léphet el nagyobb sebességgel mint alanyunk, abban az esetben biztosan közelebb kerül hozzá a következõ körben és helyre tudja állítani a formációt.
+A körök sugarai az egy lépés alatt maximálisan megtehetõ sebességtõl függenek: $z=\frac{v_{max}}{R}$ esetén: az $s$ kör sugara $R-z$, valamint az $l$ kör sugara pedig $R-2z$.
+
+
+
+% \xparagraph{Újrapozícionálásokra} van szükség a keresés közben ezért egy olyan $f_r : \setR^2 \TO \setR^2$ függvényt kerestem mely minden pozícióban a helyes eredményt adja. Az \ref{fig:scanrepos}-es ábrán látható az eredmény mely a következõképp épül fel:
+
+
+% \begin{numbering}
+% \item{asd} 
+% \end{numbering}
+% \XFIG{1}{fig/scan_repos}{repos}{Erõtér}
+
+\begin{figure}[h!]
+
+% \begin{figure}[t]
+\centering
+% \includegraphics[width=.94\textwidth]{dia/fuelpump_slowdown}
+\vspace{-0.5em}
+% \psfrag{R-2z}[lc][lb]{$R-2z$}
+\includegraphics[trim=30mm 15mm 30mm 10mm,clip,width=.66\textwidth]{fig/scan_repos}
+\caption{\textit{Erõtér}}
+\label{repos}
+% \includegraphics[width=0.55\textwidth]{fig/scan_repos}
+\vspace{-0.5em}
+\end{figure}
+
+A követhetõség miatt legyen $l=R-2z$ ($=d_s$), valamint $s=1-z$.
+
+\vspace{-0.5em}
+\xparagraph{Az erõtér alkotóelemei:}
+\begin{enumerate}
+
+ \item 
+Szükség van arra, hogy a minimum a $(0,l)$-ben legyen, azaz a csúcs ``odataláljon'' ha esetleg teljesen máshol lenne:
+\vspace{-0.3em}
+\begin{align}
+u(x,y)= \frac{(-x,-y+l)}{|(-x,-y+l)|}
+% \label{ux}
+%  u_x(x,y) &= -x\\
+% \label{uy}
+%  u_y(x,y) &=-y+(1-|x|) \frac{s}{|y-s|+1}
+\end{align}
+\item
+Amennyiben a csúcs a $(0,l)$-ben van, akkor arra egy jobbra irányuló kör\-moz\-gás\-nak kell hatnia, hogy a vele párhuzamosan elmozduló vezetõ pozicióját kövesse.
+A $(0,d_s)$ pontban a jobbra irányuló körmozgást leíró egyenletek:
+\vspace{-0.3em}
+\begin{align}
+	t(x,y)=\frac{(y,-x)}{|(x,y)|}
+% 	t_x(x,y)&= y\\
+% 	t_y(x,y)&=-x
+\end{align}
+\item	A kalauz egység sugarú környezetében maradásához szükséges lesz:
+\vspace{-0.3em}
+\begin{align}
+	b(x,y)=\frac{(-x,-y)}{|(x,y)|}
+% 	t_x(x,y)&= y\\
+% 	t_y(x,y)&=-x
+\end{align}
+\item
+	Csak akkor kell védekezni a kalauz kommunikációs távolsága ellen, amennyiben az $s$ körön kívülre került:
+\vspace{-0.3em}
+\begin{align}
+ r=\max\left( \frac{|(x,y)|-s}{1-s},0\right)
+\end{align}
+\item
+	Ötvözni kell majd a körmozgást elõsegítõ és a helyreküldõ függvényeket, 
+	mivel a körmozgásra csak a $(0,l)$ pont $z$ sugarú környezetében van szükség, ezért:
+\vspace{-0.3em}
+\begin{align}
+	m(x,y)=\min\left(\frac{|(x,y-l)|}{z},1\right)
+% 	m(x,y)=\max(1-2*\sqrt{x^2+(y-s)^2},0)
+\end{align}
+\end{enumerate}
+% \item
+A fentiek felhasználásával az $f$ függvény konstrukciója:
+\vspace{-0.3em}
+\begin{align}
+ f=\underbrace{r*b}_{1}+\underbrace{(1-r)}_{2} \left( \underbrace{m*u}_{3} +  \underbrace{(1-m)*t}_{4} \right)
+\end{align}
+
+\begin{enumerate}
+ \item az $b$ függvény normalizált, az origóba mutató vektorokat tartalmaz, ezt megszorozva az origótól $t$ távolságik $0$ majd az egység távolsági $1$-et elérõ $r$ függvénnyel az eredmény mindig a $s$ sugarú körre kerül.
+\item	a fennmaradó energiát már szabadon használhatjuk a körmozgás kialakításához
+% , de arra vigyázni kell hogy az így felhasznált vektorok a $t$ sugarú köríven kívül $+$ értéket kell adniuk a $b$ vektorral való skaláris szorzás esetén.
+\item	amennyiben nem a kívánt pozícióban tartózkodik a helyére kell ``küldeni\phantom{}''.
+\item	ha már a megfelelõ pozíció közelében van, akkor számítani kell arra, hogy a kalauz elmozdul az $x$ tengely irányába
+\end{enumerate}
+
+% 
+% 	Az eredõ függvény ebbõl úgy kapható meg, hogy az elõrehaladás csak $0<v_s<1$ arányban megengedett, ezáltal az erõtér többi részén marad elegendõ energia, hogy a pont a helyére találjon.
+% % hez még az $u$ függvényt normalizáltam, s beleraktam a körmozgás sebességszorzóját: $v_s$-t, hogy a legyen esélye a robotoknak beállnia a helyére miközben már néhányan elkezdték a keresést:
+% 
+% \begin{align}
+% f_x(x,y)&=t_x(x,y) m(x,y) v_s + \frac{u_x(x,y)}{||u(x,y)||} (1-m(x,y)) \\
+% f_y(x,y)&=t_y(x,y) m(x,y) v_s + \frac{u_y(x,y)}{||u(x,y)||} (1-m(x,y))
+% \end{align}
+
+	
+
+\newpage
+% \ref{fig:JobInformationDialog}
+\begin{wrapfigure}{I}{0.25\textwidth}
+
+% \begin{figure}[t]
+% \centering
+% \includegraphics[width=.94\textwidth]{dia/fuelpump_slowdown}
+\vspace{-0.5em}
+\includegraphics[width=.25\textwidth]{dia/scan_degree_break}
+\caption{\textit{Két torony kerésési törésszöge}}
+\label{cosx}
+% \includegraphics[width=0.55\textwidth]{fig/scan_repos}
+\vspace{-0.5em}
+\end{wrapfigure}
+
+Amennyiben a felderítõlánc vezetõje, mely közvetlenül egy toronytól kapja az iránymutatást új toronyról szerez tudomást, mely közelebb van a meglévõnél, azt leváltja. De ekkor a keresési irány hirtelen nagyon megváltozik.
+% A vezetõ keresés közben történõ változása, egy anomáliáknak látszó
+% jelenséget okozhat, ami egyfajta az irányváltás által elõidézett ostorcsapásszerû újrarendezõdés.
+
+Egész pontosan a probléma a következõ:
+Két torony legyen egymástól $d_t$ távolságra és vezessünk végig egy felderítõt $d_s$ távolságra a tornyoktól (\ref{cosx}. ábra). 
+% \xparagraph{Irányváltás probléma:} \
+Ekkor ha éppen tornyot vált a keresõ, akkor a keresési irány változásának szöge:
+\begin{equation}
+ \cos\gamma=\frac{2d_s^2-d_t^2}{2d_s^2}=1-\frac{d_r^2}{2d_s^2}
+\end{equation}
+
+% ez az érték 68\textdegree körüli)
+Ez a jelenség a tornyoktól távolabb álló felderítõkön látszik erõsebben; a lánc meg is szakadhatna, amikor túl hirtelen változik meg az irány - de ez az irány frissítésekor annak elfordulási szögének maximumának megkötésével beleszámítható a $d_s$ paraméter meghatározásába.
+\\
+% \begin{wrapfigure}{I}{0.13\textwidth}
+% \vspace{-2em}
+% \includegraphics[width=.13\textwidth]{dia/scan_merge}
+% % \caption{üzenetek keresés közben}
+% \vspace{-4em}
+% \label{ref:merge}
+% \end{wrapfigure}
+A keresés folyamán a lánc mérete alapján egy csúcs maximum $\frac{k}{l}$ sebességgel mozoghat, ahol $l$ a teljes lánc hossza, $k$ pedig a szóban forgó robot távolsága a kiindulási ponttól.
+A fenti mozgató függvénynek ez alapján az alábbiakat kell teljesítenie:
+tegyük fel a legrosszabbat, a keresõnk kicsúszott a vezetõtõl mért $1$ sugarú körre.
+Vegyük ezt az elemet a $k$-nak az $l$ hosszú láncban. És tegyük fel azt is, hogy a $k-1.$ csúcsnak a vezetõje is kicsúszott, és a lehetõ legrosszabb irányba lép tovább.
+Azonban a $k-1$. csúcs csak maximálisan $\frac{k-1}{l}$ sebességgel mozdulhat el, ezért ha az $f$ függvény $1$ sugarú körén a vektorok tökéletesen befele mutatnak, akkor soha nem fordulhat elõ egy csúcs keresõtõl történõ leszakadása.\\
+Ennek a tulajdonságnak az ellenõrzésére használható az alábbi módszer:
+	Ve\-gyük a következõ függvényt:
+\begin{align}
+		w_x(x,y)&=-x \\
+		w_y(x,y)&=-y
+\end{align}
+Amennyiben $\forall (x,y) \in \setR : x^2+y^2 \le 1 : f(x,y)+\frac{w(x,y)}{|w(x,y)|} > 0 $, akkor ez a tulajdonság teljesül, így egy megengedett állapotból kiindulva soha nem veszhet el egy elem sem.
+
+% Habár ez a tulajdonság jelenleg nincs 100\%-osan kielégítve
+
+% \MEGJ a megelõzõ torony csak $\frac{k}{k+1}$ sebességgel mozoghat s ha igaz lenne hogy:
+% $$ \forall \V\in \setR^2 : | \V | = 1 : \langle f(\V),-\V \rangle > \frac{k}{k+1} $$
+% tehát ha feltesszük hogy egy robot már kicsúszott a legkülsõ peremre s feltételezzük hogy a megelözõ robot a lehetõ legrosszab irányba lép akkor sem tudja lehagyni ezt a robotot.\\
+% Ezt általánosabban is meg lehetne fogalmazni:
+% $$ \forall \V\in \setR^2 : | \V | \leq 1 : (1-| \V |) + \langle f(\V),-\V \rangle > \frac{k}{k+1} $$
+
+% % agy mértékû irányváltás
+% \xparagraph{A keresõ algoritmus:}
+% \begin{tabbing}
+% 	$k$ \hspace{1em}\=- a jelenlegi robot ismerõse kezdetben: $\bot$\\
+% 	$r$ \>- az üzenet küldõje\\
+% 	$m$ \>- maga az üzenet\\
+% \end{tabbing}
+
+
+
+\subsubsection{Lánchossz}
+
+A keresés során az egyes ágensek (nagyon) aktív kommunikációt folytatnak, de
+a megfelelõ sebességgel történõ haladáshoz és egymás el nem hagyásához ismerniük kell saját pozíciójukat a láncban, valamint annak hosszát.
+%  ahhoz, hogy a megfelelõ sebességgel menjenek és ne hagyják el egymást tudniuk kell, hogy hányadikak a láncban - és az milyen hosszú valójában.
+
+Ezért a \SU üzenete tartalmazza a fordulási ponttól való tá\-vol\-sá\-got (szom\-széd\-ban mérve), valamint hasonlóan a lánc másik végétõl a \SUR\\ cso\-ma\-gok is tartalmazzák a külsõbb íveken álló robotok számát.
+Ezen két információ összege a lánc minden tagja számára elérhetõvé teszi a lánc jelenlegi hosszát, valamint az elfoglalt pozícióját is megtudja - melyek segítségével meghatározható a maximálisan megengedett sebesség.
+% 	$tie\_to\_tower$	-	indirekt kapcsolat a gráffal, az algoritmus indulásakor nincs biztosítva ez a tulajdonság,
+% 		ezért szükséges volt, egy idõ után mindenkinél igaz
+% A konkrét algoritmus vázlata, ahol a $k$ azt a robotot jelenti akihez képest fel szeretné venni ez az ágens a formációt
+
+
+\subsubsection{Pásztázási fázis nélkül}
+\label{c_recon_sweep}
+A pásztázók bemutatásakor azok szükségességét nem tisztáztam.
+
+Amennyiben kimaradna a kezdeti pásztázási fázis, akkor egy olyan helyzet állna elõ, melyben az egyes egységek mindegyik másikat látják, és így a fent leírt lánckialakításhoz használt véletlenen alapuló szervezõdés gyenge hatékonysággal kezd el rendet tenni.
+Ennek az oka, hogy az $i$ sorozatszámú egység minden egyes körben $\frac{i-1}{n}$ valószínûséggel szerezhet vezetõt, ami a $2$-es sorozatszámú robotot tekintve $\frac{1}{n}$. A láncok ugyan kialakulnak, de nem találnak igazi tornyot, és így sokáig nem végeznek hasznos tevékenységet.
+
+\newpage
+
+\xparagraph{Az algoritmus pszeudo kódjában használt jelölések}
+
+\begin{tabbing}
+$s(x)$\hspace{3em}\=az $x$ robot állapotát adja meg $\{\RECON , \TOWER, \SWEEP \}$	\\
+$p(x)$\>az $x$ robot pozícióját adja meg\\
+$v(x)$\>az $x$ robot által megadott irányvektor(2d irányvektor)\\
+$\Gamma(x)$\>az $x$ robot sorozatszáma\\
+$k$ \>a jelenlegi robot ismerõse kezdetben: $\bot$\\
+	$r$ \>az üzenet küldõje\\
+	$m$ \>maga az üzenet\\
+% $d(x)$\>az $x$ robot által megadott körbejárási irány ${left,right}$\\
+% $t(m)$\>az $m$ üzenet típusát adja meg\\
+% $d_r$\>a radar hatótávolsága	-- a világhoz mértékegységében \footnote{at lehetne irni ugy hogy ez egyseg meretu, akkor sokminden egyszerusodik}	\\
+% $d_t$\>tervezett toronytávolság -- $d_t \in[0:1]$  \\
+% $d_s$\>keresési távolság -- $d_s \in[0:1]$ \\
+% $\alpha$		\>tornyonváltási arányszám mely: $\alpha=1+\epsilon : \epsilon > 0$\\
+% $C_{recon}$	\>környezet felderítési idõ	$\approx 16$\\
+% $C_{opt}$		\>optimalizálási ciklus hossza $\approx 2n$\\
+% $C_{spring}$	\>kifeszítés idõtartama $\approx n$\\
+% $C_{q}$\>egy rögzített $q$-hoz kapcsolódó állandó ($\in \mathbb{N}$)\\
+% $\mathbb{K}$\>	halmaz - a kapcsolatban lévõ tornyokat jelöli\\
+% $O$	\>		halmaz - az optimalizálandó csúcsok halmaza
+\end{tabbing}
+
+\newpage 
+\begin{tabbing}
+\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\hspace{1em}	\=\\
+$recon\_step()$\\
+\>		\small{// üzenetek feldolgozása}\\
+		\>$chain\_len\_u=0$\\
+		\>$while$ (type,m,r)=fetch\_message()\\
+		\>\		\>$switch$(type)\\
+		\>		\>		\>	\IL:\\
+% 		\>		\>		\>\hspace{1em}	\=$s=\TOWER$	\\
+% 		\>		\>		\>		\>$if(tie\_to\_tower)$	\\
+		\>		\>		\>		\>elküld egy \IL-t $k$-nak.\\
+		\>		\>		\>		\>$\TOWER$ állapotba áll át\\
+		\>		\>		\>	\SI:\\
+		\>		\>		\>		\>$if (s(r)=\TOWER \AND  ( (k=\bot) \OR ( k\neq \bot \AND tower\_connection \AND$\\
+		\>		\>		\>		\>	\>$\AND d(k) > d(r) ) ) \OR$\\
+		\>		\>		\>		\>	\>	\>$\OR (s(r)=\RECON) \AND \SER(r) < \SER \AND \SER(k) < \SER(r) )$ \\
+		\>		\>		\>		\>	\>$tower\_connection=(s(r) = \TOWER)$\\
+		\>		\>		\>		\>	\>$k=r$\\
+		\>		\>		\>	\SU :\\
+		\>		\>		\>		\>irányvektor frissítés az $m$-ben találhatóval, maximum $\alpha$ szöggel fordulhat el\\
+		\>		\>		\>		\>$chain\_length\_d=m.chain\_len+1$\\
+		\>		\>		\>	\SUR:\\
+% 		\>		\>		\>\hspace{1em}	\=$if (s(r)=\TOWER \AND k=\bot) \OR$\\
+% 		\>		\>		\>		\>\hspace{2em}$(s(r)=\RECON \AND \SER(r) < \SER)$ \\
+% 		\>		\>		\>		\>\hspace{1em}	\=$k=r$\\
+% 		\>		\>		\>		\>$else$\\
+		\>		\>		\>		\>		\>// ebbõl kaphat akár többet is, mindre válaszolnia kell\\
+		\>		\>		\>		\>		\>$chain\_len\_u=MAX(chain\_len\_u,m.chain\_len+1)$\\
+		\>		\>		\>		\>		\>$d=\max(d',d)$\\
+		\>		\>		\>		\>		\>visszaküld egy \SU-t\\
+% 		\>		\>		\>		\>visszaküld egy \SUR-t\\
+		\>\small{// lépés}\\
+% 		\>$if( k=\bot \OR r \equiv C_{recon})$\\
+		\>$if( phase = RECON\_SCAN\_INFO )$\\
+		\>		\>véletlenszerûen kiválaszt egy másik robotot($\ne k$) és\\
+		\>		\>elküld neki egy \SI-t\\
+% \>	$else$\\
+		\>$if( k\neq\bot )$\\
+% \>		\>$if$\=state(k)==SCAN\\
+		\>		\>	kiszámítja:\\
+		\>		\>	$\M=f( \langle p - p(k), (v_y,-v_x) \rangle , \langle p - p(k), (v_x,v_y) \rangle )$\\
+		\>		\>	elmozdul $\M * v_{max}\frac{chain\_len\_d+1}{chain\_len\_u + chain\_len\_d+1}$-vel\\
+		\>		\>	elküld egy \SUR-t $k$-nak.
+% 		\>$if( \exists c \in \CP
+% % \>		\>\>a $k$ elemnek elküldi a $scan\_update\_request$-et\\
+% \>		\>\>és probál $v$ irányon $90\%$ on tartani $k$-t a radaron.\\
+% \>		\>\>(ismer még egy $dir'$-t ami a keresés iránya)\\
+% \>		\>$else$ /* TOWER */\\
+% \>		\>\>a $k$ elemet $dir$ irányból próbálja megkerülni\\
+% \>		\>\>a sebesség nagyon fontos, mivel ha sokan ráakaszkodnak\\
+% \>		\>\>akkor szét fog esni a lánc, ezért: $\frac{0.9}{n+1}$\\
+% \>		\>\>a megengedett maximális sebessége\\
+% 
+% 
+% 
+% \>		\>$if$\=(state(k)=TOWER $\AND$ k=null) $\OR$ serial' $<$ serial\\
+% \>		\>\>k=sender\\
+% \>		\>$else$\\
+% \>		\>\>visszaküld egy $scan\_update$-t\\
+
+\end{tabbing}
+
+\newpage

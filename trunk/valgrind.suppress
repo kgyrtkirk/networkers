@@ -1,0 +1,351 @@
+{
+   fglrx_problem1
+   Memcheck:Addr1
+   fun:memcpy
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/opengl/ati/lib/libGL.so.1.2
+}
+{
+   fglrx_problem2
+   Memcheck:Param
+   write(buf)
+   fun:__write_nocancel
+   obj:/usr/lib64/libX11.so.6.2.0
+   obj:/usr/lib64/libX11.so.6.2.0
+   fun:_XReply
+   fun:AtiCallFGLCWDDE
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+}
+{
+   fglrx_problem3
+   Memcheck:Param
+   ioctl(generic)
+   fun:ioctl
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:__driCreateNewScreen_20050727
+   obj:/usr/lib64/opengl/ati/lib/libGL.so.1.2
+}
+
+{
+   fglrx_GL_SDL_problem1
+   Memcheck:Cond
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:__driCreateNewScreen_20050727
+   obj:/usr/lib64/opengl/ati/lib/libGL.so.1.2
+   fun:glXChooseVisual
+   obj:/usr/lib64/libSDL-1.2.so.0.11.2
+}
+
+{
+   fglrx_problem4
+   Memcheck:Addr1
+   fun:memcpy
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+}
+
+{
+   fglrx_GL_GLX_1
+   Memcheck:Addr1
+   fun:memcpy
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/opengl/ati/lib/libGL.so.1.2
+   fun:glXCreateContext
+}
+
+{
+   fglrx_pr_xx
+   Memcheck:Addr1
+   fun:memcpy
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+}
+
+{
+   fglrx_p5
+   Memcheck:Param
+   ioctl(generic)
+   fun:ioctl
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+}
+
+{
+   fglrx_glclear_e1
+   Memcheck:Addr1
+   fun:memset
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:_Z11drawGLScenev
+}
+
+{
+   fglrx_glclear_e2
+   Memcheck:Addr1
+   fun:memcpy
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:_Z11drawGLScenev
+   fun:_Z4loopv
+   fun:main
+}
+
+{
+   fglrx_glclear_e3
+   Memcheck:Addr1
+   fun:memset
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:_Z11drawGLScenev
+   fun:_Z4loopv
+   fun:main
+}
+
+
+{
+   fglrx_dri2
+   Memcheck:Addr4
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/opengl/ati/lib/libGL.so.1.2
+   fun:glXCreateContext
+   obj:/usr/lib64/libSDL-1.2.so.0.11.2
+   obj:/usr/lib64/libSDL-1.2.so.0.11.2
+}
+
+
+{
+   fglrx_xx
+   Memcheck:Cond
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+}
+
+{
+   sdl_0
+   Memcheck:Cond
+   obj:/usr/lib64/libSDL-1.2.so.0.11.2
+   obj:/usr/lib64/libSDL-1.2.so.0.11.2
+   obj:/usr/lib64/libSDL-1.2.so.0.11.2
+   fun:SDL_PumpEvents
+   fun:SDL_PollEvent
+   fun:_Z4loopv
+   fun:main
+}
+
+
+{
+   fglrx_drin
+   Memcheck:Addr8
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+}
+
+{
+   junkGLX
+   Memcheck:Cond
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/opengl/ati/lib/libGL.so.1.2
+   fun:glXCreateContext
+   obj:/usr/lib64/libSDL-1.2.so.0.11.2
+   obj:/usr/lib64/libSDL-1.2.so.0.11.2
+   obj:/usr/lib64/libSDL-1.2.so.0.11.2
+   fun:SDL_SetVideoMode
+   fun:_Z6initGLv
+   fun:main
+}
+
+{
+   bad_texture_mapping_in_fglrx
+   Memcheck:Addr4
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:_Z8drawQuadjfffffff
+   fun:_Z8drawQuadjfffff
+}
+
+{
+   bad_texture_mapping_in_fglrx2
+   Memcheck:Addr4
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:_Z8drawQuadjfffffff
+}
+{
+   fnt-1
+   Memcheck:Addr4
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:_ZN10fntTexFont9low_putchEPfffc
+   fun:_ZN10fntTexFont4putsEPfffPKc
+   fun:_ZN11fntRenderer4putsEPKc
+   fun:_Z8glprintffffPKcz
+   fun:_ZN9NetWorker6renderEv
+   fun:_ZN5Radar6renderEv
+   fun:_Z17render_simulationv
+   fun:_Z11drawGLScenev
+   fun:_Z4loopv
+   fun:main
+}
+
+{
+   fglrx-x
+   Memcheck:Addr4
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:_Z11drawGLScenev
+   fun:_Z4loopv
+   fun:main
+}
+
+{
+   fglrx-general4
+   Memcheck:Addr4
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:*
+}
+{
+   fglrx-general1
+   Memcheck:Addr1
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:*
+}
+
+{
+   fglrx-g2
+   Memcheck:Cond
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:*
+}
+{
+   fglrx-g3
+   fun:memcpy
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:*
+}
+{
+   fglrx-g31
+   Memcheck:Addr1
+   fun:memcpy
+   obj:/usr/lib64/dri/fglrx_dri.so
+   fun:*
+}
+

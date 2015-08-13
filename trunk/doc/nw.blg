@@ -1,0 +1,65 @@
+This is BibTeX, Version 0.99c (Web2C 7.5.7)
+The top-level auxiliary file: nw.aux
+The style file: plain.bst
+Database file #1: bibtex.bib
+I was expecting a `,' or a `}'---line 11 of file bibtex.bib
+ :     
+ :     isbn = {963-9301-03-5},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--string name "march-3" is undefined
+--line 250 of file bibtex.bib
+I was expecting a `,' or a `}'---line 250 of file bibtex.bib
+ : month=march-3 
+ :               april,
+I'm skipping whatever remains of this entry
+Repeated entry---line 301 of file bibtex.bib
+ : @article{Howard:2002:ISA:591557.591931
+ :                                       ,
+I'm skipping whatever remains of this entry
+Warning--there's a number but no volume in Dreyer98twoheuristics
+Warning--empty booktitle in Howard02mobilesensor
+Warning--empty journal in SPR
+Warning--empty booktitle in Wang04movement-assistedsensor
+You've used 16 entries,
+            2118 wiz_defined-function locations,
+            611 strings with 7503 characters,
+and the built_in function-call counts, 6083 in all, are:
+= -- 608
+> -- 264
+< -- 8
++ -- 103
+- -- 85
+* -- 406
+:= -- 954
+add.period$ -- 50
+call.type$ -- 16
+change.case$ -- 88
+chr.to.int$ -- 0
+cite$ -- 20
+duplicate$ -- 248
+empty$ -- 493
+format.name$ -- 85
+if$ -- 1319
+int.to.chr$ -- 0
+int.to.str$ -- 16
+missing$ -- 14
+newline$ -- 81
+num.names$ -- 36
+pop$ -- 110
+preamble$ -- 1
+purify$ -- 72
+quote$ -- 0
+skip$ -- 191
+stack$ -- 0
+substring$ -- 406
+swap$ -- 77
+text.length$ -- 8
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 64
+warning$ -- 4
+while$ -- 61
+width$ -- 18
+write$ -- 177
+(There were 3 error messages)

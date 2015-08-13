@@ -1,0 +1,22 @@
+
+msg()
+{
+#	echo -en '\033[45;34m\033[1m'
+	echo -en '\033[0;36m\033[1m'
+	echo	"$*"
+	tput sgr0
+}
+
+wrn()
+{
+	echo -en '\033[0;33m\033[1m'
+	echo	"$*"
+	tput sgr0
+}
+
+err()
+{
+	echo -en '\033[0;31m\033[1m'
+	echo	"$*"
+	tput sgr0
+}
